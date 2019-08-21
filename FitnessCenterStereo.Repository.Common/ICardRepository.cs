@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FitnessCenterStereo.Model.Common
+{
+    public interface ICardRepository
+    {
+        Guid GetById(Guid id);
+        Guid GetByMembershipId(Guid Id);
+        String GetByUserId(Guid Id);
+        
+    }
+}
