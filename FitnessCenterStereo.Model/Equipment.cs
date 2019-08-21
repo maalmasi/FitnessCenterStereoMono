@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Equipment : IBaseModel, IEquipment
+    public class Equipment : BaseModel, IEquipment
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

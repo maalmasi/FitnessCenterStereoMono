@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Membership : IBaseModel, IMemebership
+    public class Membership : BaseModel, IMemebership
     {
         public Guid Id { get; set; }
         public float Price { get; set; }

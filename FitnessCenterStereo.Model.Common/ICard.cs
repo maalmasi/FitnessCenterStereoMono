@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-    public interface ICard
+    public interface ICard:IBaseModel
     {
         
         Guid MembershipId { get; set; }

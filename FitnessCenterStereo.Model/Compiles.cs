@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Compiles : ICompiles, IBaseModel
+    public class Compiles : BaseModel,ICompiles
     {
         public Guid Id { get; set; }
         public DateTime DateUpdated { get; set; }

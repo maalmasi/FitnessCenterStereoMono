@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IStep
+   public interface IStep : IBaseModel
     {
         
         String Name { get; set; }

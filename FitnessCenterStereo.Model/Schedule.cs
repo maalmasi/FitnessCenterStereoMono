@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Schedule : IBaseModel, ISchedule
+    public class Schedule : BaseModel, ISchedule
     {
         public Guid Id { get; set; }
         public int Frequency { get; set; }

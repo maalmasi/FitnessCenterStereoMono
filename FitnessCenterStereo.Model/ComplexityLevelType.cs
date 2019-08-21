@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class ComplexityLevelType : IBaseModel, IComplexityLevelType
+    public class ComplexityLevelType : BaseModel, IComplexityLevelType
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface ICompiles
+   public interface ICompiles : IBaseModel
     {
         Guid TrainerId { get; set; }
         Guid PlanId { get; set; }

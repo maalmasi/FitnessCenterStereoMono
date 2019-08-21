@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-  public  class BodyPartType : IBodyPartType, IBaseModel
+  public  class BodyPartType : BaseModel,IBodyPartType
     {
         public Guid Id { get; set; }
         public DateTime DateUpdated { get; set; }

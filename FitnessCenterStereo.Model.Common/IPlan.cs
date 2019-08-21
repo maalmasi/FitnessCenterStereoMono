@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IPlan
+   public interface IPlan : IBaseModel
     {
        
         String Name { get; set; }

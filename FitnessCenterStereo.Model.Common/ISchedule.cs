@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-    public interface ISchedule
+    public interface ISchedule : IBaseModel
     {
        
         int Frequency { get; set; }
