@@ -6,12 +6,13 @@ using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Repository;
-
+using FitnessCenterStereo.DAL.Data;
 
 namespace FitnessCenterStereo.Service
 {
     public class BodyPartTypeService : IBodyPartTypeService
     {
+        
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
             IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
