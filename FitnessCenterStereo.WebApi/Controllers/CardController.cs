@@ -13,6 +13,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
     public class CardController : BaseApiController
     {
         List<CardViewModel> cards = new List<CardViewModel>();
+        
+        
 
         // GET: api/<controller>
         [HttpGet]
@@ -22,7 +24,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         // GET api/<controller>/5
-        [HttpGet("{Guid}")]
+        [HttpGet("{id}")]
         public string Get(string id)
         {
             return "value";

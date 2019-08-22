@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
     public class BodyPartTypeController : BaseApiController
     {
         List<BodyPartTypeViewModel> bodyPartTypes = new List<BodyPartTypeViewModel>();
+        
+
+        public void find(IFilter filter)
+        { }
 
         // GET: api/<controller>
         [HttpGet]
@@ -21,8 +27,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
             return bodyPartTypes;
         }
 
-        // GET api/<controller>/<Guid>
-        [HttpGet("{Guid}")]
+        // GET api/<controller>/{Guid}
+        [HttpGet("{id}")]
         public BodyPartTypeViewModel Get(Guid id)
         {
             return bodyPartTypes.Find(e=>e.Id == id);
@@ -30,23 +36,23 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]BodyPartTypeViewModel value)
+        public void Post(BodyPartTypeViewModel value)
         {
             bodyPartTypes.Add(value);
         }
 
-        // PUT api/<controller>/<Guid>
-        [HttpPut("{Guid}")]
-        public void Put(Guid id, [FromBody]BodyPartTypeViewModel value)
+        // PUT api/<controller>/<id>
+        [HttpPut("{id}")]
+        public void Put(Guid id, BodyPartTypeViewModel value)
         {
             bodyPartTypes.Where(e => e.Id == id).Select(n => n = value).ToList();
         }
 
-        // DELETE api/<controller>/<Guid>
-        [HttpDelete("{Guid}")]
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
             bodyPartTypes.Remove(bodyPartTypes.Find(e=>e.Id == id));
-        }
+        }       
     }
 }
