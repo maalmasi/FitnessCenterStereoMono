@@ -1,17 +1,18 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IBodyPartTypeService
     {
-        IEnumerable<IBodyPartTypeService> Find(IFilter filter);
-        IBodyPartTypeService Create(IBodyPartTypeService BodyPartType);
+        IEnumerable<IBodyPartType> Find(IFilter filter);
+        IBodyPartType Create(IBodyPartType BodyPartType);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IBodyPartTypeService Get(Guid Id);
+        IBodyPartType Get(Guid Id);
 
     }
 }

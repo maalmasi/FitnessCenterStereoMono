@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,11 @@ namespace FitnessCenterStereo.Repository.Common
 {
     public interface IDietTypeRepository
     {
-        IEnumerable<IDietTypeRepository> Find(IFilter filter);
-        IDietTypeRepository Create(IDietTypeRepository DietType);
+        IEnumerable<IDietType> Find(IFilter filter);
+        IDietType Create(IDietType DietType);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IDietTypeRepository Get(Guid Id);
+        IDietType Get(Guid Id);
 
     }
 }

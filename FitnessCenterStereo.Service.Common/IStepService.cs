@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
    public interface IStepService
     {

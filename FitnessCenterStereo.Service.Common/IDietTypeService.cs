@@ -1,16 +1,17 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IDietTypeService
     {
-        IEnumerable<IDietTypeService> Find(IFilter filter);
-        IDietTypeService Create(IDietTypeService DietType);
+        IEnumerable<IDietType> Find(IFilter filter);
+        IDietType Create(IDietType DietType);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IDietTypeService Get(Guid Id);
+        IDietType Get(Guid Id);
     }
 }

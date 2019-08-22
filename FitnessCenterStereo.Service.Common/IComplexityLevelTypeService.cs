@@ -1,16 +1,17 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IComplexityLevelTypeService
     {
-        IEnumerable<IComplexityLevelTypeService> Find(IFilter filter);
-        IComplexityLevelTypeService Create(IComplexityLevelTypeService ComplexityLevel);
+        IEnumerable<IComplexityLevelType> Find(IFilter filter);
+        IComplexityLevelType Create(IComplexityLevelType ComplexityLevel);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IComplexityLevelTypeService Get(Guid Id);
+        IComplexityLevelType Get(Guid Id);
     }
 }

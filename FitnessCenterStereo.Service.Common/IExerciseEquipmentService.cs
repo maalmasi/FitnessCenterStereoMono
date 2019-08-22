@@ -1,14 +1,15 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IExerciseEquipmentService
     {
-        IEnumerable<IExerciseEquipmentService> Find(IFilter filter);
-        IExerciseEquipmentService Create(IExerciseEquipmentService ExerciseEquipment);
+        IEnumerable<IExerciseEquipment> Find(IFilter filter);
+        IExerciseEquipment Create(IExerciseEquipment ExerciseEquipment);
         void Delete(Guid Id);
         void Update(Guid Id);
         IExerciseEquipmentService Get(Guid Id);

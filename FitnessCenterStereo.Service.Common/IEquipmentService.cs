@@ -1,17 +1,18 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
- namespace FitnessCenterStereo.Model.Common
+ namespace FitnessCenterStereo.Service.Common
 {
   public interface IEquipmentService
     {
 
-        IEnumerable<IEquipmentService> Find(IFilter filter);
-        IDietTypeService Create(IEquipmentService Equipment);
+        IEnumerable<IEquipment> Find(IFilter filter);
+        IDietTypeService Create(IEquipment Equipment);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IEquipmentService Get(Guid Id);
+        IEquipment Get(Guid Id);
     }
 }
