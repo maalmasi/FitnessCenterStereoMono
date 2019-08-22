@@ -10,7 +10,7 @@ using FitnessCenterStereo.Repository;
 
 namespace FitnessCenterStereo.Service
 {
-    class BodyPartTypeService : IBodyPartTypeService
+    public class BodyPartTypeService : IBodyPartTypeService
     {
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
