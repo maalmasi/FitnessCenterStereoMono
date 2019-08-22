@@ -7,10 +7,9 @@ namespace FitnessCenterStereo.Model
 {
     public class Plan : BaseModel, IPlan
     {
-        public Guid Id { get; set; }
+      
         public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+    
         public Guid DietTypeId { get; set; }
     }
 }

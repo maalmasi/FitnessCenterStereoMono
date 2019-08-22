@@ -7,9 +7,7 @@ namespace FitnessCenterStereo.Model
 {
   public  class BodyPartType : BaseModel,IBodyPartType
     {
-        public Guid Id { get; set; }
-        public DateTime DateUpdated { get; set; }
-        public DateTime DateCreated { get; set; }
+       
         public string Name { get; set; }
         public string Abbreviation { get; set; }
     }

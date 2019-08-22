@@ -7,10 +7,9 @@ namespace FitnessCenterStereo.Model
 {
     public class ComplexityLevelType : BaseModel, IComplexityLevelType
     {
-        public Guid Id { get; set; }
+    
         public string Name { get; set; }
         public string Abbreviation { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+    
     }
 }
