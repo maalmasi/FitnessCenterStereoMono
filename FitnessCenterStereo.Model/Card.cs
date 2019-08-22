@@ -7,9 +7,7 @@ namespace FitnessCenterStereo.Model
 {
     public class Card : BaseModel,ICard
     {
-        public Guid Id { get; set; }
-        public DateTime DateUpdated { get; set; }
-        public DateTime DateCreated { get; set; }
+        
         public Guid MembershipId { get; set; }
         public string UserId { get; set; }
         }

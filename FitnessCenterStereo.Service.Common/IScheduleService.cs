@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitnessCenterStereo.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,10 @@ namespace FitnessCenterStereo.Model.Common
 {
     public interface IScheduleService
     {
-        Guid GetById(Guid Id);
-        int GetByFrequency(int Frequency);
+        IEnumerable<IScheduleService> Find(IScheduleService filter);
+        IScheduleService Create(IScheduleService Plan);
+        void Delete(Guid Id);
+        void Update(Guid Id);
+        IScheduleService Get(Guid Id);
     }
 }

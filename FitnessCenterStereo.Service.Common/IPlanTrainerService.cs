@@ -5,13 +5,12 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IExercisesService
+   public interface IPlanTrainerService
     {
-        IEnumerable<IExercisesService> Find(IFilter filter);
-        IExercisesService Create(IExercisesService Exercises);
+        IEnumerable<IPlanTrainerService> Find(IFilter filter);
+        IPlanTrainerService Create(IPlanTrainerService PlanTrainer);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IExercisesService Get(Guid Id);
-
+        IPlanTrainerService Get(Guid Id);
     }
 }

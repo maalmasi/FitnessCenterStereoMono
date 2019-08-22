@@ -8,7 +8,7 @@ namespace FitnessCenterStereo.DAL.Models
         public Plan()
         {
             AspNetUsers = new HashSet<AspNetUsers>();
-            Compiles = new HashSet<Compiles>();
+            Compiles = new HashSet<PlanTrainer>();
             Schedule = new HashSet<Schedule>();
         }
 
@@ -20,7 +20,7 @@ namespace FitnessCenterStereo.DAL.Models
 
         public virtual DietType DietType { get; set; }
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
-        public virtual ICollection<Compiles> Compiles { get; set; }
+        public virtual ICollection<PlanTrainer> Compiles { get; set; }
         public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

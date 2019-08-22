@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitnessCenterStereo.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,11 @@ namespace FitnessCenterStereo.Model.Common
 {
     public interface ICardService
     {
-        Guid GetById(Guid id);
-        Guid GetByMembershipId(Guid Id);
-        String GetByUserId(Guid Id);
+        IEnumerable<ICardService> Find(IFilter filter);
+        ICardService Create(ICardService Card);
+        void Delete(Guid Id);
+        void Update(Guid Id);
+        ICardService Get(Guid Id);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitnessCenterStereo.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,10 @@ namespace FitnessCenterStereo.Model.Common
 {
     public interface IMemebershipService
     {
-        Guid GetById(Guid Id);
-        float GetByPrice(float Price);
+        IEnumerable<IMemebershipService> Find(IFilter filter);
+        IMemebershipService Create(IMemebershipService Membership);
+        void Delete(Guid Id);
+        void Update(Guid Id);
+        IMemebershipService Get(Guid Id);
     }
 }
