@@ -12,6 +12,6 @@ namespace FitnessCenterStereo.Service.Common
         IExerciseEquipment Create(IExerciseEquipment ExerciseEquipment);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IExerciseEquipmentService Get(Guid Id);
+        IExerciseEquipment Get(Guid Id);
     }
 }

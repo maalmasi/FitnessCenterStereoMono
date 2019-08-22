@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +8,10 @@ namespace FitnessCenterStereo.Service.Common
 {
    public interface IPlanTrainerService
     {
-        IEnumerable<IPlanTrainerService> Find(IFilter filter);
-        IPlanTrainerService Create(IPlanTrainerService PlanTrainer);
+        IEnumerable<IPlanTrainer> Find(IFilter filter);
+        IPlanTrainerService Create(IPlanTrainer PlanTrainer);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IPlanTrainerService Get(Guid Id);
+        IPlanTrainer Get(Guid Id);
     }
 }
