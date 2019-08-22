@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,11 @@ using System.Text;
   public interface IEquipmentRepository
     {
 
-        IEnumerable<IEquipmentRepository> Find(IFilter filter);
-        IEquipmentRepository Create(IEquipmentRepository Equipment);
+        IEnumerable<IEquipment> Find(IFilter filter);
+        IEquipment Create(IEquipment Equipment);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IEquipmentRepository Get(Guid Id);
+        IEquipment Get(Guid Id);
 
 
     }
