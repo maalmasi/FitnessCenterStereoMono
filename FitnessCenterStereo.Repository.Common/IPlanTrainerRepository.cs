@@ -12,7 +12,7 @@ namespace FitnessCenterStereo.Repository.Common
         IPlanTrainerRepository Create(IPlanTrainerRepository PlanTrainer);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IPlanTrainerRepository Get(Guid Id);
+        IPlanTrainery Get(Guid Id);
 
     }
 }
