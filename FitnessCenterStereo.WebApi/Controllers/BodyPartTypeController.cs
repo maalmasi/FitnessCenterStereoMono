@@ -8,6 +8,7 @@ using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Service.Common;
 using Microsoft.AspNetCore.Mvc;
+using FitnessCenterStereo.DAL.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +18,13 @@ namespace FitnessCenterStereo.WebApi.Controllers
     public class BodyPartTypeController : BaseApiController
     {
         List<BodyPartTypeViewModel> bodyPartTypes = new List<BodyPartTypeViewModel>();
-        
+        public ApplicationDbContext Context;
+
+        public BodyPartTypeController(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
 
         public IEnumerable<BodyPartTypeViewModel> Find(IFilter filter)
         {
@@ -26,18 +33,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<BodyPartTypeViewModel> Get()
-        {
-            return bodyPartTypes;
-        }
+        //public IEnumerable<BodyPartTypeViewModel> Get()
+        //{
+        //    return bodyPartTypes;
+        //}
 
-        // GET api/<controller>/<id>
-        [HttpGet("{id}")]
-        public BodyPartTypeViewModel Get(Guid id)
+        //// GET api/<controller>/<id>
+        //[HttpGet("{id}")]
+        public BodyPartTypeViewModel Get()
         {
             //return bodyPartTypes.Find(e=>e.Id == id);
-            IBodyPartTypeService BodyPart = new BodyPartTypeService();
-            return (BodyPartTypeViewModel)BodyPart.Get(Guid.Parse("cde1883f - 9bfb - 421a - 8f31 - 9d00a0086498"));
+            IBodyPartTypeService BodyPart = new BodyPartTypeService(Context);
+            return (BodyPartTypeViewModel)BodyPart.Get(Guid.Parse("cde1883f-9bfb-421a-8f31-9d00a0086498"));
         }
 
         // POST api/<controller>
