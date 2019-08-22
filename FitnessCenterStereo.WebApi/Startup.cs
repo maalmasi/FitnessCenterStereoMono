@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 //using FitnessCenterStereo.WebApi.Data;
+using FitnessCenterStereo.DAL.Interface.ServiceExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,6 +42,8 @@ namespace FitnessCenterStereo.WebApi
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddDefaultUI(UIFramework.Bootstrap4)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAppDbContextExtension(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
