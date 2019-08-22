@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FitnessCenterStereo.DAL.Models;
 
 namespace FitnessCenterStereo.DAL.Data
 {
@@ -12,5 +13,7 @@ namespace FitnessCenterStereo.DAL.Data
             : base(options)
         {
         }
+
+        public DbSet<BodyPartType>BodyPartType { get; set; }
     }
 }

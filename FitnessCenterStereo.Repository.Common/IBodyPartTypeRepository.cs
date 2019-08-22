@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Repository.Common
 {
     public interface IBodyPartTypeRepository
     {
 
-        IEnumerable<IBodyPartTypeRepository> Find(IFilter filter);
-        IBodyPartTypeRepository Create(IBodyPartTypeRepository BodyPartType);
+        IEnumerable<IBodyPartType> Find(IFilter filter);
+        IBodyPartType Create(IBodyPartType BodyPartType);
         void Delete(Guid Id);
         void Update(Guid Id);
-        IBodyPartTypeRepository Get(Guid Id);
-
-
+        IBodyPartType Get(Guid Id);
 
     }
 }
