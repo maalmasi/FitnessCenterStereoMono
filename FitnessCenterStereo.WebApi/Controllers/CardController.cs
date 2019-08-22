@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FitnessCenterStereo.Common;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +14,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
     public class CardController : BaseApiController
     {
         List<CardViewModel> cards = new List<CardViewModel>();
-        
-        
+
+
+        public IEnumerable<CardViewModel> Find(IFilter filter)
+        {
+            return cards;
+        }
 
         // GET: api/<controller>
         [HttpGet]
@@ -23,32 +28,33 @@ namespace FitnessCenterStereo.WebApi.Controllers
             return cards;
         }
 
-        // GET api/<controller>/5
+        // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public string Get(string id)
+        public CardViewModel Get(Guid id)
         {
-            return "value";
+            return cards.Find(e => e.Id == id);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CardViewModel value)
         {
-
+            cards.Add(value);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]CardViewModel value)
         {
-
+            cards.Where(e => e.Id == id).Select(n => n = value).ToList();
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-
+            cards.Remove(cards.Find(e => e.Id == id));
         }
     }
+    
 }

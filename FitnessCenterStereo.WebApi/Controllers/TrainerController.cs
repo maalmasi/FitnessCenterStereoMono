@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FitnessCenterStereo.Common;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,36 +15,44 @@ namespace FitnessCenterStereo.WebApi.Controllers
     {
         List<TrainerViewModel> trainers = new List<TrainerViewModel>();
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<TrainerViewModel> Find(IFilter filter)
         {
-            return new string[] { "value1", "value2" };
+            return trainers;
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<controller>
+        [HttpGet]
+        public IEnumerable<TrainerViewModel> Get()
         {
-            return "value";
+            return trainers;
+        }
+
+        // GET api/<controller>/<id>
+        [HttpGet("{id}")]
+        public TrainerViewModel Get(Guid id)
+        {
+            return trainers.Find(e => e.Id == id);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]TrainerViewModel value)
         {
+            trainers.Add(value);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]TrainerViewModel value)
         {
+            trainers.Where(e => e.Id == id).Select(n => n = value).ToList();
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            trainers.Remove(trainers.Find(e => e.Id == id));
         }
     }
 }
