@@ -24,7 +24,7 @@ namespace FitnessCenterStereo.DAL.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<BodyPartType> BodyPartType { get; set; }
         public virtual DbSet<Card> Card { get; set; }
-        public virtual DbSet<Compiles> Compiles { get; set; }
+        public virtual DbSet<PlanTrainer> Compiles { get; set; }
         public virtual DbSet<ComplexityLevelType> ComplexityLevelType { get; set; }
         public virtual DbSet<DietType> DietType { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
@@ -188,7 +188,7 @@ namespace FitnessCenterStereo.DAL.Models
                     .HasConstraintName("Card_UserId_fkey");
             });
 
-            modelBuilder.Entity<Compiles>(entity =>
+            modelBuilder.Entity<PlanTrainer>(entity =>
             {
                 entity.HasKey(e => e.CompilesId)
                     .HasName("Compiles_pkey");

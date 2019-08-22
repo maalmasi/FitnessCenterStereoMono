@@ -7,7 +7,7 @@ namespace FitnessCenterStereo.DAL.Models
     {
         public Trainer()
         {
-            Compiles = new HashSet<Compiles>();
+            Compiles = new HashSet<PlanTrainer>();
         }
 
         public Guid Id { get; set; }
@@ -17,6 +17,6 @@ namespace FitnessCenterStereo.DAL.Models
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public virtual ICollection<Compiles> Compiles { get; set; }
+        public virtual ICollection<PlanTrainer> Compiles { get; set; }
     }
 }
