@@ -7,7 +7,7 @@ namespace FitnessCenterStereo.Repository.Common
 {
    public interface IPlanTrainerRepository
     {
-        IEnumerable<IPlanTrainerRepository> Find(IFilter filter);
+        IEnumerable<IPlanTrainerR> Find(IFilter filter);
         IPlanTrainerRepository Create(IPlanTrainerRepository PlanTrainer);
         void Delete(Guid Id);
         void Update(Guid Id);
