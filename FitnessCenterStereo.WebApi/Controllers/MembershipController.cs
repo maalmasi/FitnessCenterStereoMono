@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.WebApi.Models;
+using FitnessCenterStereo.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,36 +15,44 @@ namespace FitnessCenterStereo.WebApi.Controllers
     {
         List<MembershipViewModel> memberships = new List<MembershipViewModel>();
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<MembershipViewModel> Find(IFilter filter)
         {
-            return new string[] { "value1", "value2" };
+            return memberships;
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<controller>
+        [HttpGet]
+        public IEnumerable<MembershipViewModel> Get()
         {
-            return "value";
+            return memberships;
+        }
+
+        // GET api/<controller>/<id>
+        [HttpGet("{id}")]
+        public MembershipViewModel Get(Guid id)
+        {
+            return memberships.Find(e => e.Id == id);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]MembershipViewModel value)
         {
+            memberships.Add(value);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]MembershipViewModel value)
         {
+            memberships.Where(e => e.Id == id).Select(n => n = value).ToList();
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            memberships.Remove(memberships.Find(e => e.Id == id));
         }
     }
 }

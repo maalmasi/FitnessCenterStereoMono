@@ -17,8 +17,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
         List<BodyPartTypeViewModel> bodyPartTypes = new List<BodyPartTypeViewModel>();
         
 
-        public void find(IFilter filter)
-        { }
+        public IEnumerable<BodyPartTypeViewModel> Find(IFilter filter)
+        {
+            return bodyPartTypes;
+        }
 
         // GET: api/<controller>
         [HttpGet]
@@ -27,7 +29,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
             return bodyPartTypes;
         }
 
-        // GET api/<controller>/{Guid}
+        // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public BodyPartTypeViewModel Get(Guid id)
         {
@@ -36,14 +38,14 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post(BodyPartTypeViewModel value)
+        public void Post([FromBody]BodyPartTypeViewModel value)
         {
             bodyPartTypes.Add(value);
         }
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(Guid id, BodyPartTypeViewModel value)
+        public void Put(Guid id, [FromBody]BodyPartTypeViewModel value)
         {
             bodyPartTypes.Where(e => e.Id == id).Select(n => n = value).ToList();
         }
