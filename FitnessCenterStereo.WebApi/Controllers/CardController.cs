@@ -12,11 +12,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class CardController : BaseApiController
     {
-        List<CardViewModel> cards = new List<CardViewModel>() {
-            new CardViewModel{
-                Id=Guid.NewGuid(),DateCreated = DateTime.Now, DateUpdated = DateTime.Now,MembershipId = Guid.NewGuid(),UserId=string.Empty
-            }
-        };
+        List<CardViewModel> cards = new List<CardViewModel>();
+
         // GET: api/<controller>
         [HttpGet]
         public IEnumerable<CardViewModel> Get()
@@ -25,8 +22,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{Guid}")]
+        public string Get(string id)
         {
             return "value";
         }
@@ -35,18 +32,21 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
+
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+
         }
     }
 }

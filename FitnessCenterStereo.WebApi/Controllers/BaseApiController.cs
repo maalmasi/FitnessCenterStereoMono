@@ -12,6 +12,5 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [ApiController]
     public class BaseApiController : Controller
     {
-        
     }
 }

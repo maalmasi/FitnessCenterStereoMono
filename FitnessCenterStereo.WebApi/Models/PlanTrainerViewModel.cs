@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.WebApi.Models
 {
-    public class CompilesViewModel
+    public class PlanTrainerViewModel
     {
         public Guid Id { get; set; }
         public DateTime DateUpdated { get; set; }
