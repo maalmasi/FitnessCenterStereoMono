@@ -190,10 +190,10 @@ namespace FitnessCenterStereo.DAL.Models
 
             modelBuilder.Entity<PlanTrainer>(entity =>
             {
-                entity.HasKey(e => e.CompilesId)
+                entity.HasKey(e => e.TrainerId)
                     .HasName("Compiles_pkey");
 
-                entity.Property(e => e.CompilesId).ValueGeneratedNever();
+                entity.Property(e => e.TrainerId).ValueGeneratedNever();
 
                 entity.Property(e => e.DateCreated).HasColumnType("date");
 
