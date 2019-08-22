@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Common
 {
-    interface IFilter
+    public interface IFilter
     {
     }
 }
