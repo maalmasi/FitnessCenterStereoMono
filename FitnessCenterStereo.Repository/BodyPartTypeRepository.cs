@@ -9,15 +9,10 @@ using FitnessCenterStereo.DAL.Data;
 
 namespace FitnessCenterStereo.Repository
 {
-    class BodyPartTypeRepository : IBodyPartTypeRepository
+    public class BodyPartTypeRepository : IBodyPartTypeRepository
     {
 
         private readonly ApplicationDbContext AppDbContext;
-
-        public BodyPartTypeRepository(ApplicationDbContext dbContext)
-        {
-            AppDbContext = dbContext;
-        }
 
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
