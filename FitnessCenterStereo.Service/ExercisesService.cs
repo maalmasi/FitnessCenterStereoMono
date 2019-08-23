@@ -48,4 +48,3 @@ namespace FitnessCenterStereo.Service
 
     }
 }
-}
