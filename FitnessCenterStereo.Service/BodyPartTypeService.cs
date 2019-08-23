@@ -21,7 +21,7 @@ namespace FitnessCenterStereo.Service
 
         protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
 
-        public IBodyPartType Create([FromBody]IBodyPartType bodyPartType)
+        public IBodyPartType Create(IBodyPartType bodyPartType)
         {
             return BodyPartTypeRepository.Create(bodyPartType);
         }
