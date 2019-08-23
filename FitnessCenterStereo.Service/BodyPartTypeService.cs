@@ -7,6 +7,7 @@ using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Repository;
 using FitnessCenterStereo.DAL.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessCenterStereo.Service
 {
@@ -20,16 +21,14 @@ namespace FitnessCenterStereo.Service
 
         protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType bodyPartType)
+        public IBodyPartType Create([FromBody]IBodyPartType bodyPartType)
         {
             return BodyPartTypeRepository.Create(bodyPartType);
         }
 
         public bool Delete(Guid id)
         {
-            if (BodyPartTypeRepository.Delete(id))
-                return true;
-            else return false;
+            return BodyPartTypeRepository.Delete(id);
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
@@ -44,9 +43,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            if (BodyPartTypeRepository.Update(bodyPartType))
-                return true;
-            else return false;
+            return BodyPartTypeRepository.Update(bodyPartType);
         }
 
     }
