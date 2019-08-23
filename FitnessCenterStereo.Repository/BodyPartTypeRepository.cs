@@ -7,6 +7,7 @@ using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace FitnessCenterStereo.Repository
 {
@@ -14,13 +15,15 @@ namespace FitnessCenterStereo.Repository
     {
 
         protected ApplicationDbContext appDbContext { get; private set; }
+        private readonly IMapper mapper;
 
-        public BodyPartTypeRepository(ApplicationDbContext applicationDbContext)
+        public BodyPartTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapperInterface)
         {
             appDbContext = applicationDbContext;
+            mapper = mapperInterface;
         }
-      
-       
+
+
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
             return (IBodyPartType)appDbContext.BodyPartType.Add(new BodyPartType());
@@ -46,8 +49,7 @@ namespace FitnessCenterStereo.Repository
 
         public IBodyPartType Get(Guid Id)
         {
-            IBodyPartType bodyPartType = (IBodyPartType)appDbContext.BodyPartType.Find(Id);
-            return bodyPartType;
+            return mapper.Map<IBodyPartType>(appDbContext.BodyPartType.Find(Id));
         }
 
         public bool Update(IBodyPartType bodyPartType)

@@ -9,6 +9,7 @@ using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Service.Common;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.DAL.Data;
+using AutoMapper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,12 +19,14 @@ namespace FitnessCenterStereo.WebApi.Controllers
     public class BodyPartTypeController : BaseApiController
     {
         protected IBodyPartTypeService Service { get; private set; }
+        private readonly IMapper mapper;
 
 
 
-        public BodyPartTypeController(IBodyPartTypeService service) : base()
+        public BodyPartTypeController(IBodyPartTypeService service, IMapper mapperInterface) : base()
         {
             Service = service;
+            mapper = mapperInterface;
         }
 
 
@@ -38,14 +41,14 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public BodyPartTypeViewModel Get(Guid id)
         {
             Service.Get(id);
-            BodyPartTypeViewModel model = new BodyPartTypeViewModel();
-            model.Id = Service.Get(id).Id;
-            model.Name = Service.Get(id).Name;
-            model.Abbreviation = Service.Get(id).Abbreviation;
-            model.DateCreated = Service.Get(id).DateCreated;
-            model.DateUpdated = Service.Get(id).DateUpdated;
+            //BodyPartTypeViewModel model = new BodyPartTypeViewModel();
+            //model.Id = Service.Get(id).Id;
+            //model.Name = Service.Get(id).Name;
+            //model.Abbreviation = Service.Get(id).Abbreviation;
+            //model.DateCreated = Service.Get(id).DateCreated;
+            //model.DateUpdated = Service.Get(id).DateUpdated;
 
-            return model;
+            return mapper.Map < BodyPartTypeViewModel > (Service.Get(id));
         }
 
         // POST api/<controller>
