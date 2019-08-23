@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace FitnessCenterStereo.Repository
 
     class ScheduleRepository : IScheduleRepository
     {
-        public IScheduleRepository Create(IScheduleRepository bodyPartType)
+        public IScheduleRepository Create(ISchedule schedule)
         {
             throw new NotImplementedException();
         }
@@ -19,17 +20,17 @@ namespace FitnessCenterStereo.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IScheduleRepository> Find(IFilter filter)
+        public IEnumerable<ISchedule> Find(IFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public IScheduleRepository Get(Guid id)
+        public ISchedule Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(IScheduleRepository bodyPartType)
+        public bool Update(ISchedule ISchedule)
         {
             throw new NotImplementedException();
         }

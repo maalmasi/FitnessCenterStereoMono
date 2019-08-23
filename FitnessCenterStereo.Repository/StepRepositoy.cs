@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace FitnessCenterStereo.Repository
 
     class StepRepositoy : IStepRepository
     {
-        public IStepRepository Create(IStepRepository bodyPartType)
+        public IStepRepository Create(IStep step)
         {
             throw new NotImplementedException();
         }
@@ -19,17 +20,17 @@ namespace FitnessCenterStereo.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IStepRepository> Find(IFilter filter)
+        public IEnumerable<IStep> Find(IFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public IStepRepository Get(Guid id)
+        public IStep Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(IStepRepository bodyPartType)
+        public bool Update(IStep step)
         {
             throw new NotImplementedException();
         }

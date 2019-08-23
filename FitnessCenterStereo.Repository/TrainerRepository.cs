@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace FitnessCenterStereo.Repository
 {
     class TrainerRepository : ITrainerRepository
     {
-        public ITrainerRepository Create(ITrainerRepository bodyPartType)
+        public ITrainer Create(ITrainer trainer)
         {
             throw new NotImplementedException();
         }
@@ -18,17 +19,17 @@ namespace FitnessCenterStereo.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ITrainerRepository> Find(IFilter filter)
+        public IEnumerable<ITrainer> Find(IFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public ITrainerRepository Get(Guid id)
+        public ITrainer Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(ITrainerRepository bodyPartType)
+        public bool Update(ITrainer trainer)
         {
             throw new NotImplementedException();
         }
