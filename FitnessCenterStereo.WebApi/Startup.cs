@@ -13,6 +13,7 @@ using System.IO;
 using System.Reflection;
 using AutoMapper;
 using FitnessCenterStereo.WebApi.Mappings;
+using FitnessCenterStereo.Repository.Mappings;
 
 namespace FitnessCenterStereo.WebApi
 {
@@ -50,13 +51,16 @@ namespace FitnessCenterStereo.WebApi
             var assemblies = Directory.GetFiles(path, "FitnessCenterStereo.*.dll").Select(Assembly.LoadFrom).ToArray();
             builder.RegisterAssemblyModules(assemblies);
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            builder.RegisterAssemblyTypes().AssignableTo(typeof(Profile)).As<Profile>();
+
+            builder.Register(c => new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfileViewDomain());
+                mc.AddProfile(new MappingProfileEntityDomain());
+            })).AsSelf().SingleInstance();
+
+            builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().InstancePerLifetimeScope();
 
 
             ApplicationContainer = builder.Build();
