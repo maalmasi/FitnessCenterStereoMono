@@ -8,11 +8,11 @@ namespace FitnessCenterStereo.Repository.Common
 {
     public interface IMemebershipRepository
     {
-        IEnumerable<IMemebershipRepository> Find(IFilter filter);
-        IMemebershipRepository Create(IMemebershipRepository bodyPartType);
+        IEnumerable<IMemebership> Find(IFilter filter);
+        IMemebership Create(IMemebership memebership);
         bool Delete(Guid id);
-        bool Update(IMemebershipRepository bodyPartType);
-        IMemebershipRepository Get(Guid id);
+        bool Update(IMemebership memebership);
+        IMemebership Get(Guid id);
 
     }
 }

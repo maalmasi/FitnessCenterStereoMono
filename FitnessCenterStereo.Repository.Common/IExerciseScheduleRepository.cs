@@ -9,11 +9,11 @@ namespace FitnessCenterStereo.Repository.Common
     public interface IExerciseScheduleRepository
     {
 
-        IEnumerable<IExerciseScheduleRepository> Find(IFilter filter);
-        IExerciseScheduleRepository Create(IExerciseScheduleRepository bodyPartType);
+        IEnumerable<IExerciseSchedule> Find(IFilter filter);
+        IExerciseSchedule Create(IExerciseSchedule exerciseSchedule);
         bool Delete(Guid id);
-        bool Update(IExerciseScheduleRepository bodyPartType);
-        IExerciseScheduleRepository Get(Guid id);
+        bool Update(IExerciseSchedule exerciseSchedule);
+        IExerciseSchedule Get(Guid id);
 
     }
 }

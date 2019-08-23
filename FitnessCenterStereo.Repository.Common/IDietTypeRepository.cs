@@ -9,11 +9,11 @@ namespace FitnessCenterStereo.Repository.Common
     public interface IDietTypeRepository
     {
 
-        IEnumerable<IDietTypeRepository> Find(IFilter filter);
-        IDietTypeRepository Create(IDietTypeRepository bodyPartType);
+        IEnumerable<IDietType> Find(IFilter filter);
+        IDietType Create(IDietType bodyPartType);
         bool Delete(Guid id);
-        bool Update(IDietTypeRepository bodyPartType);
-        IDietTypeRepository Get(Guid id);
+        bool Update(IDietType dietType);
+        IDietType Get(Guid id);
 
     }
 }
