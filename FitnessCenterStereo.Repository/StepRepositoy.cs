@@ -10,7 +10,7 @@ namespace FitnessCenterStereo.Repository
 
     class StepRepositoy : IStepRepository
     {
-        public IStepRepository Create(IStep step)
+        public IStep Create(IStep step)
         {
             throw new NotImplementedException();
         }
