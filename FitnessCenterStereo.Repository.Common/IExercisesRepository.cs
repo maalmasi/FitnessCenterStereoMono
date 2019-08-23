@@ -8,11 +8,11 @@ namespace FitnessCenterStereo.Repository.Common
 {
    public interface IExercisesRepository
     {
-        IEnumerable<IExercises> Find(IFilter filter);
-        IExercises Create(IExercises ExerciseSchedule);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IExercises Get(Guid Id);
+        IEnumerable<IExercisesRepository> Find(IFilter filter);
+        IExercisesRepository Create(IExercisesRepository bodyPartType);
+        bool Delete(Guid id);
+        bool Update(IExercisesRepository bodyPartType);
+        IExercisesRepository Get(Guid id);
 
 
     }
