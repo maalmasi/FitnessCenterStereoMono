@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-   public interface IBodyPartTypeRepository
+   public interface IPlanpository
     {
         IEnumerable<IPlan> Find(IFilter filter);
         IPlan Create(IPlan plan);
