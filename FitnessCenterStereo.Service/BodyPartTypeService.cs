@@ -15,38 +15,34 @@ namespace FitnessCenterStereo.Service
 
         private ApplicationDbContext AppDbContext;
 
-        public BodyPartTypeService(ApplicationDbContext dbContext)
-        {
-            AppDbContext = dbContext;
-        }
-
+       
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
-            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository(AppDbContext);
+            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
             return BodyPart.Create(BodyPartType);
         }
 
         public void Delete(Guid Id)
         {
-            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository(AppDbContext);
+            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
             BodyPart.Delete(Id);
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
         {
-            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository(AppDbContext);
+            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
             return BodyPart.Find(filter);
         }
 
         public IBodyPartType Get(Guid Id)
         {
-            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository(AppDbContext);
+            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
             return BodyPart.Get(Id);
         }
 
         public void Update(Guid Id)
         {
-            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository(AppDbContext);
+            IBodyPartTypeRepository BodyPart = new BodyPartTypeRepository();
             BodyPart.Update(Id);
         }
     }

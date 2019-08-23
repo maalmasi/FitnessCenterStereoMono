@@ -13,13 +13,9 @@ namespace FitnessCenterStereo.Repository
     public class BodyPartTypeRepository : IBodyPartTypeRepository
     {
 
-        private ApplicationDbContext AppDbContext;
+        private ApplicationDbContext AppDbContext=null;
 
-        public BodyPartTypeRepository(ApplicationDbContext dbContext)
-        {
-            AppDbContext = dbContext;
-        }
-
+     
       
        
         public IBodyPartType Create(IBodyPartType BodyPartType)
