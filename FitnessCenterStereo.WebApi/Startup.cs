@@ -14,6 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using FitnessCenterStereo.DAL.Interface.ServiceExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using System.IO;
+using System.Reflection;
 
 namespace FitnessCenterStereo.WebApi
 {
@@ -25,9 +29,10 @@ namespace FitnessCenterStereo.WebApi
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -36,16 +41,25 @@ namespace FitnessCenterStereo.WebApi
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseNpgsql(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<IdentityUser>()
-            //    .AddDefaultUI(UIFramework.Bootstrap4)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAppDbContextExtension(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //DI
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            //Modules
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            var assemblies = Directory.GetFiles(path, "FitnessCenterStereo.*.dll").Select(Assembly.LoadFrom).ToArray();
+            builder.RegisterAssemblyModules(assemblies);
+
+            ApplicationContainer = builder.Build();
+
+            
+
+            return new AutofacServiceProvider(this.ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

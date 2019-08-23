@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
@@ -7,7 +8,7 @@ namespace FitnessCenterStereo.DAL.Models
     {
         public Plan()
         {
-            AspNetUsers = new HashSet<AspNetUsers>();
+            Users = new HashSet<IdentityUser>();
             Compiles = new HashSet<PlanTrainer>();
             Schedule = new HashSet<Schedule>();
         }
@@ -19,7 +20,7 @@ namespace FitnessCenterStereo.DAL.Models
         public Guid? DietTypeId { get; set; }
 
         public virtual DietType DietType { get; set; }
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<IdentityUser> Users { get; set; }
         public virtual ICollection<PlanTrainer> Compiles { get; set; }
         public virtual ICollection<Schedule> Schedule { get; set; }
     }
