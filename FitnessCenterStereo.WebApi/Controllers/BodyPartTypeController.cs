@@ -37,7 +37,15 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet("{id}")]
         public BodyPartTypeViewModel Get(Guid id)
         {
-            return new BodyPartTypeViewModel();
+            Service.Get(id);
+            BodyPartTypeViewModel model = new BodyPartTypeViewModel();
+            model.Id = Service.Get(id).Id;
+            model.Name = Service.Get(id).Name;
+            model.Abbreviation = Service.Get(id).Abbreviation;
+            model.DateCreated = Service.Get(id).DateCreated;
+            model.DateUpdated = Service.Get(id).DateUpdated;
+
+            return model;
         }
 
         // POST api/<controller>
@@ -58,7 +66,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            
+            Service.Delete(id);
         }       
     }
 }

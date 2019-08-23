@@ -20,14 +20,16 @@ namespace FitnessCenterStereo.Service
 
         protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType BodyPartType)
+        public IBodyPartType Create(IBodyPartType bodyPartType)
         {
-            return BodyPartTypeRepository.Create(BodyPartType);
+            return BodyPartTypeRepository.Create(bodyPartType);
         }
 
-        public void Delete(Guid Id)
+        public bool Delete(Guid id)
         {
-            BodyPartTypeRepository.Delete(Id);
+            if (BodyPartTypeRepository.Delete(id))
+                return true;
+            else return false;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
@@ -35,14 +37,17 @@ namespace FitnessCenterStereo.Service
             return BodyPartTypeRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid Id)
+        public IBodyPartType Get(Guid id)
         {
-            return BodyPartTypeRepository.Get(Id);
+            return BodyPartTypeRepository.Get(id);
         }
 
-        public void Update(Guid Id)
+        public bool Update(IBodyPartType bodyPartType)
         {
-            BodyPartTypeRepository.Update(Id);
+            if (BodyPartTypeRepository.Update(bodyPartType))
+                return true;
+            else return false;
         }
+
     }
 }

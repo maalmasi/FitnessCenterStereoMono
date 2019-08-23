@@ -13,11 +13,11 @@ namespace FitnessCenterStereo.Repository
     public class BodyPartTypeRepository : IBodyPartTypeRepository
     {
 
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        protected ApplicationDbContext appDbContext { get; private set; }
 
         public BodyPartTypeRepository(ApplicationDbContext applicationDbContext)
         {
-            AppDbContext = applicationDbContext;
+            appDbContext = applicationDbContext;
         }
       
        
@@ -40,7 +40,7 @@ namespace FitnessCenterStereo.Repository
 
         public IBodyPartType Get(Guid Id)
         {
-            var t = AppDbContext.BodyPartType.Find(Id);
+            var t = appDbContext.BodyPartType.Find(Id);
             return default(IBodyPartType);
         }
 
