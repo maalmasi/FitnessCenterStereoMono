@@ -17,51 +17,48 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class BodyPartTypeController : BaseApiController
     {
-        List<BodyPartTypeViewModel> bodyPartTypes = new List<BodyPartTypeViewModel>();
-        
-      
+        protected IBodyPartTypeService Service { get; private set; }
+
+
+
+        public BodyPartTypeController(IBodyPartTypeService service) : base()
+        {
+            Service = service;
+        }
 
 
         public IEnumerable<BodyPartTypeViewModel> Find(IFilter filter)
         {
-            return bodyPartTypes;
+            return new List<BodyPartTypeViewModel>();
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        //public IEnumerable<BodyPartTypeViewModel> Get()
-        //{
-        //    return bodyPartTypes;
-        //}
 
-        //// GET api/<controller>/<id>
-        //[HttpGet("{id}")]
-        public BodyPartTypeViewModel Get()
+        // GET api/<controller>/<id>
+        [HttpGet("{id}")]
+        public BodyPartTypeViewModel Get(Guid id)
         {
-            //return bodyPartTypes.Find(e=>e.Id == id);
-            IBodyPartTypeService BodyPart = new BodyPartTypeService();
-            return (BodyPartTypeViewModel)BodyPart.Get(Guid.Parse("cde1883f-9bfb-421a-8f31-9d00a0086498"));
+            return new BodyPartTypeViewModel();
         }
 
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]BodyPartTypeViewModel value)
         {
-            bodyPartTypes.Add(value);
+            
         }
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
         public void Put(Guid id, [FromBody]BodyPartTypeViewModel value)
         {
-            bodyPartTypes.Where(e => e.Id == id).Select(n => n = value).ToList();
+            
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            bodyPartTypes.Remove(bodyPartTypes.Find(e=>e.Id == id));
+            
         }       
     }
 }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FitnessCenterStereo.Common\FitnessCenterStereo.Common.csproj" />
     <ProjectReference Include="..\FitnessCenterStereo.Model.Common\FitnessCenterStereo.Model.Common.csproj" />
     <ProjectReference Include="..\FitnessCenterStereo.Model\FitnessCenterStereo.Model.csproj" />
