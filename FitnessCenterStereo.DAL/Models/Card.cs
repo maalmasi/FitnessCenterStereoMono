@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
@@ -11,6 +12,6 @@ namespace FitnessCenterStereo.DAL.Models
         public Guid? MembershipId { get; set; }
         public string UserId { get; set; }
 
-        public virtual AspNetUsers User { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }
