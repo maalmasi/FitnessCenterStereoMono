@@ -6,13 +6,13 @@ using System.Text;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-   public interface IPlanRepository
+   public interface IBodyPartTypeRepository
     {
-        IEnumerable<IPlanRepository> Find(IFilter filter);
-        IPlanRepository Create(IPlanRepository bodyPartType);
+        IEnumerable<IBodyPartTypeRepository> Find(IFilter filter);
+        IBodyPartTypeRepository Create(IBodyPartTypeRepository bodyPartType);
         bool Delete(Guid id);
-        bool Update(IPlanRepository bodyPartType);
-        IPlanRepository Get(Guid id);
+        bool Update(IBodyPartTypeRepository bodyPartType);
+        IBodyPartTypeRepository Get(Guid id);
 
     }
 }

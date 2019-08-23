@@ -8,10 +8,10 @@ namespace FitnessCenterStereo.Service.Common
 {
     public interface IMemebershipService
     {
-        IEnumerable<IMemebership> Find(IFilter filter);
-        IMemebership Create(IMemebership Membership);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IMemebership Get(Guid Id);
+        IEnumerable<IBodyPartType> Find(IFilter filter);
+        IBodyPartType Create(IBodyPartType memebership);
+        bool Delete(Guid id);
+        bool Update(IBodyPartType memebership);
+        IBodyPartType Get(Guid id);
     }
 }

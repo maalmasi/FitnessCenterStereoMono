@@ -9,9 +9,9 @@ namespace FitnessCenterStereo.Service.Common
    public interface IPlanTrainerService
     {
         IEnumerable<IPlanTrainer> Find(IFilter filter);
-        IPlanTrainerService Create(IPlanTrainer PlanTrainer);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IPlanTrainer Get(Guid Id);
+        IPlanTrainer Create(IPlanTrainer planTrainer);
+        bool Delete(Guid id);
+        bool Update(IPlanTrainer planTrainer);
+        IPlanTrainer Get(Guid id);
     }
 }

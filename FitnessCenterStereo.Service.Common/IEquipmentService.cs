@@ -10,9 +10,9 @@ using System.Text;
     {
 
         IEnumerable<IEquipment> Find(IFilter filter);
-        IDietTypeService Create(IEquipment Equipment);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IEquipment Get(Guid Id);
+        IEquipment Create(IEquipment equipment);
+        bool Delete(Guid id);
+        bool Update(IEquipment equipment);
+        IEquipment Get(Guid id);
     }
 }

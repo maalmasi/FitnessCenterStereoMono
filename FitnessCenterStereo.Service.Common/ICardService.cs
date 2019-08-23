@@ -9,10 +9,9 @@ namespace FitnessCenterStereo.Service.Common
     public interface ICardService
     {
         IEnumerable<ICard> Find(IFilter filter);
-        ICard Create(ICard Card);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        ICard Get(Guid Id);
-
+        ICard Create(ICard card);
+        bool Delete(Guid id);
+        bool Update(ICard card);
+        ICard Get(Guid id);
     }
 }

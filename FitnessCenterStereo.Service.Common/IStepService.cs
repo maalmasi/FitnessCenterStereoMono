@@ -1,4 +1,5 @@
-﻿using FitnessCenterStereo.Model.Common;
+﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +8,10 @@ namespace FitnessCenterStereo.Service.Common
 {
    public interface IStepService
     {
-        IEnumerable<IStep> Find(IStep filter);
-        IStep Create(IStep Step);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IStep Get(Guid Id);
+        IEnumerable<IStep> Find(IFilter filter);
+        IStep Create(IStep step);
+        bool Delete(Guid id);
+        bool Update(IStep step);
+        IStep Get(Guid id);
     }
 }

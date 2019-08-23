@@ -9,9 +9,9 @@ namespace FitnessCenterStereo.Service.Common
     public interface IExerciseEquipmentService
     {
         IEnumerable<IExerciseEquipment> Find(IFilter filter);
-        IExerciseEquipment Create(IExerciseEquipment ExerciseEquipment);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IExerciseEquipment Get(Guid Id);
+        IExerciseEquipment Create(IExerciseEquipment exerciseEquipment);
+        bool Delete(Guid id);
+        bool Update(IExerciseEquipment exerciseEquipment);
+        IExerciseEquipment Get(Guid id);
     }
 }

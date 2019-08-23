@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,11 @@ namespace FitnessCenterStereo.Service.Common
 {
    public interface IExercisesService
     {
-        IEnumerable<IExercisesService> Find(IFilter filter);
-        IExercisesService Create(IExercisesService Exercises);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IExercisesService Get(Guid Id);
+        IEnumerable<IExercises> Find(IFilter filter);
+        IExercises Create(IExercises exercises);
+        bool Delete(Guid id);
+        bool Update(IExercises exercises);
+        IExercises Get(Guid id);
 
     }
 }

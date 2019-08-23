@@ -1,51 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
 
-
 namespace FitnessCenterStereo.Service
 {
-    public class BodyPartTypeService : IBodyPartTypeService
+    class ExerciseEquipmentService
     {
-
-        public BodyPartTypeService(IBodyPartTypeRepository bodyPartTypeRepository)
+        public ExerciseEquipmentService(IExerciseEquipmentRepository exerciseEquipmentRepository)
         {
-            BodyPartTypeRepository = bodyPartTypeRepository;
+            ExerciseEquipmentRepository = exerciseEquipmentRepository;
         }
 
-        protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
+        protected IBodyPartTypeRepository ExerciseEquipmentRepository { get; private set; }
 
         public IBodyPartType Create(IBodyPartType bodyPartType)
         {
-            return BodyPartTypeRepository.Create(bodyPartType);
+            return ExerciseEquipmentRepository.Create(bodyPartType);
         }
 
         public bool Delete(Guid id)
         {
-            if (BodyPartTypeRepository.Delete(id))
+            if (ExerciseEquipmentRepository.Delete(id))
                 return true;
             else return false;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
         {
-            return BodyPartTypeRepository.Find(filter);
+            return ExerciseEquipmentRepository.Find(filter);
         }
 
         public IBodyPartType Get(Guid id)
         {
-            return BodyPartTypeRepository.Get(id);
+            return ExerciseEquipmentRepository.Get(id);
         }
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            if (BodyPartTypeRepository.Update(bodyPartType))
+            if (ExerciseEquipmentRepository.Update(bodyPartType))
                 return true;
             else return false;
         }
 
     }
+}
 }
