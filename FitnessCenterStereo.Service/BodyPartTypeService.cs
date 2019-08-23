@@ -12,8 +12,7 @@ namespace FitnessCenterStereo.Service
 {
     public class BodyPartTypeService : IBodyPartTypeService
     {
-
-        private ApplicationDbContext AppDbContext;
+        
 
        
         public IBodyPartType Create(IBodyPartType BodyPartType)
