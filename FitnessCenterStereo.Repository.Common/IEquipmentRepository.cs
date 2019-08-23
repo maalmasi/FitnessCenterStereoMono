@@ -9,11 +9,11 @@ using System.Text;
   public interface IEquipmentRepository
     {
 
-        IEnumerable<IEquipment> Find(IFilter filter);
-        IEquipment Create(IEquipment Equipment);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IEquipment Get(Guid Id);
+        IEnumerable<IEquipmentRepository> Find(IFilter filter);
+        IEquipmentRepository Create(IEquipmentRepository bodyPartType);
+        bool Delete(Guid id);
+        bool Update(IEquipmentRepository bodyPartType);
+        IEquipmentRepository Get(Guid id);
 
 
     }

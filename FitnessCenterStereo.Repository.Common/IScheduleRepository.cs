@@ -8,11 +8,10 @@ namespace FitnessCenterStereo.Repository.Common
 {
     public interface IScheduleRepository
     {
-        IEnumerable<ISchedule> Find(IFilter filter);
-        ISchedule Create(ISchedule Schedule);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        ISchedule Get(Guid Id);
-
+        IEnumerable<IScheduleRepository> Find(IFilter filter);
+        IScheduleRepository Create(IScheduleRepository bodyPartType);
+        bool Delete(Guid id);
+        bool Update(IScheduleRepository bodyPartType);
+        IScheduleRepository Get(Guid id);
     }
 }

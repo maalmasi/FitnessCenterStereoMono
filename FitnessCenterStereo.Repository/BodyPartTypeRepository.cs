@@ -23,18 +23,19 @@ namespace FitnessCenterStereo.Repository
        
         public IBodyPartType Create(IBodyPartType BodyPartType)
         {
-            return (IBodyPartType)AppDbContext.BodyPartType.Add((BodyPartType)BodyPartType);
+            return (IBodyPartType)appDbContext.BodyPartType.Add((BodyPartType)BodyPartType);
         }
 
-        public void Delete(Guid Id)
+        public bool Delete(Guid Id)
         {
-            BodyPartType ToDelete = AppDbContext.BodyPartType.Find(Id);
-            AppDbContext.BodyPartType.Remove(ToDelete);
+            BodyPartType ToDelete = appDbContext.BodyPartType.Find(Id);
+            appDbContext.BodyPartType.Remove(ToDelete);
+            return true;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
         {
-            return (IEnumerable<IBodyPartType>)AppDbContext.BodyPartType.Find(filter);
+            return (IEnumerable<IBodyPartType>)appDbContext.BodyPartType.Find(filter);
         }
 
         public IBodyPartType Get(Guid Id)
@@ -43,10 +44,14 @@ namespace FitnessCenterStereo.Repository
             return default(IBodyPartType);
         }
 
-        public void Update(Guid Id)
+        public bool Update(IBodyPartType bodyPartType)
         {
-            BodyPartType ToUpdate = AppDbContext.BodyPartType.Find(Id);
-            AppDbContext.BodyPartType.Update(ToUpdate);
+            //BodyPartType ToUpdate = AppDbContext.BodyPartType.Find(Id);
+            //AppDbContext.BodyPartType.Update(ToUpdate);
+            return true;
         }
+
+      
+        
     }
 }
