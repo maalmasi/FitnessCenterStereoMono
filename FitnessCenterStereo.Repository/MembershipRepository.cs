@@ -7,9 +7,9 @@ using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-    class MembershipRepository : IMemebershipRepository
+    class MembershipRepository : IMembershipRepository
     {
-        public IMemebership Create(IMemebership memebership)
+        public IMembership Create(IMembership memebership)
         {
             throw new NotImplementedException();
         }
@@ -19,17 +19,17 @@ namespace FitnessCenterStereo.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IMemebership> Find(IFilter filter)
+        public IEnumerable<IMembership> Find(IFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public IMemebership Get(Guid id)
+        public IMembership Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(IMemebership memebership)
+        public bool Update(IMembership memebership)
         {
             throw new NotImplementedException();
         }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Trainer : BaseModel, IBodyPartType
+    public class Trainer : BaseModel, ITrainer
     {
      
         public string Firstname { get; set; }

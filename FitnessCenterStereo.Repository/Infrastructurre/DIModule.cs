@@ -21,7 +21,7 @@ namespace FitnessCenterStereo.Repository.Infrastructurre
             builder.RegisterType<ExerciseEquipmentRepository>().As<IExerciseEquipmentRepository>();
             builder.RegisterType<ExerciseScheduleRepository>().As<IExerciseScheduleRepository>();
             builder.RegisterType<ExercisesRepository>().As<IExercisesRepository>();
-            builder.RegisterType<MembershipRepository>().As<IMemebershipRepository>();
+            builder.RegisterType<MembershipRepository>().As<IMembershipRepository>();
             builder.RegisterType<PlanRepository>().As<IPlanRepository>();
             builder.RegisterType<PlanTrainerRepository>().As<IPlanTrainerRepository>();
             builder.RegisterType<ScheduleRepository>().As<IScheduleRepository>();
