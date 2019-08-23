@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-//using FitnessCenterStereo.WebApi.Data;
 using FitnessCenterStereo.DAL.Interface.ServiceExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +11,9 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
+using AutoMapper;
+using FitnessCenterStereo.WebApi.Mappings;
+using FitnessCenterStereo.Repository.Mappings;
 
 namespace FitnessCenterStereo.WebApi
 {
@@ -54,6 +50,18 @@ namespace FitnessCenterStereo.WebApi
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var assemblies = Directory.GetFiles(path, "FitnessCenterStereo.*.dll").Select(Assembly.LoadFrom).ToArray();
             builder.RegisterAssemblyModules(assemblies);
+
+
+            builder.RegisterAssemblyTypes().AssignableTo(typeof(Profile)).As<Profile>();
+
+            builder.Register(c => new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfileViewDomain());
+                mc.AddProfile(new MappingProfileEntityDomain());
+            })).AsSelf().SingleInstance();
+
+            builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().InstancePerLifetimeScope();
+
 
             ApplicationContainer = builder.Build();
 

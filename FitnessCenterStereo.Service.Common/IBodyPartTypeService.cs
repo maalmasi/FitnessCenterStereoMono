@@ -9,10 +9,10 @@ namespace FitnessCenterStereo.Service.Common
     public interface IBodyPartTypeService
     {
         IEnumerable<IBodyPartType> Find(IFilter filter);
-        IBodyPartType Create(IBodyPartType BodyPartType);
-        void Delete(Guid Id);
-        void Update(Guid Id);
-        IBodyPartType Get(Guid Id);
+        IBodyPartType Create(IBodyPartType bodyPartType);
+        bool Delete(Guid id);
+        bool Update(IBodyPartType bodyPartType);
+        IBodyPartType Get(Guid id);
 
     }
 }
