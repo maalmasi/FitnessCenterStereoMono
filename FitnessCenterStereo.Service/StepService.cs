@@ -8,14 +8,14 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class StepService
+    class StepService : IStepService
     {
-        public StepService(IBodyPartTypeRepository stepRepository)
+        public StepService(IStepRepository stepRepository)
         {
             StepRepository = stepRepository;
         }
 
-        public IBodyPartTypeRepository StepRepository { get; }
+        public IStepRepository StepRepository { get; }
 
         public IStep Create(IStep step)
         {
@@ -34,7 +34,7 @@ namespace FitnessCenterStereo.Service
             return StepRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid id)
+        public IStep Get(Guid id)
         {
             return StepRepository.Get(id);
         }
@@ -47,5 +47,4 @@ namespace FitnessCenterStereo.Service
         }
 
     }
-}
 }

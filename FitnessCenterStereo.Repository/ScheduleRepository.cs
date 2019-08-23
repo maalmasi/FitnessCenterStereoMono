@@ -10,7 +10,7 @@ namespace FitnessCenterStereo.Repository
 
     class ScheduleRepository : IScheduleRepository
     {
-        public IScheduleRepository Create(ISchedule schedule)
+        public ISchedule Create(ISchedule schedule)
         {
             throw new NotImplementedException();
         }

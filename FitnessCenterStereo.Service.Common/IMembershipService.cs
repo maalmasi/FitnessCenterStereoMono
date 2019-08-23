@@ -6,12 +6,12 @@ using System.Text;
 
 namespace FitnessCenterStereo.Service.Common
 {
-   public interface ITrainerService
+    public interface IMembershipService
     {
-        IEnumerable<ITrainer> Find(IFilter filter);
-        ICard Create(ICard card);
+        IEnumerable<IMembership> Find(IFilter filter);
+        IMembership Create(IMembership membership);
         bool Delete(Guid id);
-        bool Update(ICard card);
-        ICard Get(Guid id);
+        bool Update(IMembership membership);
+        IMembership Get(Guid id);
     }
 }

@@ -8,14 +8,14 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class PlanService
+    class PlanService : IPlanService
     {
-        public PlanService(IBodyPartTypeRepository planRepository)
+        public PlanService(IPlanRepository planRepository)
         {
             PlanRepository = planRepository;
         }
 
-        protected IBodyPartTypeRepository PlanRepository { get; private set; }
+        protected IPlanRepository PlanRepository { get; private set; }
 
         public IPlan Create(IPlan plan)
         {
@@ -47,5 +47,4 @@ namespace FitnessCenterStereo.Service
         }
 
     }
-}
 }

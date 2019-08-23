@@ -8,7 +8,7 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class ComplexityLevelTypeService
+    class ComplexityLevelTypeService : IComplexityLevelTypeService
     {
         public ComplexityLevelTypeService(IComplexityLevelTypeRepository complexityLevelTypeRepository)
         {
@@ -17,9 +17,9 @@ namespace FitnessCenterStereo.Service
 
         protected IComplexityLevelTypeRepository ComplexityLevelTypeRepository { get; private set; }
 
-        public IComplexityLevelType Create(ICard card)
+        public IComplexityLevelType Create(IComplexityLevelType complexityLevelType)
         {
-            return ComplexityLevelTypeRepository.Create(card);
+            return ComplexityLevelTypeRepository.Create(complexityLevelType);
         }
 
         public bool Delete(Guid id)
@@ -39,9 +39,9 @@ namespace FitnessCenterStereo.Service
             return ComplexityLevelTypeRepository.Get(id);
         }
 
-        public bool Update(IComplexityLevelType card)
+        public bool Update(IComplexityLevelType complexityLevelType)
         {
-            if (ComplexityLevelTypeRepository.Update(card))
+            if (ComplexityLevelTypeRepository.Update(complexityLevelType))
                 return true;
             else return false;
         }

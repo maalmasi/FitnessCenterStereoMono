@@ -8,16 +8,16 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class ExerciseEquipmentService
+    class ExerciseEquipmentService : IExerciseEquipmentService
     {
         public ExerciseEquipmentService(IExerciseEquipmentRepository exerciseEquipmentRepository)
         {
             ExerciseEquipmentRepository = exerciseEquipmentRepository;
         }
 
-        protected IBodyPartTypeRepository ExerciseEquipmentRepository { get; private set; }
+        protected IExerciseEquipmentRepository ExerciseEquipmentRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType bodyPartType)
+        public IExerciseEquipment Create(IExerciseEquipment bodyPartType)
         {
             return ExerciseEquipmentRepository.Create(bodyPartType);
         }
@@ -29,19 +29,19 @@ namespace FitnessCenterStereo.Service
             else return false;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public IEnumerable<IExerciseEquipment> Find(IFilter filter)
         {
             return ExerciseEquipmentRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid id)
+        public IExerciseEquipment Get(Guid id)
         {
             return ExerciseEquipmentRepository.Get(id);
         }
 
-        public bool Update(IBodyPartType bodyPartType)
+        public bool Update(IExerciseEquipment exerciseEquipment)
         {
-            if (ExerciseEquipmentRepository.Update(bodyPartType))
+            if (ExerciseEquipmentRepository.Update(exerciseEquipment))
                 return true;
             else return false;
         }

@@ -8,7 +8,7 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class ScheduleService
+    class ScheduleService : IScheduleService
     {
         public ScheduleService(IScheduleRepository scheduleRepository)
         {

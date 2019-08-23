@@ -8,16 +8,16 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class MemebershipService
+    class MembershipService : IMembershipService
     {
-        public MemebershipService(IBodyPartTypeRepository membershipRepository)
+        public MembershipService(IMembershipRepository membershipRepository)
         {
             MembershipRepository = membershipRepository;
         }
 
-        protected IBodyPartTypeRepository MembershipRepository { get; private set; }
+        protected IMembershipRepository MembershipRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType membership)
+        public IMembership Create(IMembership membership)
         {
             return MembershipRepository.Create(membership);
         }
@@ -29,17 +29,17 @@ namespace FitnessCenterStereo.Service
             else return false;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public IEnumerable<IMembership> Find(IFilter filter)
         {
             return MembershipRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid id)
+        public IMembership Get(Guid id)
         {
             return MembershipRepository.Get(id);
         }
 
-        public bool Update(IBodyPartType membership)
+        public bool Update(IMembership membership)
         {
             if (MembershipRepository.Update(membership))
                 return true;

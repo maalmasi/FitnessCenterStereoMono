@@ -17,7 +17,7 @@ namespace FitnessCenterStereo.Service
 
         protected ITrainerRepository TrainerRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType trainer)
+        public ITrainer Create(ITrainer trainer)
         {
             return TrainerRepository.Create(trainer);
         }
@@ -29,17 +29,17 @@ namespace FitnessCenterStereo.Service
             else return false;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public IEnumerable<ITrainer> Find(IFilter filter)
         {
             return TrainerRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid id)
+        public ITrainer Get(Guid id)
         {
             return TrainerRepository.Get(id);
         }
 
-        public bool Update(IBodyPartType trainer)
+        public bool Update(ITrainer trainer)
         {
             if (TrainerRepository.Update(trainer))
                 return true;
@@ -47,5 +47,4 @@ namespace FitnessCenterStereo.Service
         }
 
     }
-}
 }

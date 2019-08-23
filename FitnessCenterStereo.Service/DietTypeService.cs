@@ -8,40 +8,40 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class DietTypeService
+    class DietTypeService : IDietTypeService
     {
-        public ComplexityLevelTypeService(IComplexityLevelTypeRepository complexityLevelTypeRepository)
+        public DietTypeService(IDietTypeRepository dietTypeRepository)
         {
-            ComplexityLevelTypeRepository = complexityLevelTypeRepository;
+            DietTypeRepository = dietTypeRepository;
         }
 
-        protected IComplexityLevelTypeRepository ComplexityLevelTypeRepository { get; private set; }
+        protected IDietTypeRepository DietTypeRepository { get; private set; }
 
-        public IComplexityLevelType Create(ICard card)
+        public IDietType Create(IDietType dietType)
         {
-            return ComplexityLevelTypeRepository.Create(card);
+            return DietTypeRepository.Create(dietType);
         }
 
         public bool Delete(Guid id)
         {
-            if (ComplexityLevelTypeRepository.Delete(id))
+            if (DietTypeRepository.Delete(id))
                 return true;
             else return false;
         }
 
-        public IEnumerable<IComplexityLevelType> Find(IFilter filter)
+        public IEnumerable<IDietType> Find(IFilter filter)
         {
-            return ComplexityLevelTypeRepository.Find(filter);
+            return DietTypeRepository.Find(filter);
         }
 
-        public IComplexityLevelType Get(Guid id)
+        public IDietType Get(Guid id)
         {
-            return ComplexityLevelTypeRepository.Get(id);
+            return DietTypeRepository.Get(id);
         }
 
-        public bool Update(IComplexityLevelType card)
+        public bool Update(IDietType dietType)
         {
-            if (ComplexityLevelTypeRepository.Update(card))
+            if (DietTypeRepository.Update(dietType))
                 return true;
             else return false;
         }

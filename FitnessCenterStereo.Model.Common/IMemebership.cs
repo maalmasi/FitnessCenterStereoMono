@@ -4,9 +4,8 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-    public interface IBodyPartType : IBaseModel
+    public interface IMembership : IBaseModel
     {
-       
         float Price { get; set; }
        
     }

@@ -8,40 +8,40 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class ExerciseScheduleService
+    class ExerciseScheduleService : IExerciseScheduleService
     {
-        public BodyPartTypeService(IBodyPartTypeRepository bodyPartTypeRepository)
+        public ExerciseScheduleService(IExerciseScheduleRepository exerciseScheduleRepository)
         {
-            BodyPartTypeRepository = bodyPartTypeRepository;
+            ExerciseScheduleRepository = exerciseScheduleRepository;
         }
 
-        protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
+        protected IExerciseScheduleRepository ExerciseScheduleRepository { get; private set; }
 
-        public IBodyPartType Create(IBodyPartType bodyPartType)
+        public IExerciseSchedule Create(IExerciseSchedule exerciseSchedule)
         {
-            return BodyPartTypeRepository.Create(bodyPartType);
+            return ExerciseScheduleRepository.Create(exerciseSchedule);
         }
 
         public bool Delete(Guid id)
         {
-            if (BodyPartTypeRepository.Delete(id))
+            if (ExerciseScheduleRepository.Delete(id))
                 return true;
             else return false;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public IEnumerable<IExerciseSchedule> Find(IFilter filter)
         {
-            return BodyPartTypeRepository.Find(filter);
+            return ExerciseScheduleRepository.Find(filter);
         }
 
-        public IBodyPartType Get(Guid id)
+        public IExerciseSchedule Get(Guid id)
         {
-            return BodyPartTypeRepository.Get(id);
+            return ExerciseScheduleRepository.Get(id);
         }
 
-        public bool Update(IBodyPartType bodyPartType)
+        public bool Update(IExerciseSchedule exerciseSchedule)
         {
-            if (BodyPartTypeRepository.Update(bodyPartType))
+            if (ExerciseScheduleRepository.Update(exerciseSchedule))
                 return true;
             else return false;
         }

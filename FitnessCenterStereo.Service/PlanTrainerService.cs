@@ -8,7 +8,7 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class PlanTrainerService
+    class PlanTrainerService : IPlanTrainerService
     {
         public PlanTrainerService(IPlanTrainerRepository planTrainerRepository)
         {

@@ -8,40 +8,40 @@ using FitnessCenterStereo.Repository.Common;
 
 namespace FitnessCenterStereo.Service
 {
-    class ExercisesService
+    class ExercisesService : IExercisesService
     {
-        public ExercisesService(IBodyPartTypeRepository exerciseRepository)
+        public ExercisesService(IExercisesRepository exercisesRepository)
         {
-            ExerciseseRepository = exerciseRepository;
+            ExercisesesRepository = exercisesRepository;
         }
 
-        protected IBodyPartTypeRepository ExerciseseRepository { get; private set; }
+        protected IExercisesRepository ExercisesesRepository { get; private set; }
 
         public IExercises Create(IExercises exercises)
         {
-            return ExerciseseRepository.Create(exercises);
+            return ExercisesesRepository.Create(exercises);
         }
 
         public bool Delete(Guid id)
         {
-            if (ExerciseseRepository.Delete(id))
+            if (ExercisesesRepository.Delete(id))
                 return true;
             else return false;
         }
 
         public IEnumerable<IExercises> Find(IFilter filter)
         {
-            return ExerciseseRepository.Find(filter);
+            return ExercisesesRepository.Find(filter);
         }
 
         public IExercises Get(Guid id)
         {
-            return ExerciseseRepository.Get(id);
+            return ExercisesesRepository.Get(id);
         }
 
         public bool Update(IExercises exercises)
         {
-            if (ExerciseseRepository.Update(exercises))
+            if (ExercisesesRepository.Update(exercises))
                 return true;
             else return false;
         }
