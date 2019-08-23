@@ -7,10 +7,10 @@ using System.Text;
 namespace FitnessCenterStereo.Repository.Common
 {
     public interface IExerciseEquipmentRepository {
-        IEnumerable<IBodyPartTypeRepository> Find(IFilter filter);
-        IBodyPartTypeRepository Create(IBodyPartTypeRepository bodyPartType);
+        IEnumerable<IExerciseEquipment> Find(IFilter filter);
+        IExerciseEquipment Create(IExerciseEquipment exerciseEquipment);
         bool Delete(Guid id);
-        bool Update(IBodyPartTypeRepository bodyPartType);
-        IBodyPartTypeRepository Get(Guid id);
+        bool Update(IExerciseEquipment exerciseEquipment);
+        IExerciseEquipment Get(Guid id);
     }
 }

@@ -8,11 +8,11 @@ namespace FitnessCenterStereo.Repository.Common
 {
     public interface IComplexityLevelTypeRepository
     {
-        IEnumerable<IComplexityLevelTypeRepository> Find(IFilter filter);
-        IComplexityLevelTypeRepository Create(IComplexityLevelTypeRepository bodyPartType);
+        IEnumerable<IComplexityLevelType> Find(IFilter filter);
+        IComplexityLevelType Create(IComplexityLevelType complexity);
         bool Delete(Guid id);
-        bool Update(IComplexityLevelTypeRepository bodyPartType);
-        IComplexityLevelTypeRepository Get(Guid id);
+        bool Update(IComplexityLevelType complexity);
+        IComplexityLevelType Get(Guid id);
 
     }
 }
