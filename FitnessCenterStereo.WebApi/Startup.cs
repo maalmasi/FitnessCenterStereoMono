@@ -51,9 +51,7 @@ namespace FitnessCenterStereo.WebApi
             var assemblies = Directory.GetFiles(path, "FitnessCenterStereo.*.dll").Select(Assembly.LoadFrom).ToArray();
             builder.RegisterAssemblyModules(assemblies);
 
-
-            builder.RegisterAssemblyTypes().AssignableTo(typeof(Profile)).As<Profile>();
-
+            //AutoMapper
             builder.Register(c => new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfileViewDomain());

@@ -13,56 +13,48 @@ namespace FitnessCenterStereo.Repository
 {
     public class BodyPartTypeRepository : IBodyPartTypeRepository
     {
-
-        protected ApplicationDbContext appDbContext { get; private set; }
-        private readonly IMapper mapper;
+        protected ApplicationDbContext AppDbContext { get; private set; }
+        protected IMapper Mapper { get; private set; }
 
         public BodyPartTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapperInterface)
         {
-            appDbContext = applicationDbContext;
-            mapper = mapperInterface;
+            AppDbContext = applicationDbContext;
+            Mapper = mapperInterface;
         }
 
-
-        public IBodyPartType Create(IBodyPartType BodyPartType)
+        public IBodyPartType Create(IBodyPartType bodyPartType)
         {
-            return (IBodyPartType)appDbContext.BodyPartType.Add(new BodyPartType());
+            bodyPartType.Id = Guid.NewGuid();
+            bodyPartType.DateCreated = DateTime.UtcNow;
+            bodyPartType.DateUpdated = DateTime.UtcNow;
+            AppDbContext.BodyPartType.Add(Mapper.Map<BodyPartType>(bodyPartType));
+            AppDbContext.SaveChanges();
+            return bodyPartType;
         }
 
         public bool Delete(Guid id)
         {
-            
-            
-           BodyPartType ToDelete = appDbContext.BodyPartType.Find(id);
-           if (ToDelete != null) { appDbContext.BodyPartType.Remove(ToDelete); return true; }
+            var toDelete = AppDbContext.BodyPartType.Find(id);
+            AppDbContext.BodyPartType.Remove(toDelete);
+            AppDbContext.SaveChanges();
 
-            return false;
-
-            
-
+            return true;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
         {
-            return (IEnumerable<IBodyPartType>)appDbContext.BodyPartType.Find(filter);
+            return (IEnumerable<IBodyPartType>)AppDbContext.BodyPartType.Find(filter);
         }
 
-        public IBodyPartType Get(Guid Id)
+        public IBodyPartType Get(Guid id)
         {
-            return mapper.Map<IBodyPartType>(appDbContext.BodyPartType.Find(Id));
+            return Mapper.Map<IBodyPartType>(AppDbContext.BodyPartType.Find(id));
         }
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            BodyPartType ToUpdate = appDbContext.BodyPartType.Find(bodyPartType);
-             appDbContext.BodyPartType.Update(ToUpdate);
-            if (ToUpdate != bodyPartType) { return true;}
-
-            return false;
-            
+            AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
+            return AppDbContext.SaveChanges() == 1;
         }
-
-      
-        
     }
 }
