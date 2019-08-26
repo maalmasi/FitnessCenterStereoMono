@@ -6,6 +6,7 @@ using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
@@ -36,14 +37,52 @@ namespace FitnessCenterStereo.Repository
         {
             var toDelete = AppDbContext.BodyPartType.Find(id);
             AppDbContext.BodyPartType.Remove(toDelete);
-            AppDbContext.SaveChanges();
-
-            return true;
+            return AppDbContext.SaveChanges() == 1;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
         {
-            return (IEnumerable<IBodyPartType>)AppDbContext.BodyPartType.Find(filter);
+
+            var bodyPartType = from bpt in AppDbContext.BodyPartType
+                               select bpt;
+
+            if (!String.IsNullOrEmpty(filter.SearchQuery))
+            {
+                bodyPartType = bodyPartType.Where(bpt => bpt.Name.Contains(filter.SearchQuery) || bpt.Abbreviation.Contains(filter.SearchQuery));
+            }
+
+            if (filter.Page < 1) filter.Page = 1;
+            if (filter.RecordsPerPage < 1 && filter.RecordsPerPage > 100) filter.RecordsPerPage = 1;
+            
+
+
+
+            switch (filter.SortBy)
+            {
+                case "name":
+                    if (!filter.SortAscending)
+                        bodyPartType = bodyPartType.OrderByDescending(bpt => bpt.Name);
+                    else
+                        bodyPartType = bodyPartType.OrderBy(bpt => bpt.Name);
+
+                    break;
+                case "abbr":
+                    if (!filter.SortAscending)
+                        bodyPartType = bodyPartType.OrderByDescending(bpt => bpt.Abbreviation);
+                    else
+                        bodyPartType = bodyPartType.OrderBy(bpt => bpt.Abbreviation);
+                    break;
+
+                default:
+                    //Error throw
+                    break;
+            }
+
+            IQueryable<BodyPartType> bptPaging = bodyPartType.AsNoTracking();
+            var count = bptPaging.Count();
+            var items = bptPaging.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
+
+            return Mapper.Map<IEnumerable<IBodyPartType>>(items);
         }
 
         public IBodyPartType Get(Guid id)
@@ -56,5 +95,7 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
             return AppDbContext.SaveChanges() == 1;
         }
+
+
     }
 }

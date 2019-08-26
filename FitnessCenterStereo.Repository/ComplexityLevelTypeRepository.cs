@@ -1,4 +1,5 @@
-﻿using FitnessCenterStereo.Common;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
@@ -12,20 +13,22 @@ namespace FitnessCenterStereo.Repository
     class ComplexityLevelTypeRepository : IComplexityLevelTypeRepository
     {
         protected ApplicationDbContext appDbContext { get; private set; }
-        public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext)
+        private readonly IMapper mapper;
+        public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext,IMapper mapper)
         {
             appDbContext = applicationDbContext;
-
+            this.mapper = mapper;
         }
 
         public IEnumerable<IComplexityLevelType> Find(IFilter filter)
         {
             return (IEnumerable<IComplexityLevelType>)appDbContext.ComplexityLevelType.Find(filter);
+
         }
 
         public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
         {
-            return (IComplexityLevelType)appDbContext.ComplexityLevelType.Add(new ComplexityLevelType());
+            return mapper.Map<IComplexityLevelType>(appDbContext.ComplexityLevelType.Add(mapper.Map<ComplexityLevelType>(complexityLevel)));
         }
 
         public bool Delete(Guid id)
@@ -47,8 +50,7 @@ namespace FitnessCenterStereo.Repository
 
         public IComplexityLevelType Get(Guid id)
         {
-            IComplexityLevelType complexityLevel = (IComplexityLevelType)appDbContext.ComplexityLevelType.Find(id);
-            return complexityLevel;
+            return mapper.Map<IComplexityLevelType>(appDbContext.ComplexityLevelType.Find(id));
         }
     }
 }

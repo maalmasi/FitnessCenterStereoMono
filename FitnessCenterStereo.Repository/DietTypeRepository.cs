@@ -1,4 +1,5 @@
-﻿using FitnessCenterStereo.Common;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
@@ -12,14 +13,15 @@ namespace FitnessCenterStereo.Repository
     class DietTypeRepository : IDietTypeRepository
     {
         protected ApplicationDbContext appDbContext { get; private set; }
-        public DietTypeRepository(ApplicationDbContext applicationDbContext)
+        private readonly IMapper mapper;
+        public DietTypeRepository(ApplicationDbContext applicationDbContext,IMapper mapper)
         {
             appDbContext = applicationDbContext;
-
+            this.mapper = mapper;
         }
         public IDietType Create(IDietType diet)
         {
-            return (IDietType)appDbContext.DietType.Add(new DietType());
+            return mapper.Map<IDietType>(appDbContext.DietType.Add(mapper.Map<DietType>(diet)));
         }
 
         public bool Delete(Guid id)
@@ -38,8 +40,7 @@ namespace FitnessCenterStereo.Repository
 
         public IDietType Get(Guid id)
         {
-            IDietType diet = (IDietType)appDbContext.Card.Find(id);
-            return diet;
+            return mapper.Map<IDietType>(appDbContext.DietType.Find(id));
         }
 
         public bool Update(IDietType dietType)

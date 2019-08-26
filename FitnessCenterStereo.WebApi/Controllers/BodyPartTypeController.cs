@@ -29,10 +29,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
             mapper = mapperInterface;
         }
 
-
-        public IEnumerable<BodyPartTypeViewModel> Find(IFilter filter)
+        [HttpGet]
+        public IEnumerable<BodyPartTypeViewModel> Find([FromBody]Filter filter)
         {
-            return new List<BodyPartTypeViewModel>();
+            return mapper.Map<IEnumerable<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
 

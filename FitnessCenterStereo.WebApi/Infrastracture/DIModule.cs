@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using System.Threading.Tasks;
+using FitnessCenterStereo.Common;
 
 namespace FitnessCenterStereo.WebApi.Infrastracture
 {
@@ -10,8 +11,9 @@ namespace FitnessCenterStereo.WebApi.Infrastracture
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<Filter>().As<IFilter>();
 
-            
+   
         }
     }
 }
