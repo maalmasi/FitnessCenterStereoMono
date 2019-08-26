@@ -51,13 +51,6 @@ namespace FitnessCenterStereo.Repository
                 bodyPartType = bodyPartType.Where(bpt => bpt.Name.Contains(filter.SearchQuery) || bpt.Abbreviation.Contains(filter.SearchQuery));
             }
 
-            if (filter.Page < 1) filter.Page = 1;
-            if (filter.RecordsPerPage < 10 ) filter.RecordsPerPage = 10;
-            if (filter.RecordsPerPage > 100) filter.RecordsPerPage = 100;
-
-
-
-
             switch (filter.SortBy)
             {
                 case "name":
@@ -81,6 +74,10 @@ namespace FitnessCenterStereo.Repository
 
             IQueryable<BodyPartType> bptPaging = bodyPartType.AsNoTracking();
             var count = bptPaging.Count();
+            var pages = count / filter.RecordsPerPage;
+            if (filter.Page > pages) filter.Page = 1;
+
+
             var items = bptPaging.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
             return Mapper.Map<IEnumerable<IBodyPartType>>(items);
