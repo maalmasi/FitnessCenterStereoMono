@@ -36,9 +36,7 @@ namespace FitnessCenterStereo.Repository
         {
             var toDelete = AppDbContext.BodyPartType.Find(id);
             AppDbContext.BodyPartType.Remove(toDelete);
-            AppDbContext.SaveChanges();
-
-            return true;
+            return AppDbContext.SaveChanges() == 1;
         }
 
         public IEnumerable<IBodyPartType> Find(IFilter filter)
