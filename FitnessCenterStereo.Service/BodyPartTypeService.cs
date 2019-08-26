@@ -4,7 +4,7 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
-
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Service
 {
@@ -30,7 +30,7 @@ namespace FitnessCenterStereo.Service
             else return false;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public PaginatedList<IBodyPartType> Find(IFilter filter)
         {
             return BodyPartTypeRepository.Find(filter);
         }

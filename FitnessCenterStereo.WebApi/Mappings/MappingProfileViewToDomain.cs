@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.WebApi.Mappings
 {
@@ -15,6 +16,8 @@ namespace FitnessCenterStereo.WebApi.Mappings
         {
             // Add as many of these lines as you need to map your objects
             CreateMap<BodyPartTypeViewModel, IBodyPartType>().ReverseMap();
+            //CreateMap<typeof(PaginatedList<>),typeof(PaginatedList)>.ReverseMap();
+            
         }
     }
 }

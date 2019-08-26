@@ -10,6 +10,7 @@ using FitnessCenterStereo.Service.Common;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.DAL.Data;
 using AutoMapper;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,9 +31,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BodyPartTypeViewModel> Find([FromBody]Filter filter)
+        public PaginatedList<BodyPartTypeViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
         {
-            return mapper.Map<IEnumerable<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
 
@@ -40,7 +42,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet("{id}")]
         public BodyPartTypeViewModel Get(Guid id)
         {
-            return mapper.Map < BodyPartTypeViewModel > (Service.Get(id));
+            return mapper.Map<BodyPartTypeViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
@@ -55,7 +57,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public bool Put(BodyPartTypeViewModel value)
         {
             Service.Update(mapper.Map<IBodyPartType>(value));
-            return true; 
+            return true;
         }
 
         // DELETE api/<controller>/<id>
@@ -63,6 +65,6 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public void Delete(Guid id)
         {
             Service.Delete(id);
-        }       
+        }
     }
 }
