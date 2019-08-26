@@ -9,7 +9,7 @@ namespace FitnessCenterStereo.Common
     {
 
         private int page;
-        private int records;
+        private int recordsPerPage;
 
         public string SearchQuery { get ; set; }
         public string SortBy { get; set; }
@@ -24,14 +24,14 @@ namespace FitnessCenterStereo.Common
             }                         
         }
         public int RecordsPerPage {
-            get { return records; }
+            get { return recordsPerPage; }
             set {
 
-                if (String.IsNullOrEmpty(value.ToString())) records = 10;
+                if (String.IsNullOrEmpty(value.ToString())) recordsPerPage = 10;
 
-                else if (value < 10) records = 10;
-                else if (value > 100) records = 100;
-                else records = value;
+                else if (value < 10) recordsPerPage = 10;
+                else if (value > 100) recordsPerPage = 100;
+                else recordsPerPage = value;
 
             }
         }
