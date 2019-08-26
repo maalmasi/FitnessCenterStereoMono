@@ -52,8 +52,9 @@ namespace FitnessCenterStereo.Repository
             }
 
             if (filter.Page < 1) filter.Page = 1;
-            if (filter.RecordsPerPage < 1 && filter.RecordsPerPage > 100) filter.RecordsPerPage = 1;
-            
+            if (filter.RecordsPerPage < 10 ) filter.RecordsPerPage = 10;
+            if (filter.RecordsPerPage > 100) filter.RecordsPerPage = 100;
+
 
 
 
