@@ -9,6 +9,7 @@ using FitnessCenterStereo.DAL.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Repository
 {
@@ -40,18 +41,18 @@ namespace FitnessCenterStereo.Repository
             return AppDbContext.SaveChanges() == 1;
         }
 
-        public IEnumerable<IBodyPartType> Find(IFilter filter)
+        public PaginatedList<IBodyPartType> Find(IFilter filter)
         {
 
-            var bodyPartType = from bpt in AppDbContext.BodyPartType
-                               select bpt;
+            IQueryable<BodyPartType> bodyPartType = AppDbContext.BodyPartType.AsNoTracking();
+                               //select bpt;
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                bodyPartType = bodyPartType.Where(bpt => bpt.Name.Contains(filter.SearchQuery) || bpt.Abbreviation.Contains(filter.SearchQuery));
+                bodyPartType = bodyPartType.Where(bpt => bpt.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || bpt.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
-            switch (filter.SortBy)
+            switch (filter.SortBy.ToLowerInvariant())
             {
                 case "name":
                     if (!filter.SortAscending)
@@ -68,19 +69,15 @@ namespace FitnessCenterStereo.Repository
                     break;
 
                 default:
-                    //Error throw
-                    break;
+                    throw new Exception($"Unknown column {filter.SortBy}");
             }
+            
+            var count = bodyPartType.Count();
 
-            IQueryable<BodyPartType> bptPaging = bodyPartType.AsNoTracking();
-            var count = bptPaging.Count();
-            var pages = count / filter.RecordsPerPage;
-            if (filter.Page > pages) filter.Page = 1;
+            var items = bodyPartType.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
 
-            var items = bptPaging.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return Mapper.Map<IEnumerable<IBodyPartType>>(items);
+            return new PaginatedList<IBodyPartType>(Mapper.Map<IEnumerable<IBodyPartType>>(items), count, filter.Page, filter.RecordsPerPage) ;
         }
 
         public IBodyPartType Get(Guid id)
