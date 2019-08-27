@@ -51,7 +51,6 @@ namespace FitnessCenterStereo.Repository
             {
                 card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().Contains(filter.SearchQuery));
             }
-
             switch (filter.SortBy.ToLowerInvariant())
             {
                 case "userid":
@@ -92,7 +91,7 @@ namespace FitnessCenterStereo.Repository
                 AppDbContext.Card.Update(mapper.Map<Card>(card));
                 return AppDbContext.SaveChanges() == 1;
             }
-            else return false;
+            return false;
 
         }
     }

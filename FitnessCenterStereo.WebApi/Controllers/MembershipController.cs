@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.Service.Common;
+using AutoMapper;
+using FitnessCenterStereo.Model.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,46 +16,49 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class MembershipController : BaseApiController
     {
-        List<MembershipViewModel> memberships = new List<MembershipViewModel>();
 
-        public IEnumerable<MembershipViewModel> Find(IFilter filter)
+        protected IMembershipService Service { get; private set; }
+        private readonly IMapper mapper;
+
+        public MembershipController(IMembershipService service, IMapper mapperInterface) : base()
         {
-            return memberships;
+            Service = service;
+            mapper = mapperInterface;
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<MembershipViewModel> Get()
+        public PaginatedList<MembershipViewModel> Find(string searchQuerry, int page, int rpp, string sortBy, bool sortAsc)
         {
-            return memberships;
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<MembershipViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public MembershipViewModel Get(Guid id)
         {
-            return memberships.Find(e => e.Id == id);
+            return mapper.Map<MembershipViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]MembershipViewModel value)
+        public MembershipViewModel Post([FromBody]MembershipViewModel value)
         {
-            memberships.Add(value);
+            return mapper.Map<MembershipViewModel>(Service.Create(mapper.Map<IMembership>(value)));
         }
 
         // PUT api/<controller>/<id>
-        [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]MembershipViewModel value)
+        [HttpPut]
+        public bool Put(MembershipViewModel value)
         {
-            memberships.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<IMembership>(value));
+
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            memberships.Remove(memberships.Find(e => e.Id == id));
+            return Service.Delete(id);
         }
     }
 }

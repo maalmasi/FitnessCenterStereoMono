@@ -8,8 +8,6 @@ namespace FitnessCenterStereo.Model
     public class ExerciseSchedule : BaseModel, IExerciseSchedule
     {
         public Guid ScheduleId { get; set; }
-        public Guid ExerciseId { get; set; }
-        public Guid ExerciseScheduledId { get; set; }
-        
+        public Guid ExerciseId { get; set; }        
     }
 }

@@ -8,7 +8,5 @@ namespace FitnessCenterStereo.Model.Common
     {
         Guid ExerciseId { get; set; }
         Guid EquipmentId { get; set; }
-        
-        Guid ExerciseEquipmentId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Text;
   public interface IEquipmentRepository
     {
 
-        IEnumerable<IEquipment> Find(IFilter filter);
+        PaginatedList<IEquipment> Find(IFilter filter);
         IEquipment Create(IEquipment equipment);
         bool Delete(Guid id);
         bool Update(IEquipment bodyPartType);

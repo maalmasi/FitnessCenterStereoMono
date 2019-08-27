@@ -12,7 +12,7 @@ namespace FitnessCenterStereo.DAL.Models
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Abbreaviaton { get; set; }
+        public string Abbreviation { get; set; }
         public string Ingridients { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

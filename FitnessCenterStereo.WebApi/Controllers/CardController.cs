@@ -56,9 +56,9 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            Service.Delete(id);
+            return Service.Delete(id);
         }
     }
 

@@ -5,6 +5,7 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Service
 {
@@ -24,12 +25,10 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (DietTypeRepository.Delete(id))
-                return true;
-            else return false;
+            return DietTypeRepository.Delete(id);
         }
 
-        public IEnumerable<IDietType> Find(IFilter filter)
+        public PaginatedList<IDietType> Find(IFilter filter)
         {
             return DietTypeRepository.Find(filter);
         }
@@ -41,9 +40,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IDietType dietType)
         {
-            if (DietTypeRepository.Update(dietType))
-                return true;
-            else return false;
+            return DietTypeRepository.Update(dietType);
         }
     }
 

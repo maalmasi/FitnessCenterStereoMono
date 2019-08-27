@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
+using AutoMapper;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,47 +17,48 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class EquipmentController : BaseApiController
     {
-        List<EquipmentViewModel> equipments = new List<EquipmentViewModel>();
+        protected IEquipmentService Service { get; private set; }
+        private readonly IMapper mapper;
 
-
-        public IEnumerable<EquipmentViewModel> Find(IFilter filter)
+        public EquipmentController(IEquipmentService service, IMapper mapperInterface) : base()
         {
-            return equipments;
+            Service = service;
+            mapper = mapperInterface;
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<EquipmentViewModel> Get()
+        public PaginatedList<EquipmentViewModel> Find(string searchQuerry, int page, int rpp, string sortBy, bool sortAsc)
         {
-            return equipments;
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<EquipmentViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public EquipmentViewModel Get(Guid id)
         {
-            return equipments.Find(e => e.Id == id);
+            return mapper.Map<EquipmentViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]EquipmentViewModel value)
+        public EquipmentViewModel Post([FromBody]EquipmentViewModel value)
         {
-            equipments.Add(value);
+            return mapper.Map<EquipmentViewModel>(Service.Create(mapper.Map<IEquipment>(value)));
         }
 
         // PUT api/<controller>/<id>
-        [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]EquipmentViewModel value)
+        [HttpPut]
+        public bool Put(EquipmentViewModel value)
         {
-            equipments.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<IEquipment>(value));
+
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            equipments.Remove(equipments.Find(e => e.Id == id));
+            return Service.Delete(id);
         }
     }
 }
