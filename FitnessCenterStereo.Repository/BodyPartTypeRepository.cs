@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.DAL.Models;
@@ -87,8 +86,12 @@ namespace FitnessCenterStereo.Repository
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
-            return AppDbContext.SaveChanges() == 1;
+            if (AppDbContext.BodyPartType.Find(bodyPartType.Id)!= null)
+            {
+                AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
+                return AppDbContext.SaveChanges() == 1;
+            }
+            return false;
         }
 
 

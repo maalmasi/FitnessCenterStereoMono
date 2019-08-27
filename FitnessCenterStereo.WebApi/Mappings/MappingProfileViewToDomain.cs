@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+
+
 
 namespace FitnessCenterStereo.WebApi.Mappings
 {
@@ -15,7 +18,11 @@ namespace FitnessCenterStereo.WebApi.Mappings
         public MappingProfileViewDomain()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<BaseViewModel, IBaseModel>().ReverseMap();
+            CreateMap<IBodyPartType, BodyPartTypeViewModel>().ReverseMap();
+            CreateMap<Model.Common.Infrastracture.Pagination.PaginatedList<IBodyPartType>, Infrastracture.Pagination.PaginatedList<BodyPartTypeViewModel>>().ReverseMap();
+
+            CreateMap<IBodyPartType, BodyPartTypeViewModel>().ReverseMap();
+            CreateMap<Model.Common.Infrastracture.Pagination.PaginatedList<IBodyPartType>, Infrastracture.Pagination.PaginatedList<BodyPartTypeViewModel>>().ReverseMap();
 
         }
     }
