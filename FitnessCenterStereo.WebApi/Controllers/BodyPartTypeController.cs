@@ -25,10 +25,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         [HttpGet]
-        public PaginatedList<BodyPartTypeViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
+        public PaginatedList<BaseViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
+            return mapper.Map<PaginatedList<BaseViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
 

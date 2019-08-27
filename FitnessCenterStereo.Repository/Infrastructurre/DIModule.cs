@@ -10,9 +10,7 @@ namespace FitnessCenterStereo.Repository.Infrastructurre
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ApplicationDbContext>().AsSelf();
-
             builder.RegisterType<IMapper>().AsSelf();
-
             builder.RegisterType<BodyPartTypeRepository>().As<IBodyPartTypeRepository>();
             builder.RegisterType<CardRepository>().As<ICardRepository>();
             builder.RegisterType<ComplexityLevelTypeRepository>().As<IComplexityLevelTypeRepository>();

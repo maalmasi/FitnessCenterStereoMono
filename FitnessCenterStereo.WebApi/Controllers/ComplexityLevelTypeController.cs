@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.WebApi.Models;
+using FitnessCenterStereo.Service.Common;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,48 +14,53 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class ComplexityLevelTypeController : BaseApiController
     {
-        List<ComplexityLevelTypeViewModel> complexityLevelTypes = new List<ComplexityLevelTypeViewModel>();
+        protected IComplexityLevelTypeService Service { get; private set; }
+        private readonly IMapper mapper;
 
 
-        public IEnumerable<ComplexityLevelTypeViewModel> Find(IFilter filter)
+        public ComplexityLevelTypeController(IComplexityLevelTypeService complexity, IMapper mapper) : base()
         {
-            return complexityLevelTypes;
+            Service = complexity;
+            this.mapper = mapper;
         }
 
         // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<ComplexityLevelTypeViewModel> Get()
-        {
-            return complexityLevelTypes;
-        }
 
+        [HttpGet]
+        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry, int page = 2, int rpp = 10, string sortBy = "name", bool sortAsc = true)
+        {
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
+        }
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public ComplexityLevelTypeViewModel Get(Guid id)
+        public BaseViewModel Get(Guid id)
         {
-            return complexityLevelTypes.Find(e => e.Id == id);
+            return mapper.Map<BaseViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]ComplexityLevelTypeViewModel value)
+        public BaseViewModel Post([FromBody]BaseViewModel value)
         {
-            complexityLevelTypes.Add(value);
+            return mapper.Map<BaseViewModel>(Service.Create(mapper.Map<IComplexityLevelType>(value)));
         }
 
+
         // PUT api/<controller>/<id>
-        [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]ComplexityLevelTypeViewModel value)
+        [HttpPut]
+        public bool Put(BaseViewModel value)
         {
-            complexityLevelTypes.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<IComplexityLevelType>(value));
+           
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            complexityLevelTypes.Remove(complexityLevelTypes.Find(e => e.Id == id));
+            return Service.Delete(id);
         }
     }
-
 }
+
