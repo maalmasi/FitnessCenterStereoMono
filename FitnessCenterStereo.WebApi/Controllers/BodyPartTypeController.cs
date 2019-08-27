@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FitnessCenterStereo.Service;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Service.Common;
 using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.DAL.Data;
 using AutoMapper;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace FitnessCenterStereo.WebApi.Controllers
@@ -40,21 +34,21 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public BodyPartTypeViewModel Get(Guid id)
+        public BaseViewModel Get(Guid id)
         {
-            return mapper.Map<BodyPartTypeViewModel>(Service.Get(id));
+            return mapper.Map<BaseViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public BodyPartTypeViewModel Post([FromBody]BodyPartTypeViewModel value)
+        public BaseViewModel Post([FromBody]BaseViewModel value)
         {
-            return mapper.Map<BodyPartTypeViewModel>(Service.Create(mapper.Map<IBodyPartType>(value)));
+            return mapper.Map<BaseViewModel>(Service.Create(mapper.Map<IBodyPartType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(BodyPartTypeViewModel value)
+        public bool Put(BaseViewModel value)
         {
             Service.Update(mapper.Map<IBodyPartType>(value));
             return true;

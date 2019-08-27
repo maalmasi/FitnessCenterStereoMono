@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.WebApi.Models
 {
-    public class EquipmentViewModel
+    public class EquipmentViewModel : BaseViewModel
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
     }
 }

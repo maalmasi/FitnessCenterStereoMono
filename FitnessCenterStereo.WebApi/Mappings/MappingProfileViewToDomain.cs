@@ -15,9 +15,8 @@ namespace FitnessCenterStereo.WebApi.Mappings
         public MappingProfileViewDomain()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<BodyPartTypeViewModel, IBodyPartType>().ReverseMap();
-            //CreateMap<typeof(PaginatedList<>),typeof(PaginatedList)>.ReverseMap();
-            
+            CreateMap<BaseViewModel, IBaseModel>().ReverseMap();
+
         }
     }
 }
