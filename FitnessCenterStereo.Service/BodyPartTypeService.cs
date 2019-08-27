@@ -25,9 +25,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (BodyPartTypeRepository.Delete(id))
-                return true;
-            else return false;
+            return BodyPartTypeRepository.Delete(id);
         }
 
         public PaginatedList<IBodyPartType> Find(IFilter filter)
@@ -42,9 +40,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            if (BodyPartTypeRepository.Update(bodyPartType))
-                return true;
-            else return false;
+            return BodyPartTypeRepository.Update(bodyPartType);
         }
 
     }

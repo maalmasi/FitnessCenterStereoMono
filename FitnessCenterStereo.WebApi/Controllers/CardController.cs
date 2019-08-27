@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,48 +17,49 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class CardController : BaseApiController
     {
-        List<CardViewModel> cards = new List<CardViewModel>();
+        protected ICardService Service { get; private set; }
+        private readonly IMapper mapper;
 
-
-        public IEnumerable<CardViewModel> Find(IFilter filter)
+        public CardController(ICardService cardService, IMapper mapper)
         {
-            return cards;
+            Service = cardService;
+            this.mapper = mapper;
         }
 
-        // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<CardViewModel> Get()
+        public PaginatedList<CardViewModel> Find(string searchQuerry, int page, int recordsPerPage, bool sortAsc, string sortBy)
         {
-            return cards;
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = recordsPerPage, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<CardViewModel>>(Service.Find(filter));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public CardViewModel Get(Guid id)
         {
-            return cards.Find(e => e.Id == id);
+            return mapper.Map<CardViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]CardViewModel value)
+        public CardViewModel Post([FromBody] CardViewModel value)
         {
-            cards.Add(value);
+            return mapper.Map<CardViewModel>(Service.Create(mapper.Map<ICard>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]CardViewModel value)
+        public bool Put(CardViewModel value)
         {
-            cards.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<ICard>(value));
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            cards.Remove(cards.Find(e => e.Id == id));
+            Service.Delete(id);
         }
     }
-    
+
 }

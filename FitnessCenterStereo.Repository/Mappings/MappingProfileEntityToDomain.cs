@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Repository.Mappings
 {

@@ -45,7 +45,6 @@ namespace FitnessCenterStereo.Repository
         {
 
             IQueryable<BodyPartType> bodyPartType = AppDbContext.BodyPartType.AsNoTracking();
-                               //select bpt;
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
@@ -87,8 +86,14 @@ namespace FitnessCenterStereo.Repository
 
         public bool Update(IBodyPartType bodyPartType)
         {
-            AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
-            return AppDbContext.SaveChanges() == 1;
+            if (AppDbContext.BodyPartType.Find(bodyPartType.Id) != null)
+            {
+                AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(bodyPartType));
+                return AppDbContext.SaveChanges() == 1;
+            }
+            return false;
+
+
         }
 
 

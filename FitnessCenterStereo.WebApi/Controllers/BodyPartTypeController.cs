@@ -50,8 +50,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpPut]
         public bool Put(BaseViewModel value)
         {
-            Service.Update(mapper.Map<IBodyPartType>(value));
-            return true;
+            return Service.Update(mapper.Map<IBodyPartType>(value));
+
         }
 
         // DELETE api/<controller>/<id>

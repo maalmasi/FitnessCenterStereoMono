@@ -37,6 +37,11 @@ namespace FitnessCenterStereo.WebApi
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            /////////////// LASSST ADDEDDDDD THIS LINE
+            services.AddAutoMapper(typeof(Startup));
+
+
+
 
             services.AddAppDbContextExtension(Configuration);
 
@@ -57,6 +62,8 @@ namespace FitnessCenterStereo.WebApi
                 mc.AddProfile(new MappingProfileViewDomain());
                 mc.AddProfile(new MappingProfileEntityDomain());
             })).AsSelf().SingleInstance();
+
+            
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().InstancePerLifetimeScope();
 

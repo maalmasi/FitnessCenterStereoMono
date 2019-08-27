@@ -1,5 +1,6 @@
 ﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
@@ -23,12 +24,10 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (CardRepository.Delete(id))
-                return true;
-            else return false;
+            return CardRepository.Delete(id);
         }
 
-        public IEnumerable<ICard> Find(IFilter filter)
+        public PaginatedList<ICard> Find(IFilter filter)
         {
             return CardRepository.Find(filter);
         }
@@ -40,9 +39,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(ICard card)
         {
-            if (CardRepository.Update(card))
-                return true;
-            else return false;
+            return CardRepository.Update(card);
         }
     }
 }
