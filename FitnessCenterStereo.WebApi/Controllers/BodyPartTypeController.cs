@@ -10,6 +10,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.WebApi.Controllers
 {
+
     [Route("api/[controller]")]
     public class BodyPartTypeController : BaseApiController
     {
@@ -25,7 +26,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         [HttpGet]
-        public PaginatedList<BodyPartTypeViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
+        public PaginatedList<BodyPartTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
@@ -56,9 +57,9 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            Service.Delete(id);
+            return Service.Delete(id);
         }
     }
 }

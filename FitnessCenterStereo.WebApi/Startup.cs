@@ -37,9 +37,6 @@ namespace FitnessCenterStereo.WebApi
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            /////////////// LASSST ADDEDDDDD THIS LINE
-            services.AddAutoMapper(typeof(Startup));
-
 
 
 

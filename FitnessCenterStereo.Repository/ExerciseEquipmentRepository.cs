@@ -3,53 +3,96 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
     class ExerciseEquipmentRepository : IExerciseEquipmentRepository
     {
-        protected ApplicationDbContext appDbContext { get; private set; }
+        protected ApplicationDbContext AppDbContext { get; private set; }
         private readonly IMapper mapper;
-        public ExerciseEquipmentRepository (ApplicationDbContext dbContext,IMapper mapper)
+
+        public ExerciseEquipmentRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
-            appDbContext = dbContext;
+            AppDbContext = applicationDbContext;
             this.mapper = mapper;
+
+        }
+        public IExerciseEquipment Create(IExerciseEquipment exerciseEquipment)
+        {
+            exerciseEquipment.Id = Guid.NewGuid();
+            exerciseEquipment.DateCreated = DateTime.UtcNow;
+            exerciseEquipment.DateUpdated = DateTime.UtcNow;
+            AppDbContext.ExerciseEquipment.Add(mapper.Map<ExerciseEquipment>(exerciseEquipment));
+            AppDbContext.SaveChanges();
+            return exerciseEquipment;
         }
 
         public bool Delete(Guid id)
         {
-            ExerciseEquipment ToDelete = appDbContext.ExerciseEquipment.Find(id);
-            if (ToDelete != null) { appDbContext.ExerciseEquipment.Remove(ToDelete); return true; }
+            var toDelete = AppDbContext.ExerciseEquipment.Find(id);
+            AppDbContext.ExerciseEquipment.Remove(toDelete);
+            AppDbContext.SaveChanges();
+            return AppDbContext.SaveChanges() == 1;
 
-            return false;
         }
 
-        public IEnumerable<IExerciseEquipment> Find(IFilter filter)
+        public PaginatedList<IExerciseEquipment> Find(IFilter filter)
         {
-            return (IEnumerable<IExerciseEquipment>)appDbContext.ExerciseEquipment.Find(filter);
+            IQueryable<ExerciseEquipment> exEquip = AppDbContext.ExerciseEquipment.AsNoTracking();
+
+            if (!String.IsNullOrEmpty(filter.SearchQuery))
+            {
+                exEquip = exEquip.Where(c => c.EquipmentId.Equals(filter.SearchQuery) || c.ExercisesId.Equals(filter.SearchQuery));
+            }
+            switch (filter.SortBy.ToLowerInvariant())
+            {
+                case "exerciseid":
+                    if (!filter.SortAscending)
+                        exEquip = exEquip.OrderByDescending(c => c.ExercisesId);
+                    else
+                        exEquip = exEquip.OrderBy(c => c.ExercisesId);
+                    break;
+
+                case "equipmentid":
+                    if (!filter.SortAscending)
+                        exEquip = exEquip.OrderByDescending(c => c.EquipmentId);
+                    else
+                        exEquip = exEquip.OrderBy(c => c.EquipmentId);
+
+                    break;
+
+                default:
+                    throw new Exception($"Unknown column {filter.SortBy}");
+            }
+
+            var count = exEquip.Count();
+
+            var items = exEquip.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
+
+
+            return new PaginatedList<IExerciseEquipment>(mapper.Map<IEnumerable<IExerciseEquipment>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
         public IExerciseEquipment Get(Guid id)
         {
-            return mapper.Map<IExerciseEquipment>(appDbContext.ExerciseEquipment.Find(id));
+            return mapper.Map<IExerciseEquipment>(AppDbContext.ExerciseEquipment.Find(id));
         }
 
         public bool Update(IExerciseEquipment exerciseEquipment)
         {
-            ExerciseEquipment ToUpdate = appDbContext.ExerciseEquipment.Find(exerciseEquipment);
-            appDbContext.ExerciseEquipment.Update(ToUpdate);
-            if (ToUpdate != exerciseEquipment) { return true; }
-
+            if (AppDbContext.ExerciseEquipment.Find(exerciseEquipment).Id == exerciseEquipment.Id)
+            {
+                AppDbContext.ExerciseEquipment.Update(mapper.Map<ExerciseEquipment>(exerciseEquipment));
+                return AppDbContext.SaveChanges() == 1;
+            }
             return false;
-        }
-
-        public IExerciseEquipment Create(IExerciseEquipment exerciseEquipment)
-        {
-            throw new NotImplementedException();
         }
     }
 }

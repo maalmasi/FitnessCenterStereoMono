@@ -1,59 +1,91 @@
-﻿using FitnessCenterStereo.Common;
-using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Repository.Common;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
+using FitnessCenterStereo.DAL.Models;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.DAL.Models;
-using AutoMapper;
+using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
     class EquipmentRepository : IEquipmentRepository
     {
-        protected ApplicationDbContext appDbContext { get; private set; }
+        protected ApplicationDbContext AppDbContext { get; private set; }
         private readonly IMapper mapper;
 
-        public EquipmentRepository(ApplicationDbContext dbContext, IMapper mapper)
+        public EquipmentRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
-            appDbContext = dbContext;
+            AppDbContext = applicationDbContext;
             this.mapper = mapper;
 
         }
         public IEquipment Create(IEquipment equipment)
         {
-            return mapper.Map<IEquipment>(appDbContext.Equipment.Add(mapper.Map<Equipment>(equipment)));
+            equipment.Id = Guid.NewGuid();
+            equipment.DateCreated = DateTime.UtcNow;
+            equipment.DateUpdated = DateTime.UtcNow;
+            AppDbContext.Equipment.Add(mapper.Map<Equipment>(equipment));
+            AppDbContext.SaveChanges();
+            return equipment;
         }
 
-
-            public bool Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            Equipment ToDelete = appDbContext.Equipment.Find(id);
-            if (ToDelete != null) { appDbContext.Equipment.Remove(ToDelete); return true; }
-
-            return false;
+            var toDelete = AppDbContext.Equipment.Find(id);
+            AppDbContext.Equipment.Remove(toDelete);
+            AppDbContext.SaveChanges();
+            return AppDbContext.SaveChanges() == 1;
 
         }
 
-        public IEnumerable<IEquipment> Find(IFilter filter)
+        public PaginatedList<IEquipment> Find(IFilter filter)
         {
-            return (IEnumerable<IEquipment>)appDbContext.Equipment.Find(filter);
+            IQueryable<Equipment> equipment = AppDbContext.Equipment.AsNoTracking();
 
+            if (!String.IsNullOrEmpty(filter.SearchQuery))
+            {
+                equipment = equipment.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+            }
+            switch (filter.SortBy.ToLowerInvariant())
+            {
+                case "name":
+                    if (!filter.SortAscending)
+                        equipment = equipment.OrderByDescending(c => c.Name);
+                    else
+                        equipment = equipment.OrderBy(c => c.Name);
+
+                    break;
+
+                default:
+                    throw new Exception($"Unknown column {filter.SortBy}");
+            }
+
+            var count = equipment.Count();
+
+            var items = equipment.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
+
+
+            return new PaginatedList<IEquipment>(mapper.Map<IEnumerable<IEquipment>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
         public IEquipment Get(Guid id)
         {
-            return mapper.Map<IEquipment>(appDbContext.Equipment.Find(id));
+            return mapper.Map<IEquipment>(AppDbContext.Equipment.Find(id));
         }
 
         public bool Update(IEquipment equipment)
         {
-            Equipment ToUpdate = appDbContext.Equipment.Find(equipment);
-            appDbContext.Equipment.Update(ToUpdate);
-            if (ToUpdate != equipment) { return true; }
-
+            if (AppDbContext.Equipment.Find(equipment).Id == equipment.Id)
+            {
+                AppDbContext.Equipment.Update(mapper.Map<Equipment>(equipment));
+                return AppDbContext.SaveChanges() == 1;
+            }
             return false;
+
         }
     }
 }

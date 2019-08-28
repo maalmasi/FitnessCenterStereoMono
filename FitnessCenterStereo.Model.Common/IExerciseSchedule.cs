@@ -7,8 +7,6 @@ namespace FitnessCenterStereo.Model.Common
     public interface IExerciseSchedule : IBaseModel
     {
         Guid ScheduleId { get; set; }
-        Guid ExerciseId { get; set; }
-        Guid ExerciseScheduledId { get; set; }
-        
+        Guid ExerciseId { get; set; }        
     }
 }

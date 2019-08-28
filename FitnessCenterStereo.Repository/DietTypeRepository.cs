@@ -3,53 +3,102 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Data.Entity;
+using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
     class DietTypeRepository : IDietTypeRepository
     {
-        protected ApplicationDbContext appDbContext { get; private set; }
+        protected ApplicationDbContext AppDbContext { get; private set; }
         private readonly IMapper mapper;
-        public DietTypeRepository(ApplicationDbContext applicationDbContext,IMapper mapper)
+
+        public DietTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
-            appDbContext = applicationDbContext;
+            AppDbContext = applicationDbContext;
             this.mapper = mapper;
+
         }
-        public IDietType Create(IDietType diet)
+        public IDietType Create(IDietType dietType)
         {
-            return mapper.Map<IDietType>(appDbContext.DietType.Add(mapper.Map<DietType>(diet)));
+            dietType.Id = Guid.NewGuid();
+            dietType.DateCreated = DateTime.UtcNow;
+            dietType.DateUpdated = DateTime.UtcNow;
+            AppDbContext.DietType.Add(mapper.Map<DietType>(dietType));
+            AppDbContext.SaveChanges();
+            return dietType;
         }
 
         public bool Delete(Guid id)
         {
+            var toDelete = AppDbContext.DietType.Find(id);
+            AppDbContext.DietType.Remove(toDelete);
+            AppDbContext.SaveChanges();
+            return AppDbContext.SaveChanges() == 1;
 
-            DietType ToDelete = appDbContext.DietType.Find(id);
-            if (ToDelete != null) { appDbContext.DietType.Remove(ToDelete); return true; }
-
-            return false;
         }
 
-        public IEnumerable<IDietType> Find(IFilter filter)
+        public PaginatedList<IDietType> Find(IFilter filter)
         {
-            return (IEnumerable<IDietType>)appDbContext.DietType.Find(filter);
+            IQueryable<DietType> dietType = AppDbContext.DietType.AsNoTracking();
+
+            if (!String.IsNullOrEmpty(filter.SearchQuery))
+            {
+                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+            }
+            switch (filter.SortBy.ToLowerInvariant())
+            {
+                case "name":
+                    if (!filter.SortAscending)
+                        dietType = dietType.OrderByDescending(c => c.Name);
+                    else
+                        dietType = dietType.OrderBy(c => c.Name);
+                    break;
+
+                case "abbr":
+                    if (!filter.SortAscending)
+                        dietType = dietType.OrderByDescending(c => c.Abbreviation);
+                    else
+                        dietType = dietType.OrderBy(c => c.Abbreviation);
+                    break;
+
+                case "ingridients":
+                    if (!filter.SortAscending)
+                        dietType = dietType.OrderByDescending(c => c.Ingridients);
+                    else
+                        dietType = dietType.OrderBy(c => c.Ingridients);
+                    break;
+
+                default:
+                    throw new Exception($"Unknown column {filter.SortBy}");
+            }
+
+            var count = dietType.Count();
+
+            var items = dietType.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
+
+
+            return new PaginatedList<IDietType>(mapper.Map<IEnumerable<IDietType>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
         public IDietType Get(Guid id)
         {
-            return mapper.Map<IDietType>(appDbContext.DietType.Find(id));
+            return mapper.Map<IDietType>(AppDbContext.DietType.Find(id));
         }
 
         public bool Update(IDietType dietType)
         {
-            DietType ToUpdate = appDbContext.DietType.Find(dietType);
-            appDbContext.DietType.Update(ToUpdate);
-            if (ToUpdate != dietType) { return true; }
-
+            if (AppDbContext.DietType.Find(dietType).Id == dietType.Id)
+            {
+                AppDbContext.DietType.Update(mapper.Map<DietType>(dietType));
+                return AppDbContext.SaveChanges() == 1;
+            }
             return false;
+
         }
     }
 }

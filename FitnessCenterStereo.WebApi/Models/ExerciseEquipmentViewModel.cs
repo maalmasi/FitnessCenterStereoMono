@@ -9,7 +9,5 @@ namespace FitnessCenterStereo.WebApi.Models
     {
         public Guid ExerciseId { get; set; }
         public Guid EquipmentId { get; set; }
-
-        public Guid ExerciseEquipmentId { get; set; }
     }
 }
