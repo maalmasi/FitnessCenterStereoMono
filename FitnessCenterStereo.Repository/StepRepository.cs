@@ -48,7 +48,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                step = step.Where(st => st.Abbreaviaton.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())||st.Id.Equals(filter.SearchQuery)||st.DateUpdated.Equals(filter.SearchQuery)||st.DateCreated.Equals(filter.SearchQuery));
+                step = step.Where(st => st.Abbreaviaton.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())||st.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| String.Format("{0:s}", st.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", st.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -66,25 +66,13 @@ namespace FitnessCenterStereo.Repository
                     else
                         step = step.OrderBy(st => st.Abbreaviaton);
                     break;
-                case "datecreated":
-                    if (!filter.SortAscending)
-                        step = step.OrderByDescending(st => st.DateCreated);
-                    else
-                        step = step.OrderBy(st => st.DateCreated);
-                    break;
                 case "dateupdated":
                     if (!filter.SortAscending)
                         step = step.OrderByDescending(st => st.DateUpdated);
                     else
                         step = step.OrderBy(st => st.DateUpdated);
                     break;
-
-                case "id":
-                    if (!filter.SortAscending)
-                        step = step.OrderByDescending(st => st.Id);
-                    else
-                        step = step.OrderBy(st => st.Id);
-                    break;
+             
 
                 case "description":
                     if (!filter.SortAscending)

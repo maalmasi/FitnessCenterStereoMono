@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Compiles : BaseModel,IPlanTrainer
+    public class PlanTrainer : BaseModel,IPlanTrainer
     {
    
         public Guid TrainerId { get; set; }

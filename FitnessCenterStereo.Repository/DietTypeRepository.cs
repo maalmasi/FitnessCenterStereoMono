@@ -48,7 +48,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -71,6 +71,13 @@ namespace FitnessCenterStereo.Repository
                         dietType = dietType.OrderByDescending(c => c.Ingridients);
                     else
                         dietType = dietType.OrderBy(c => c.Ingridients);
+                    break;
+
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        dietType = dietType.OrderByDescending(c => c.DateUpdated);
+                    else
+                        dietType = dietType.OrderBy(c => c.DateUpdated);
                     break;
 
                 default:

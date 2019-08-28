@@ -29,7 +29,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                complexityLevel = complexityLevel.Where(cmp => cmp.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                complexityLevel = complexityLevel.Where(cmp => cmp.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",cmp.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -48,6 +48,19 @@ namespace FitnessCenterStereo.Repository
                         complexityLevel = complexityLevel.OrderBy(cmp => cmp.Abbreviation);
                     break;
 
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.DateUpdated);
+                    else
+                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.DateUpdated);
+                    break;
+
+                case "id":
+                    if (!filter.SortAscending)
+                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Id);
+                    else
+                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.Id);
+                    break;
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }

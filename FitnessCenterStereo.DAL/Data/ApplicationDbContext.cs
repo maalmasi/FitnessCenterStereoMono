@@ -21,7 +21,7 @@ namespace FitnessCenterStereo.DAL.Data
 
         public virtual DbSet<BodyPartType> BodyPartType { get; set; }
         public virtual DbSet<Card> Card { get; set; }
-        public virtual DbSet<PlanTrainer> Compiles { get; set; }
+        public virtual DbSet<PlanTrainer> PlanTrainer { get; set; }
         public virtual DbSet<ComplexityLevelType> ComplexityLevelType { get; set; }
         public virtual DbSet<DietType> DietType { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }

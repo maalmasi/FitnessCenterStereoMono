@@ -49,7 +49,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                exEquip = exEquip.Where(c => c.EquipmentId.Equals(filter.SearchQuery) || c.ExercisesId.Equals(filter.SearchQuery));
+                exEquip = exEquip.Where(c => c.EquipmentId.Equals(filter.SearchQuery) || c.ExercisesId.Equals(filter.SearchQuery) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -65,6 +65,14 @@ namespace FitnessCenterStereo.Repository
                         exEquip = exEquip.OrderByDescending(c => c.EquipmentId);
                     else
                         exEquip = exEquip.OrderBy(c => c.EquipmentId);
+
+                    break;
+
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        exEquip = exEquip.OrderByDescending(c => c.DateUpdated);
+                    else
+                        exEquip = exEquip.OrderBy(c => c.DateUpdated);
 
                     break;
 

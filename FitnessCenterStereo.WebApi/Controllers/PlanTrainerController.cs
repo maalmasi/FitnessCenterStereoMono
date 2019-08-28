@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.Service.Common;
+using AutoMapper;
+using FitnessCenterStereo.Model.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,47 +16,48 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class PlanTrainerController : BaseApiController
     {
-        List<PlanTrainerViewModel> planTrainers = new List<PlanTrainerViewModel>();
+        protected IPlanTrainerService Service { get; private set; }
+        private readonly IMapper mapper;
 
-
-        public IEnumerable<PlanTrainerViewModel> Find(IFilter filter)
+        public PlanTrainerController(IPlanTrainerService service, IMapper mapperInterface) : base()
         {
-            return planTrainers;
+            Service = service;
+            mapper = mapperInterface;
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<PlanTrainerViewModel> Get()
+        public PaginatedList<PlanTrainerViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            return planTrainers;
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<PlanTrainerViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public PlanTrainerViewModel Get(Guid id)
         {
-            return planTrainers.Find(e => e.Id == id);
+            return mapper.Map<PlanTrainerViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]PlanTrainerViewModel value)
+        public PlanTrainerViewModel Post([FromBody]PlanTrainerViewModel value)
         {
-            planTrainers.Add(value);
+            return mapper.Map<PlanTrainerViewModel>(Service.Create(mapper.Map<IPlanTrainer>(value)));
         }
 
         // PUT api/<controller>/<id>
-        [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]PlanTrainerViewModel value)
+        [HttpPut]
+        public bool Put(PlanTrainerViewModel value)
         {
-            planTrainers.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<IPlanTrainer>(value));
+
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            planTrainers.Remove(planTrainers.Find(e => e.Id == id));
+            return Service.Delete(id);
         }
     }
 }

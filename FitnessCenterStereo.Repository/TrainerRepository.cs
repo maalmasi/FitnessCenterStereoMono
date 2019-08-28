@@ -45,7 +45,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                trainer = trainer.Where(tr => tr.FirstName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || tr.LastName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) ||tr.HiredAt.ToString().Contains(filter.SearchQuery) );
+                trainer = trainer.Where(tr => tr.FirstName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || tr.LastName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", tr.HiredAt).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", tr.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", tr.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || tr.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -70,6 +70,12 @@ namespace FitnessCenterStereo.Repository
                         trainer = trainer.OrderBy(tr => tr.HiredAt);
                     break;
 
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        trainer = trainer.OrderByDescending(tr => tr.DateUpdated);
+                    else
+                        trainer = trainer.OrderBy(tr => tr.DateUpdated);
+                    break;
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }

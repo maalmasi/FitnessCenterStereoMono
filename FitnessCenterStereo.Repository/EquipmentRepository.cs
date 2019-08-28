@@ -48,7 +48,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                equipment = equipment.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                equipment = equipment.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -57,6 +57,14 @@ namespace FitnessCenterStereo.Repository
                         equipment = equipment.OrderByDescending(c => c.Name);
                     else
                         equipment = equipment.OrderBy(c => c.Name);
+
+                    break;
+
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        equipment = equipment.OrderByDescending(c => c.DateUpdated);
+                    else
+                        equipment = equipment.OrderBy(c => c.DateUpdated);
 
                     break;
 

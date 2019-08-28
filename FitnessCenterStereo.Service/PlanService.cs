@@ -5,17 +5,21 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using AutoMapper;
 
 namespace FitnessCenterStereo.Service
 {
     class PlanService : IPlanService
     {
-        public PlanService(IPlanRepository planRepository)
+       protected IPlanRepository PlanRepository { get; private set; }
+        private readonly IMapper Mapper;
+
+        public PlanService(IPlanRepository planRepository, IMapper mapper)
         {
             PlanRepository = planRepository;
+            Mapper = mapper;
         }
-
-        protected IPlanRepository PlanRepository { get; private set; }
 
         public IPlan Create(IPlan plan)
         {
@@ -24,12 +28,10 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (PlanRepository.Delete(id))
-                return true;
-            else return false;
+            return PlanRepository.Delete(id);
         }
 
-        public IEnumerable<IPlan> Find(IFilter filter)
+        public PaginatedList<IPlan> Find(IFilter filter)
         {
             return PlanRepository.Find(filter);
         }
@@ -41,10 +43,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IPlan plan)
         {
-            if (PlanRepository.Update(plan))
-                return true;
-            else return false;
+            return PlanRepository.Update(plan);
         }
-
     }
 }
