@@ -60,7 +60,7 @@ namespace FitnessCenterStereo.Repository
                         step = step.OrderBy(st => st.Name);
 
                     break;
-                case "abbr":
+                case "abbreviation":
                     if (!filter.SortAscending)
                         step = step.OrderByDescending(st => st.Abbreaviaton);
                     else

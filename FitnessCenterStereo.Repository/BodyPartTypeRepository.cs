@@ -59,7 +59,7 @@ namespace FitnessCenterStereo.Repository
                         bodyPartType = bodyPartType.OrderBy(bpt => bpt.Name);
 
                     break;
-                case "abbr":
+                case "abbreviation":
                     if (!filter.SortAscending)
                         bodyPartType = bodyPartType.OrderByDescending(bpt => bpt.Abbreviation);
                     else

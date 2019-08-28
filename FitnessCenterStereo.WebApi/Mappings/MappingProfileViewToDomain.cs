@@ -24,6 +24,7 @@ namespace FitnessCenterStereo.WebApi.Mappings
             CreateMap<ISchedule, ScheduleViewModel>().ReverseMap();
             CreateMap<IStep, StepViewModel>().ReverseMap();
             CreateMap<ITrainer, TrainerViewModel>().ReverseMap();
+            CreateMap<IComplexityLevelType, ComplexityLevelTypeViewModel>().ReverseMap();
         }
     }
 }

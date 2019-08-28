@@ -16,10 +16,10 @@ namespace FitnessCenterStereo.Repository
     {
         protected ApplicationDbContext AppDbContext { get; private set; }
         private readonly IMapper Mapper;
-        public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext,IMapper mapper)
+        public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
-           Mapper = mapper;
+            Mapper = mapper;
         }
 
         public PaginatedList<IComplexityLevelType> Find(IFilter filter)
@@ -29,7 +29,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                complexityLevel = complexityLevel.Where(cmp => cmp.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",cmp.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                complexityLevel = complexityLevel.Where(cmp => cmp.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", cmp.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -41,7 +41,7 @@ namespace FitnessCenterStereo.Repository
                         complexityLevel = complexityLevel.OrderBy(cmp => cmp.Name);
 
                     break;
-                case "abbr":
+                case "abbreviation":
                     if (!filter.SortAscending)
                         complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Abbreviation);
                     else
@@ -55,12 +55,7 @@ namespace FitnessCenterStereo.Repository
                         complexityLevel = complexityLevel.OrderBy(cmp => cmp.DateUpdated);
                     break;
 
-                case "id":
-                    if (!filter.SortAscending)
-                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Id);
-                    else
-                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.Id);
-                    break;
+
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
@@ -102,6 +97,6 @@ namespace FitnessCenterStereo.Repository
             return Mapper.Map<IComplexityLevelType>(AppDbContext.ComplexityLevelType.Find(id));
         }
 
-       
+
     }
 }

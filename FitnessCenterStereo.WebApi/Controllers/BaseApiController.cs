@@ -12,7 +12,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [ApiController]
     public class BaseApiController : Controller
     {
-        protected const string DefaultSortBy = "name";
+        protected const string DefaultSortBy = "dateupdated";
         protected const bool DefaultSortAsc = true;
         protected const int DefaultRpp = 10;
         protected const int DefaultPage = 1;

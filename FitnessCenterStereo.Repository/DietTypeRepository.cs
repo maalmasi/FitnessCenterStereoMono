@@ -59,7 +59,7 @@ namespace FitnessCenterStereo.Repository
                         dietType = dietType.OrderBy(c => c.Name);
                     break;
 
-                case "abbr":
+                case "abbreviation":
                     if (!filter.SortAscending)
                         dietType = dietType.OrderByDescending(c => c.Abbreviation);
                     else
