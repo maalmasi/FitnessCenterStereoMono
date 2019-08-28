@@ -18,16 +18,16 @@ namespace FitnessCenterStereo.WebApi.Controllers
         private readonly IMapper mapper;
 
 
-        public ComplexityLevelTypeController(IComplexityLevelTypeService complexity, IMapper mapper) : base()
+        public ComplexityLevelTypeController(IComplexityLevelTypeService service, IMapper mapper) : base()
         {
-            Service = complexity;
+            Service = service;
             this.mapper = mapper;
         }
 
         // GET: api/<controller>
 
         [HttpGet]
-        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
+        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));

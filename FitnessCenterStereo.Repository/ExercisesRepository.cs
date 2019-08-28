@@ -48,7 +48,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                exercises = exercises.Where(exc =>exc.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())  || exc.Id.Equals(filter.SearchQuery) || exc.DateUpdated.Equals(filter.SearchQuery) || exc.DateCreated.Equals(filter.SearchQuery));
+                exercises = exercises.Where(exc =>exc.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())  || exc.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",exc.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",exc.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -60,25 +60,12 @@ namespace FitnessCenterStereo.Repository
                         exercises = exercises.OrderBy(exc => exc.Name);
 
                     break;
-                case "id":
-                    if (!filter.SortAscending)
-                        exercises = exercises.OrderByDescending(exc => exc.Id);
-                    else
-                        exercises = exercises.OrderBy(exc => exc.Id);
-                    break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
                         exercises = exercises.OrderByDescending(exc => exc.DateUpdated);
                     else
                         exercises = exercises.OrderBy(exc => exc.DateUpdated);
-                    break;
-
-                case "datecreated":
-                    if (!filter.SortAscending)
-                        exercises = exercises.OrderByDescending(exc => exc.DateCreated);
-                    else
-                        exercises = exercises.OrderBy(exc => exc.DateCreated);
                     break;
 
                 default:

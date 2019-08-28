@@ -20,16 +20,16 @@ namespace FitnessCenterStereo.WebApi.Controllers
         protected ICardService Service { get; private set; }
         private readonly IMapper mapper;
 
-        public CardController(ICardService cardService, IMapper mapper)
+        public CardController(ICardService service, IMapper mapper)
         {
-            Service = cardService;
+            Service = service;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public PaginatedList<CardViewModel> Find(string searchQuerry, int page, int recordsPerPage, bool sortAsc, string sortBy)
+        public PaginatedList<CardViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = recordsPerPage, SortAscending = sortAsc, SortBy = sortBy };
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<CardViewModel>>(Service.Find(filter));
         }
 

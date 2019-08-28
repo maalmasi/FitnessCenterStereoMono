@@ -5,6 +5,7 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Service
 {
@@ -24,12 +25,10 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (ExerciseScheduleRepository.Delete(id))
-                return true;
-            else return false;
+            return ExerciseScheduleRepository.Delete(id);
         }
 
-        public IEnumerable<IExerciseSchedule> Find(IFilter filter)
+        public PaginatedList<IExerciseSchedule> Find(IFilter filter)
         {
             return ExerciseScheduleRepository.Find(filter);
         }
@@ -41,9 +40,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IExerciseSchedule exerciseSchedule)
         {
-            if (ExerciseScheduleRepository.Update(exerciseSchedule))
-                return true;
-            else return false;
+            return ExerciseScheduleRepository.Update(exerciseSchedule);
         }
 
     }

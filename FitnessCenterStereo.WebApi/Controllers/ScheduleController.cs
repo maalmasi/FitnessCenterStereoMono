@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FitnessCenterStereo.WebApi.Models;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.Service.Common;
+using AutoMapper;
+using FitnessCenterStereo.Model.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,46 +17,48 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class ScheduleController : BaseApiController
     {
-        List<ScheduleViewModel> schedules = new List<ScheduleViewModel>();
+        protected IScheduleService Service { get; private set; }
+        private readonly IMapper mapper;
 
-        public IEnumerable<ScheduleViewModel> Find(IFilter filter)
+        public ScheduleController(IScheduleService service, IMapper mapper)
         {
-            return schedules;
+            Service = service;
+            this.mapper = mapper;
         }
 
-        // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<ScheduleViewModel> Get()
+        public PaginatedList<ScheduleViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            return schedules;
+            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<ScheduleViewModel>>(Service.Find(filter));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public ScheduleViewModel Get(Guid id)
         {
-            return schedules.Find(e => e.Id == id);
+            return mapper.Map<ScheduleViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]ScheduleViewModel value)
+        public ScheduleViewModel Post([FromBody] ScheduleViewModel value)
         {
-            schedules.Add(value);
+            return mapper.Map<ScheduleViewModel>(Service.Create(mapper.Map<ISchedule>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]ScheduleViewModel value)
+        public bool Put(ScheduleViewModel value)
         {
-            schedules.Where(e => e.Id == id).Select(n => n = value).ToList();
+            return Service.Update(mapper.Map<ISchedule>(value));
         }
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            schedules.Remove(schedules.Find(e => e.Id == id));
+            return Service.Delete(id);
         }
     }
 }

@@ -21,12 +21,13 @@ namespace FitnessCenterStereo.WebApi.Controllers
         protected IStepService Service { get; private set; }
         private readonly IMapper Mapper;
 
-        public StepController(IStepService service, IMapper mapper) {
+        public StepController(IStepService service, IMapper mapper)
+        {
             Mapper = mapper;
             Service = service;
         }
         [HttpGet]
-        public PaginatedList<StepViewModel> Find(string searchQuerry=DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public PaginatedList<StepViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return Mapper.Map<PaginatedList<StepViewModel>>(Service.Find(Mapper.Map<IFilter>(filter)));
@@ -37,15 +38,15 @@ namespace FitnessCenterStereo.WebApi.Controllers
         {
             return Mapper.Map<StepViewModel>(Service.Get(id));
         }
-// GET api/<controller>/<id>
-      
+        // GET api/<controller>/<id>
+
 
         // POST api/<controller>
         [HttpPost]
         public StepViewModel Post([FromBody]StepViewModel step)
         {
             return Mapper.Map<StepViewModel>(Service.Create(Mapper.Map<IStep>(step)));
-           
+
         }
 
         // PUT api/<controller>/<id>
