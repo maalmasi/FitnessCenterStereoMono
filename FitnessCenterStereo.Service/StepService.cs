@@ -5,18 +5,19 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Service
 {
     class StepService : IStepService
     {
+
+        protected IStepRepository StepRepository { get; private set; }
+        
         public StepService(IStepRepository stepRepository)
         {
             StepRepository = stepRepository;
         }
-
-        public IStepRepository StepRepository { get; }
-
         public IStep Create(IStep step)
         {
             return StepRepository.Create(step);
@@ -24,12 +25,10 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (StepRepository.Delete(id))
-                return true;
-            else return false;
+            return StepRepository.Delete(id);
         }
 
-        public IEnumerable<IStep> Find(IFilter filter)
+        public PaginatedList<IStep> Find(IFilter filter)
         {
             return StepRepository.Find(filter);
         }
@@ -41,10 +40,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Update(IStep step)
         {
-            if (StepRepository.Update(step))
-                return true;
-            else return false;
+            return StepRepository.Update(step);
         }
-
     }
 }

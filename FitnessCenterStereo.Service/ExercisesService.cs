@@ -5,46 +5,41 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 
 namespace FitnessCenterStereo.Service
 {
     class ExercisesService : IExercisesService
     {
+      protected  IExercisesRepository ExercisesRepository { get; private set; }
+
         public ExercisesService(IExercisesRepository exercisesRepository)
         {
-            ExercisesesRepository = exercisesRepository;
+            ExercisesRepository = exercisesRepository;
         }
-
-        protected IExercisesRepository ExercisesesRepository { get; private set; }
-
         public IExercises Create(IExercises exercises)
         {
-            return ExercisesesRepository.Create(exercises);
+            return ExercisesRepository.Create(exercises);
         }
 
         public bool Delete(Guid id)
         {
-            if (ExercisesesRepository.Delete(id))
-                return true;
-            else return false;
+            return ExercisesRepository.Delete(id);
         }
 
-        public IEnumerable<IExercises> Find(IFilter filter)
+        public PaginatedList<IExercises> Find(IFilter filter)
         {
-            return ExercisesesRepository.Find(filter);
+            return ExercisesRepository.Find(filter);
         }
 
         public IExercises Get(Guid id)
         {
-            return ExercisesesRepository.Get(id);
+            return ExercisesRepository.Get(id);
         }
 
         public bool Update(IExercises exercises)
         {
-            if (ExercisesesRepository.Update(exercises))
-                return true;
-            else return false;
+            return ExercisesRepository.Update(exercises);
         }
-
     }
 }

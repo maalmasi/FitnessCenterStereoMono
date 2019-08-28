@@ -91,7 +91,7 @@ namespace FitnessCenterStereo.Repository
         {
             if (AppDbContext.Trainer.Find(trainer.Id) != null)
             {
-                AppDbContext.BodyPartType.Update(Mapper.Map<BodyPartType>(trainer));
+                AppDbContext.Trainer.Update(Mapper.Map<Trainer>(trainer));
                 return AppDbContext.SaveChanges() == 1;
             }
             return false;
