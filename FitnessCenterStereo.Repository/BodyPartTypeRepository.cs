@@ -47,7 +47,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                bodyPartType = bodyPartType.Where(bpt => bpt.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || bpt.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                bodyPartType = bodyPartType.Where(bpt => bpt.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || bpt.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || bpt.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",bpt.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", bpt.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -65,7 +65,12 @@ namespace FitnessCenterStereo.Repository
                     else
                         bodyPartType = bodyPartType.OrderBy(bpt => bpt.Abbreviation);
                     break;
-
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        bodyPartType = bodyPartType.OrderByDescending(bpt => bpt.DateUpdated);
+                    else
+                        bodyPartType = bodyPartType.OrderBy(bpt => bpt.DateUpdated);
+                    break;
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }

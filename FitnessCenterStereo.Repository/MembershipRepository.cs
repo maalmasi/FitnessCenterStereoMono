@@ -49,7 +49,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                membership = membership.Where(c => c.Price.Equals(filter.SearchQuery));
+                membership = membership.Where(c => c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -58,6 +58,13 @@ namespace FitnessCenterStereo.Repository
                         membership = membership.OrderByDescending(c => c.Price);
                     else
                         membership = membership.OrderBy(c => c.Price);
+
+                    break;
+                case "dateupdated":
+                    if (!filter.SortAscending)
+                        membership = membership.OrderByDescending(c => c.DateUpdated);
+                    else
+                        membership = membership.OrderBy(c => c.DateUpdated);
 
                     break;
                 default:

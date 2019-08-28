@@ -26,7 +26,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
             mapper = mapperInterface;
         }
 
-        public PaginatedList<DietTypeViewModel> Find(string searchQuerry, int page, int rpp, string sortBy, bool sortAsc)
+        public PaginatedList<DietTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<DietTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));

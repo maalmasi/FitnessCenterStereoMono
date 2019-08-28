@@ -17,12 +17,13 @@ namespace FitnessCenterStereo.WebApi.Controllers
         protected ITrainerService Service { get; private set; }
         private readonly IMapper Mapper;
 
-        public TrainerController(ITrainerService service, IMapper mapper) {
+        public TrainerController(ITrainerService service, IMapper mapper)
+        {
             Mapper = mapper;
             Service = service;
         }
         [HttpGet]
-        public PaginatedList<TrainerViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "firstname", bool sortAsc = true)
+        public PaginatedList<TrainerViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return Mapper.Map<PaginatedList<TrainerViewModel>>(Service.Find(Mapper.Map<IFilter>(filter)));
@@ -33,15 +34,15 @@ namespace FitnessCenterStereo.WebApi.Controllers
         {
             return Mapper.Map<TrainerViewModel>(Service.Get(id));
         }
-// GET api/<controller>/<id>
-      
+        // GET api/<controller>/<id>
+
 
         // POST api/<controller>
         [HttpPost]
         public TrainerViewModel Post([FromBody]TrainerViewModel trainer)
         {
             return Mapper.Map<TrainerViewModel>(Service.Create(Mapper.Map<ITrainer>(trainer)));
-           
+
         }
 
         // PUT api/<controller>/<id>

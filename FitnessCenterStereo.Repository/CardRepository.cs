@@ -49,7 +49,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().Contains(filter.SearchQuery));
+                card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -58,13 +58,13 @@ namespace FitnessCenterStereo.Repository
                         card = card.OrderByDescending(c => c.UserId);
                     else
                         card = card.OrderBy(c => c.UserId);
-
                     break;
-                case "membershipid":
+
+                case "dateupdated":
                     if (!filter.SortAscending)
-                        card = card.OrderByDescending(c => c.MembershipId);
+                        card = card.OrderByDescending(c => c.DateUpdated);
                     else
-                        card = card.OrderBy(c => c.MembershipId);
+                        card = card.OrderBy(c => c.DateUpdated);
                     break;
 
                 default:
