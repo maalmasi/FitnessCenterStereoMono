@@ -34,21 +34,21 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public BaseViewModel Get(Guid id)
+        public BodyPartTypeViewModel Get(Guid id)
         {
-            return mapper.Map<BaseViewModel>(Service.Get(id));
+            return mapper.Map<BodyPartTypeViewModel>(Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public BaseViewModel Post([FromBody]BaseViewModel value)
+        public BodyPartTypeViewModel Post([FromBody]BodyPartTypeViewModel value)
         {
-            return mapper.Map<BaseViewModel>(Service.Create(mapper.Map<IBodyPartType>(value)));
+            return mapper.Map<BodyPartTypeViewModel>(Service.Create(mapper.Map<IBodyPartType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(BaseViewModel value)
+        public bool Put(BodyPartTypeViewModel value)
         {
             return Service.Update(mapper.Map<IBodyPartType>(value));
 

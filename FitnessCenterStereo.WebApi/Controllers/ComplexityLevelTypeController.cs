@@ -27,7 +27,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         // GET: api/<controller>
 
         [HttpGet]
-        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry, int page = 2, int rpp = 10, string sortBy = "name", bool sortAsc = true)
+        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry, int page = 1, int rpp = 10, string sortBy = "name", bool sortAsc = true)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));

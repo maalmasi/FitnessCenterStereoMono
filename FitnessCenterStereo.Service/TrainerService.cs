@@ -5,18 +5,22 @@ using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using AutoMapper;
 
 namespace FitnessCenterStereo.Service
 {
+
     class TrainerService : ITrainerService
     {
+        protected ITrainerRepository TrainerRepository { get; private set; }
+
+
         public TrainerService(ITrainerRepository trainerRepository)
         {
             TrainerRepository = trainerRepository;
+
         }
-
-        protected ITrainerRepository TrainerRepository { get; private set; }
-
         public ITrainer Create(ITrainer trainer)
         {
             return TrainerRepository.Create(trainer);
@@ -24,27 +28,24 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-            if (TrainerRepository.Delete(id))
-                return true;
-            else return false;
+            return TrainerRepository.Delete(id);
         }
 
-        public IEnumerable<ITrainer> Find(IFilter filter)
+        public PaginatedList<ITrainer> Find(IFilter filter)
         {
             return TrainerRepository.Find(filter);
+        }
+
+        public bool Update(ITrainer trainer)
+        {
+            return TrainerRepository.Update(trainer);
         }
 
         public ITrainer Get(Guid id)
         {
             return TrainerRepository.Get(id);
         }
-
-        public bool Update(ITrainer trainer)
-        {
-            if (TrainerRepository.Update(trainer))
-                return true;
-            else return false;
-        }
-
     }
+
 }
+

@@ -9,9 +9,10 @@ namespace FitnessCenterStereo.WebApi.Mappings
         public MappingProfileViewDomain()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<IBaseModel, BaseViewModel>().ReverseMap(); ;
-            CreateMap<IBodyPartType, BodyPartTypeViewModel>().ReverseMap(); ;
-            CreateMap<ICard, CardViewModel>().ReverseMap(); ;
+            CreateMap<IBaseModel, BaseViewModel>().ReverseMap(); 
+            CreateMap<IBodyPartType, BodyPartTypeViewModel>().ReverseMap(); 
+            CreateMap<IComplexityLevelType, ComplexityLevelTypeViewModel>().ReverseMap(); 
+            CreateMap<ITrainer, TrainerViewModel>().ReverseMap(); 
             CreateMap(typeof(WebApi.Infrastracture.Pagination.PaginatedList<>), typeof(Model.Common.Infrastracture.Pagination.PaginatedList<>)).ReverseMap();
         }
     }
