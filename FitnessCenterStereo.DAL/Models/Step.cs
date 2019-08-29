@@ -2,7 +2,7 @@
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Step
+    public partial class Step : BaseModel
     {
         #region Properties
 

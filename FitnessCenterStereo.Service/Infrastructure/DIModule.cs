@@ -14,12 +14,9 @@ namespace FitnessCenterStereo.Service.Infrastructure
             builder.RegisterType<ComplexityLevelTypeService>().As<IComplexityLevelTypeService>();
             builder.RegisterType<DietTypeService>().As<IDietTypeService>();
             builder.RegisterType<EquipmentService>().As<IEquipmentService>();
-            builder.RegisterType<ExerciseEquipmentService>().As<IExerciseEquipmentService>();
-            builder.RegisterType<ExerciseScheduleService>().As<IExerciseScheduleService>();
             builder.RegisterType<ExercisesService>().As<IExercisesService>();
             builder.RegisterType<MembershipService>().As<IMembershipService>();
             builder.RegisterType<PlanService>().As<IPlanService>();
-            builder.RegisterType<PlanTrainerService>().As<IPlanTrainerService>();
             builder.RegisterType<ScheduleService>().As<IScheduleService>();
             builder.RegisterType<StepService>().As<IStepService>();
             builder.RegisterType<TrainerService>().As<ITrainerService>();
