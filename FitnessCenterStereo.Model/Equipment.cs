@@ -1,4 +1,5 @@
 ﻿using FitnessCenterStereo.Model.Common;
+using System.Collections.Generic;
 
 namespace FitnessCenterStereo.Model
 {
@@ -6,6 +7,7 @@ namespace FitnessCenterStereo.Model
     {
         #region Properties
 
+        public virtual ICollection<ExerciseEquipment> ExerciseEquipment { get; set; }
         public string Name { get; set; }
 
         #endregion Properties

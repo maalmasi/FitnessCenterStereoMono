@@ -9,19 +9,17 @@ namespace FitnessCenterStereo.DAL.Models
 
         public Trainer()
         {
-            Compiles = new HashSet<PlanTrainer>();
+            PlanTrainers = new HashSet<PlanTrainer>();
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public virtual ICollection<PlanTrainer> Compiles { get; set; }
-
         public string FirstName { get; set; }
         public DateTime? HiredAt { get; set; }
-
         public string LastName { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
 
         #endregion Properties
     }

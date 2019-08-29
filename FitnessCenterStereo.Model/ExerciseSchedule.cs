@@ -8,6 +8,8 @@ namespace FitnessCenterStereo.Model
         #region Properties
 
         public Guid ExerciseId { get; set; }
+        public virtual Exercises Exercises { get; set; }
+        public virtual Schedule Schedule { get; set; }
         public Guid ScheduleId { get; set; }
 
         #endregion Properties

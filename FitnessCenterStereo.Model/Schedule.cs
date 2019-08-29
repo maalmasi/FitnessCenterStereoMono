@@ -1,5 +1,6 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
+using System.Collections.Generic;
 
 namespace FitnessCenterStereo.Model
 {
@@ -7,6 +8,7 @@ namespace FitnessCenterStereo.Model
     {
         #region Properties
 
+        public virtual ICollection<ExerciseSchedule> ExerciseSchedule { get; set; }
         public int Frequency { get; set; }
 
         public Guid PlanId { get; set; }
