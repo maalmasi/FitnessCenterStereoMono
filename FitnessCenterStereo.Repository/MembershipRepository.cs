@@ -1,111 +1,64 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class MembershipRepository : IMembershipRepository
+    internal class MembershipRepository : Repository<IMembership, Membership, IMembershipFilter>, IMembershipRepository
     {
-        #region Fields
-
-        private readonly IMapper mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public MembershipRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public MembershipRepository(ApplicationDbContext appDbContext, IMapper mapper) : base(appDbContext, mapper)
         {
-            AppDbContext = applicationDbContext;
-            this.mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public IMembership Create(IMembership membership)
+        protected override IQueryable<Membership> ApplyFilter(IQueryable<Membership> entities, IMembershipFilter filter)
         {
-            membership.Id = Guid.NewGuid();
-            membership.DateCreated = DateTime.UtcNow;
-            membership.DateUpdated = DateTime.UtcNow;
-            AppDbContext.Membership.Add(mapper.Map<Membership>(membership));
-            AppDbContext.SaveChanges();
-            return membership;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.Membership.Find(id);
-            AppDbContext.Membership.Remove(toDelete);
-            AppDbContext.SaveChanges();
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<IMembership> Find(IFilter filter)
-        {
-            IQueryable<Membership> membership = AppDbContext.Membership.AsNoTracking();
-
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                membership = membership.Where(c => c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
+            return entities;
+        }
+
+        protected override IQueryable<Membership> ApplySort(IQueryable<Membership> entities, IMembershipFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "price":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        membership = membership.OrderByDescending(c => c.Price);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        membership = membership.OrderBy(c => c.Price);
-
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        membership = membership.OrderByDescending(c => c.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        membership = membership.OrderBy(c => c.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
 
+                case "price":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Price);
+                    else
+                        entities = entities.OrderBy(c => c.Price);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = membership.Count();
-
-            var items = membership.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<IMembership>(mapper.Map<IEnumerable<IMembership>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public IMembership Get(Guid id)
-        {
-            return mapper.Map<IMembership>(AppDbContext.Membership.Find(id));
-        }
-
-        public bool Update(IMembership membership)
-        {
-            if (AppDbContext.Membership.Find(membership).Id == membership.Id)
-            {
-                AppDbContext.Membership.Update(mapper.Map<Membership>(membership));
-                return AppDbContext.SaveChanges() == 1;
-            }
-            return false;
+            return entities;
         }
 
         #endregion Methods
