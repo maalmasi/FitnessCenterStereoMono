@@ -7,8 +7,10 @@ namespace FitnessCenterStereo.Model
     {
         #region Properties
 
+        public virtual Equipment Equipment { get; set; }
         public Guid EquipmentId { get; set; }
         public Guid ExerciseId { get; set; }
+        public virtual Exercises Exercises { get; set; }
 
         #endregion Properties
     }

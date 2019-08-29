@@ -79,7 +79,7 @@ namespace FitnessCenterStereo.DAL.Models
             modelBuilder.Entity<PlanTrainer>(entity =>
             {
                 entity.HasKey(e => e.TrainerId)
-                    .HasName("Compiles_pkey");
+                    .HasName("PlanTrainers_pkey");
 
                 entity.Property(e => e.TrainerId).ValueGeneratedNever();
 
@@ -87,15 +87,15 @@ namespace FitnessCenterStereo.DAL.Models
 
                 entity.Property(e => e.DateUpdated).HasColumnType("date");
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithMany(p => p.Compiles)
+                entity.HasOne(d => d.Trainer)
+                    .WithMany(p => p.PlanTrainers)
                     .HasForeignKey(d => d.Id)
-                    .HasConstraintName("Compiles_TrainerId_fkey");
+                    .HasConstraintName("PlanTrainers_TrainerId_fkey");
 
                 entity.HasOne(d => d.Plan)
-                    .WithMany(p => p.Compiles)
+                    .WithMany(p => p.PlanTrainers)
                     .HasForeignKey(d => d.PlanId)
-                    .HasConstraintName("Compiles_PlanId_fkey");
+                    .HasConstraintName("PlanTrainers_PlanId_fkey");
             });
 
             modelBuilder.Entity<ComplexityLevelType>(entity =>

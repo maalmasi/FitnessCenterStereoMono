@@ -11,7 +11,7 @@ namespace FitnessCenterStereo.DAL.Models
         public Plan()
         {
             Users = new HashSet<IdentityUser>();
-            Compiles = new HashSet<PlanTrainer>();
+            PlanTrainers = new HashSet<PlanTrainer>();
             Schedule = new HashSet<Schedule>();
         }
 
@@ -19,12 +19,10 @@ namespace FitnessCenterStereo.DAL.Models
 
         #region Properties
 
-        public virtual ICollection<PlanTrainer> Compiles { get; set; }
-
         public virtual DietType DietType { get; set; }
         public Guid? DietTypeId { get; set; }
-
         public string Name { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
         public virtual ICollection<Schedule> Schedule { get; set; }
         public virtual ICollection<IdentityUser> Users { get; set; }
 
