@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class ComplexityLevelType
+    public partial class ComplexityLevelType : BaseModel
     {
         #region Constructors
 
@@ -17,10 +16,9 @@ namespace FitnessCenterStereo.DAL.Models
         #region Properties
 
         public string Abbreviation { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+
         public virtual ICollection<Exercises> Exercises { get; set; }
-        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         #endregion Properties

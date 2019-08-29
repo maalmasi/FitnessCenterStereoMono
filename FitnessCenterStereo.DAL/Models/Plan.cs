@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Plan
+    public partial class Plan : BaseModel
     {
         #region Constructors
 
@@ -20,11 +20,10 @@ namespace FitnessCenterStereo.DAL.Models
         #region Properties
 
         public virtual ICollection<PlanTrainer> Compiles { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+
         public virtual DietType DietType { get; set; }
         public Guid? DietTypeId { get; set; }
-        public Guid Id { get; set; }
+
         public string Name { get; set; }
         public virtual ICollection<Schedule> Schedule { get; set; }
         public virtual ICollection<IdentityUser> Users { get; set; }

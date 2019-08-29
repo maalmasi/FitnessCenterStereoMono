@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Exercises
+    public partial class Exercises : BaseModel
     {
         #region Constructors
 
@@ -22,11 +22,10 @@ namespace FitnessCenterStereo.DAL.Models
         public Guid? BodyPartId { get; set; }
         public virtual ComplexityLevelType ComplexityLeveTypel { get; set; }
         public Guid? ComplexityLeveTypelId { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+
         public virtual ICollection<ExerciseEquipment> ExerciseEquipment { get; set; }
         public virtual ICollection<ExerciseSchedule> ExerciseSchedule { get; set; }
-        public Guid Id { get; set; }
+
         public string Name { get; set; }
         public virtual ICollection<Step> Step { get; set; }
 

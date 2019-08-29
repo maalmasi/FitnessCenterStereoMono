@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Equipment
+    public partial class Equipment : BaseModel
     {
         #region Constructors
 
@@ -16,10 +15,8 @@ namespace FitnessCenterStereo.DAL.Models
 
         #region Properties
 
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
         public virtual ICollection<ExerciseEquipment> ExerciseEquipment { get; set; }
-        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         #endregion Properties

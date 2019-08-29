@@ -48,7 +48,9 @@ namespace FitnessCenterStereo.Repository
 
         public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var toDelete = AppDbContext.Set<TEntity>().Find(id);
+            AppDbContext.Set<TEntity>().Remove(toDelete);
+            return AppDbContext.SaveChanges() == 1;
         }
 
         public PaginatedList<T> Find(TFilter filter)
@@ -56,28 +58,48 @@ namespace FitnessCenterStereo.Repository
             IQueryable<TEntity> entities = AppDbContext.Set<TEntity>().AsNoTracking();
 
             entities = ApplyFilter(entities, filter);
+            entities = ApplySort(entities, filter);
 
+            var count = entities.Count();
+
+            var items = entities.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
+
+            return new PaginatedList<T>(Mapper.Map<IEnumerable<T>>(items), count, filter.Page, filter.RecordsPerPage);
+        }
+
+        public T Get(Guid id)
+        {
+            return Mapper.Map<T>(AppDbContext.Set<TEntity>().Find(id));
+        }
+
+        public bool Update(T model)
+        {
+            if (AppDbContext.Set<TEntity>().Find(model.Id) != null)
+            {
+                AppDbContext.Set<TEntity>().Update(Mapper.Map<TEntity>(model));
+                return AppDbContext.SaveChanges() == 1;
+            }
+            return false;
+        }
+
+        protected virtual IQueryable<TEntity> ApplyFilter(IQueryable<TEntity> entities, TFilter filter)
+        {
+            if (!String.IsNullOrEmpty(filter.SearchQuery))
+            {
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+            }
+            return entities;
+        }
+
+        protected virtual IQueryable<TEntity> ApplySort(IQueryable<TEntity> entities, TFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "name":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        entities = entities.OrderByDescending(c => c.Name);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        entities = entities.OrderBy(c => c.Name);
-                    break;
-
-                case "abbreviation":
-                    if (!filter.SortAscending)
-                        entities = entities.OrderByDescending(c => c.Abbreviation);
-                    else
-                        entities = entities.OrderBy(c => c.Abbreviation);
-                    break;
-
-                case "ingridients":
-                    if (!filter.SortAscending)
-                        entities = entities.OrderByDescending(c => c.Ingridients);
-                    else
-                        entities = entities.OrderBy(c => c.Ingridients);
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
@@ -89,30 +111,6 @@ namespace FitnessCenterStereo.Repository
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
-            }
-
-            var count = entities.Count();
-
-            var items = entities.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<T>(Mapper.Map<IEnumerable<T>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public T Get(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(T model)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected virtual IQueryable<TEntity> ApplyFilter(IQueryable<TEntity> entities, TFilter filter)
-        {
-            if (!String.IsNullOrEmpty(filter.SearchQuery))
-            {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }
