@@ -1,24 +1,10 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using System;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IPlanRepository
+    public interface IPlanRepository : IRepository<IPlan, Plan, IPlanFilter>
     {
-        #region Methods
-
-        IPlan Create(IPlan planTrainer);
-
-        bool Delete(Guid id);
-
-        PaginatedList<IPlan> Find(IFilter filter);
-
-        IPlan Get(Guid id);
-
-        bool Update(IPlan planTrainer);
-
-        #endregion Methods
     }
 }
