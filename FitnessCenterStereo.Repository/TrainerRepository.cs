@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class TrainerRepository : Repository<ITrainer, Trainer, ITrainerFilter>, ITrainerRepository
+    public class TrainerRepository : Repository<ITrainer, Trainer, ITrainerFilter>, ITrainerRepository
     {
         #region Constructors
 
