@@ -1,110 +1,63 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using FitnessCenterStereo.Repository.Common;
-
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    public class CardRepository : ICardRepository
+    public class CardRepository : Repository<ICard, Card, ICardFilter>
     {
-        #region Fields
-
-        private readonly IMapper mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public CardRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public CardRepository(ApplicationDbContext appDbContext, IMapper mapper) : base(appDbContext, mapper)
         {
-            AppDbContext = applicationDbContext;
-            this.mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public ICard Create(ICard card)
+        protected IQueryable<ICard> ApplyFilter(IQueryable<ICard> entities, ICardFilter filter)
         {
-            card.Id = Guid.NewGuid();
-            card.DateCreated = DateTime.UtcNow;
-            card.DateUpdated = DateTime.UtcNow;
-            AppDbContext.Card.Add(mapper.Map<Card>(card));
-            AppDbContext.SaveChanges();
-            return card;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.Card.Find(id);
-            AppDbContext.Card.Remove(toDelete);
-            AppDbContext.SaveChanges();
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<ICard> Find(IFilter filter)
-        {
-            IQueryable<Card> card = AppDbContext.Card.AsNoTracking();
-
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
+            return entities;
+        }
+
+        protected IQueryable<ICard> ApplySort(IQueryable<ICard> entities, ICardFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "userid":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        card = card.OrderByDescending(c => c.UserId);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        card = card.OrderBy(c => c.UserId);
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        card = card.OrderByDescending(c => c.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        card = card.OrderBy(c => c.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
+
+                case "userid":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.UserId);
+                    else
+                        entities = entities.OrderBy(c => c.UserId);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = card.Count();
-
-            var items = card.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<ICard>(mapper.Map<IEnumerable<ICard>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public ICard Get(Guid id)
-        {
-            return mapper.Map<ICard>(AppDbContext.Card.Find(id));
-        }
-
-        public bool Update(ICard card)
-        {
-            if (AppDbContext.Card.Find(card).Id == card.Id)
-            {
-                AppDbContext.Card.Update(mapper.Map<Card>(card));
-                return AppDbContext.SaveChanges() == 1;
-            }
-            return false;
+            return entities;
         }
 
         #endregion Methods

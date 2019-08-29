@@ -3,121 +3,75 @@ using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using FitnessCenterStereo.Repository.Common;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class DietTypeRepository : IDietTypeRepository
+    public class DietTypeRepository : Repository<IDietType, DietType, IDietTypeFilter>
     {
-        #region Fields
-
-        private readonly IMapper mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public DietTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public DietTypeRepository(ApplicationDbContext appDbContext, IMapper mapper) : base(appDbContext, mapper)
         {
-            AppDbContext = applicationDbContext;
-            this.mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public IDietType Create(IDietType dietType)
+        protected IQueryable<IDietType> ApplyFilter(IQueryable<IDietType> entities, IDietTypeFilter filter)
         {
-            dietType.Id = Guid.NewGuid();
-            dietType.DateCreated = DateTime.UtcNow;
-            dietType.DateUpdated = DateTime.UtcNow;
-            AppDbContext.DietType.Add(mapper.Map<DietType>(dietType));
-            AppDbContext.SaveChanges();
-            return dietType;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.DietType.Find(id);
-            AppDbContext.DietType.Remove(toDelete);
-            AppDbContext.SaveChanges();
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<IDietType> Find(IDietTypeFilter filter)
-        {
-            IQueryable<DietType> dietType = AppDbContext.DietType.AsNoTracking();
-
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
+            return entities;
+        }
+
+        protected IQueryable<IDietType> ApplySort(IQueryable<IDietType> entities, IDietTypeFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "name":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        dietType = dietType.OrderByDescending(c => c.Name);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        dietType = dietType.OrderBy(c => c.Name);
-                    break;
-
-                case "abbreviation":
-                    if (!filter.SortAscending)
-                        dietType = dietType.OrderByDescending(c => c.Abbreviation);
-                    else
-                        dietType = dietType.OrderBy(c => c.Abbreviation);
-                    break;
-
-                case "ingridients":
-                    if (!filter.SortAscending)
-                        dietType = dietType.OrderByDescending(c => c.Ingridients);
-                    else
-                        dietType = dietType.OrderBy(c => c.Ingridients);
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        dietType = dietType.OrderByDescending(c => c.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        dietType = dietType.OrderBy(c => c.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
+
+                case "abbreviation":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Abbreviation);
+                    else
+                        entities = entities.OrderBy(c => c.Abbreviation);
+                    break;
+
+                case "ingridients":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Ingridients);
+                    else
+                        entities = entities.OrderBy(c => c.Ingridients);
+                    break;
+
+                case "name":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Abbreviation);
+                    else
+                        entities = entities.OrderBy(c => c.Abbreviation);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = dietType.Count();
-
-            var items = dietType.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<IDietType>(mapper.Map<IEnumerable<IDietType>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public IDietType Get(Guid id)
-        {
-            return mapper.Map<IDietType>(AppDbContext.DietType.Find(id));
-        }
-
-        public bool Update(IDietType dietType)
-        {
-            if (AppDbContext.DietType.Find(dietType).Id == dietType.Id)
-            {
-                AppDbContext.DietType.Update(mapper.Map<DietType>(dietType));
-                return AppDbContext.SaveChanges() == 1;
-            }
-            return false;
+            return entities;
         }
 
         #endregion Methods

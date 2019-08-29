@@ -1,4 +1,4 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
@@ -7,7 +7,7 @@ using System;
 
 namespace FitnessCenterStereo.Service
 {
-    internal class CardService : ICardService
+    public class CardService : ICardService
     {
         #region Constructors
 
@@ -36,7 +36,7 @@ namespace FitnessCenterStereo.Service
             return CardRepository.Delete(id);
         }
 
-        public PaginatedList<ICard> Find(IFilter filter)
+        public PaginatedList<ICard> Find(ICardFilter filter)
         {
             return CardRepository.Find(filter);
         }

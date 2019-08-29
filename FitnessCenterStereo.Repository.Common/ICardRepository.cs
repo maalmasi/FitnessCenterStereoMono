@@ -1,24 +1,10 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using System;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface ICardRepository
+    public interface ICardRepository : IRepository<ICard, Card, ICardFilter>
     {
-        #region Methods
-
-        ICard Create(ICard card);
-
-        bool Delete(Guid id);
-
-        PaginatedList<ICard> Find(IFilter filter);
-
-        ICard Get(Guid id);
-
-        bool Update(ICard card);
-
-        #endregion Methods
     }
 }
