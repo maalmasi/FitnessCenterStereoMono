@@ -1,4 +1,4 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
@@ -13,7 +13,7 @@ namespace FitnessCenterStereo.Service.Common
 
         bool Delete(Guid id);
 
-        PaginatedList<IExercises> Find(IFilter filter);
+        PaginatedList<IExercises> Find(IExercisesFilter filter);
 
         IExercises Get(Guid id);
 
