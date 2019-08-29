@@ -6,6 +6,15 @@ namespace FitnessCenterStereo.Model
 {
     public class Trainer : BaseModel, ITrainer
     {
+        #region Constructors
+
+        public Trainer()
+        {
+            PlanTrainers = new HashSet<PlanTrainer>();
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         public string Firstname { get; set; }
