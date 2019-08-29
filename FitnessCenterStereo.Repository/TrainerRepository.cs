@@ -21,16 +21,16 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<ITrainer> ApplyFilter(IQueryable<ITrainer> entities, ITrainerFilter filter)
+        protected override IQueryable<Trainer> ApplyFilter(IQueryable<Trainer> entities, ITrainerFilter filter)
         {
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Firstname.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.LastName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.FirstName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.LastName.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }
 
-        protected IQueryable<ITrainer> ApplySort(IQueryable<ITrainer> entities, ITrainerFilter filter)
+        protected override IQueryable<Trainer> ApplySort(IQueryable<Trainer> entities, ITrainerFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -50,9 +50,9 @@ namespace FitnessCenterStereo.Repository
 
                 case "firstname":
                     if (!filter.SortAscending)
-                        entities = entities.OrderByDescending(c => c.Firstname);
+                        entities = entities.OrderByDescending(c => c.FirstName);
                     else
-                        entities = entities.OrderBy(c => c.Firstname);
+                        entities = entities.OrderBy(c => c.FirstName);
                     break;
 
                 case "lastname":

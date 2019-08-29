@@ -1,6 +1,6 @@
 ﻿namespace FitnessCenterStereo.Common.Filters
 {
-    public interface IExercisesFilter : IFilter
+    public class MembershipFilter : Filter, IMembershipFilter
     {
     }
 }

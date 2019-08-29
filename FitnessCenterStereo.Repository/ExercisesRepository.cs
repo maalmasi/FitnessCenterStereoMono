@@ -1,110 +1,64 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class ExercisesRepository : IExercisesRepository
+    public class ExercisesRepository : Repository<IExercises, Exercises, IExercisesFilter>, IExercisesRepository
     {
-        #region Fields
-
-        private readonly IMapper Mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public ExercisesRepository(ApplicationDbContext dbContext, IMapper mapper)
+        public ExercisesRepository(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            AppDbContext = dbContext;
-            Mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public IExercises Create(IExercises exercises)
+        protected override IQueryable<Exercises> ApplyFilter(IQueryable<Exercises> entities, IExercisesFilter filter)
         {
-            exercises.Id = Guid.NewGuid();
-            exercises.DateCreated = DateTime.UtcNow;
-            exercises.DateUpdated = DateTime.UtcNow;
-            AppDbContext.Exercises.Add(Mapper.Map<Exercises>(exercises));
-            AppDbContext.SaveChanges();
-            return exercises;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.Exercises.Find(id);
-            AppDbContext.Exercises.Remove(toDelete);
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<IExercises> Find(IFilter filter)
-        {
-            IQueryable<Exercises> exercises = AppDbContext.Exercises.AsNoTracking();
-
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                exercises = exercises.Where(exc => exc.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || exc.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.BodyPartId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.ComplexityLeveTypelId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
+            return entities;
+        }
 
+        protected override IQueryable<Exercises> ApplySort(IQueryable<Exercises> entities, IExercisesFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "name":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        exercises = exercises.OrderByDescending(exc => exc.Name);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        exercises = exercises.OrderBy(exc => exc.Name);
-
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        exercises = exercises.OrderByDescending(exc => exc.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        exercises = exercises.OrderBy(exc => exc.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
+
+                case "name":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Name);
+                    else
+                        entities = entities.OrderBy(c => c.Name);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = exercises.Count();
-
-            var items = exercises.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<IExercises>(Mapper.Map<IEnumerable<IExercises>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public IExercises Get(Guid id)
-        {
-            return Mapper.Map<IExercises>(AppDbContext.Exercises.Find(id));
-        }
-
-        public bool Update(IExercises exercises)
-        {
-            if (AppDbContext.Exercises.Find(exercises.Id) != null)
-            {
-                AppDbContext.Exercises.Update(Mapper.Map<Exercises>(exercises));
-                return AppDbContext.SaveChanges() == 1;
-            }
-            return false;
+            return entities;
         }
 
         #endregion Methods

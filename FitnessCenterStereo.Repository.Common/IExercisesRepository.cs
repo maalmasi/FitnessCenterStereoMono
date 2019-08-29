@@ -1,24 +1,10 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using System;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IExercisesRepository
+    public interface IExercisesRepository : IRepository<IExercises, Exercises, IExercisesFilter>
     {
-        #region Methods
-
-        IExercises Create(IExercises exercises);
-
-        bool Delete(Guid id);
-
-        PaginatedList<IExercises> Find(IFilter filter);
-
-        IExercises Get(Guid id);
-
-        bool Update(IExercises exercises);
-
-        #endregion Methods
     }
 }

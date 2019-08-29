@@ -21,7 +21,7 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<IStep> ApplyFilter(IQueryable<IStep> entities, IStepFilter filter)
+        protected override IQueryable<Step> ApplyFilter(IQueryable<Step> entities, IStepFilter filter)
         {
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
@@ -30,7 +30,7 @@ namespace FitnessCenterStereo.Repository
             return entities;
         }
 
-        protected IQueryable<IStep> ApplySort(IQueryable<IStep> entities, IStepFilter filter)
+        protected override IQueryable<Step> ApplySort(IQueryable<Step> entities, IStepFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -64,9 +64,9 @@ namespace FitnessCenterStereo.Repository
 
                 case "abbreaviaton":
                     if (!filter.SortAscending)
-                        entities = entities.OrderByDescending(c => c.Abbreviation);
+                        entities = entities.OrderByDescending(c => c.Abbreaviaton);
                     else
-                        entities = entities.OrderBy(c => c.Abbreviation);
+                        entities = entities.OrderBy(c => c.Abbreaviaton);
 
                     break;
 
