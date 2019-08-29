@@ -30,7 +30,7 @@ namespace FitnessCenterStereo.Repository
             return entities;
         }
 
-        protected IQueryable<Plan> ApplySort(IQueryable<Plan> entities, IPlanFilter filter)
+        protected override IQueryable<Plan> ApplySort(IQueryable<Plan> entities, IPlanFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {
