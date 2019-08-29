@@ -17,12 +17,9 @@ namespace FitnessCenterStereo.WebApi.Mappings
             CreateMap<ICard, CardViewModel>().ReverseMap();
             CreateMap<IDietType, DietTypeViewModel>().ReverseMap();
             CreateMap<IEquipment, EquipmentViewModel>().ReverseMap();
-            CreateMap<IExerciseEquipment, ExerciseEquipmentViewModel>().ReverseMap();
-            CreateMap<IExerciseSchedule, ExerciseScheduleViewModel>().ReverseMap();
             CreateMap<IExercises, ExercisesViewModel>().ReverseMap();
             CreateMap<IMembership, MembershipViewModel>().ReverseMap();
-            CreateMap<IPlanTrainer, PlanTrainerViewModel>().ReverseMap();
-            CreateMap<IPlan, PlanTrainerViewModel>().ReverseMap();
+            CreateMap<IPlan, PlanViewModel>().ReverseMap();
             CreateMap<ISchedule, ScheduleViewModel>().ReverseMap();
             CreateMap<IStep, StepViewModel>().ReverseMap();
             CreateMap<ITrainer, TrainerViewModel>().ReverseMap();
