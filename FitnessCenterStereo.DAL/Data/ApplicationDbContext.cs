@@ -52,6 +52,7 @@ namespace FitnessCenterStereo.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             //modelBuilder.HasPostgresExtension("pg_buffercache")
             //    .HasPostgresExtension("pg_stat_statements")
             //    .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
@@ -90,7 +91,7 @@ namespace FitnessCenterStereo.DAL.Data
 
             // entity.Property(e => e.DateUpdated).HasColumnType("date");
 
-            // entity.HasOne(d => d.IdNavigation) .WithMany(p => p.Compiles) .HasForeignKey(d => d.Id) .HasConstraintName("Compiles_TrainerId_fkey");
+            // entity.HasOne(d => d.IdNavigation).WithMany(p => p.Compiles).HasForeignKey(d => d.Id).HasConstraintName("Compiles_TrainerId_fkey");
 
             //    entity.HasOne(d => d.Plan)
             //        .WithMany(p => p.Compiles)
@@ -116,30 +117,51 @@ namespace FitnessCenterStereo.DAL.Data
             //    entity.Property(e => e.DateUpdated).HasColumnType("date");
             //});
 
-            //modelBuilder.Entity<Equipment>(entity =>
-            //{
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Equipment>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-            // entity.Property(e => e.DateCreated).HasColumnType("date");
+                entity.Property(e => e.DateCreated).HasColumnType("date");
 
-            //    entity.Property(e => e.DateUpdated).HasColumnType("date");
-            //});
+                entity.Property(e => e.DateUpdated).HasColumnType("date");
+            });
 
-            //modelBuilder.Entity<ExerciseEquipment>(entity =>
-            //{
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Exercises>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-            // entity.Property(e => e.DateCreated).HasColumnType("date");
+                entity.Property(e => e.DateCreated).HasColumnType("date");
 
-            // entity.Property(e => e.DateUpdated).HasColumnType("date");
+                entity.Property(e => e.DateUpdated).HasColumnType("date");
 
-            // entity.HasOne(d => d.Equipment) .WithMany(p => p.ExerciseEquipment) .HasForeignKey(d => d.EquipmentId) .HasConstraintName("ExerciseEquipment_EquipmentId_fkey");
+                entity.HasOne(d => d.BodyPart).WithMany(p => p.Exercises).HasForeignKey(d => d.BodyPartId).HasConstraintName("Exercises_BodyPartId_fkey");
 
-            //    entity.HasOne(d => d.Exercises)
-            //        .WithMany(p => p.ExerciseEquipment)
-            //        .HasForeignKey(d => d.ExercisesId)
-            //        .HasConstraintName("ExerciseEquipment_ExercisesId_fkey");
-            //});
+                entity.HasOne(d => d.ComplexityLeveTypel)
+                    .WithMany(p => p.Exercises)
+                    .HasForeignKey(d => d.ComplexityLeveTypelId)
+                    .HasConstraintName("Exercises_ComplexityLeveTypelId_fkey");
+            });
+
+            modelBuilder.Entity<ExerciseEquipment>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.DateCreated).HasColumnType("date");
+
+                entity.Property(e => e.DateUpdated).HasColumnType("date");
+
+                entity.HasOne(d => d.Equipment).WithMany(p => p.ExerciseEquipment).HasForeignKey(d => d.EquipmentId).HasConstraintName("ExerciseEquipment_EquipmentId_fkey");
+
+                entity.HasKey(x => new { x.ExercisesId, x.EquipmentId });
+                entity.HasOne(d => d.Exercises)
+                    .WithMany(p => p.ExerciseEquipment)
+                    .HasForeignKey(d => d.ExercisesId)
+                    .HasConstraintName("ExerciseEquipment_ExercisesId_fkey");
+                entity.HasOne(d => d.Equipment)
+                    .WithMany(p => p.ExerciseEquipment)
+                    .HasForeignKey(d => d.EquipmentId)
+                    .HasConstraintName("ExerciseEquipment_ExercisesId_fkey2");
+            });
 
             //modelBuilder.Entity<ExerciseSchedule>(entity =>
             //{
@@ -155,22 +177,6 @@ namespace FitnessCenterStereo.DAL.Data
             //        .WithMany(p => p.ExerciseSchedule)
             //        .HasForeignKey(d => d.ScheduleId)
             //        .HasConstraintName("ExerciseSchedule_ScheduleId_fkey");
-            //});
-
-            //modelBuilder.Entity<Exercises>(entity =>
-            //{
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
-
-            // entity.Property(e => e.DateCreated).HasColumnType("date");
-
-            // entity.Property(e => e.DateUpdated).HasColumnType("date");
-
-            // entity.HasOne(d => d.BodyPart) .WithMany(p => p.Exercises) .HasForeignKey(d => d.BodyPartId) .HasConstraintName("Exercises_BodyPartId_fkey");
-
-            //    entity.HasOne(d => d.ComplexityLeveTypel)
-            //        .WithMany(p => p.Exercises)
-            //        .HasForeignKey(d => d.ComplexityLeveTypelId)
-            //        .HasConstraintName("Exercises_ComplexityLeveTypelId_fkey");
             //});
 
             //modelBuilder.Entity<Membership>(entity =>

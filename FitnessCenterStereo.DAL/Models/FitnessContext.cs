@@ -133,6 +133,8 @@ namespace FitnessCenterStereo.DAL.Models
 
                 entity.Property(e => e.DateUpdated).HasColumnType("date");
 
+                entity.HasKey(x => new { x.EquipmentId, x.ExercisesId });
+
                 entity.HasOne(d => d.Equipment)
                     .WithMany(p => p.ExerciseEquipment)
                     .HasForeignKey(d => d.EquipmentId)
