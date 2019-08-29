@@ -1,4 +1,4 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
@@ -36,7 +36,7 @@ namespace FitnessCenterStereo.Service
             return StepRepository.Delete(id);
         }
 
-        public PaginatedList<IStep> Find(IFilter filter)
+        public PaginatedList<IStep> Find(IStepFilter filter)
         {
             return StepRepository.Find(filter);
         }
