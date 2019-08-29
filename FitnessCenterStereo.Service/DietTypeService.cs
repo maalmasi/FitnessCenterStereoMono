@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class DietTypeService : IDietTypeService
+    internal class DietTypeService : IDietTypeService
     {
+        #region Constructors
+
         public DietTypeService(IDietTypeRepository dietTypeRepository)
         {
             DietTypeRepository = dietTypeRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IDietTypeRepository DietTypeRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IDietType Create(IDietType dietType)
         {
@@ -28,7 +36,7 @@ namespace FitnessCenterStereo.Service
             return DietTypeRepository.Delete(id);
         }
 
-        public PaginatedList<IDietType> Find(IFilter filter)
+        public PaginatedList<IDietType> Find(IDietTypeFilter filter)
         {
             return DietTypeRepository.Find(filter);
         }
@@ -42,6 +50,7 @@ namespace FitnessCenterStereo.Service
         {
             return DietTypeRepository.Update(dietType);
         }
-    }
 
+        #endregion Methods
+    }
 }

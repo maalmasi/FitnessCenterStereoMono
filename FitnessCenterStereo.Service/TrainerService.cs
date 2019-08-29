@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using AutoMapper;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-
-    class TrainerService : ITrainerService
+    internal class TrainerService : ITrainerService
     {
-        protected ITrainerRepository TrainerRepository { get; private set; }
-
+        #region Constructors
 
         public TrainerService(ITrainerRepository trainerRepository)
         {
             TrainerRepository = trainerRepository;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ITrainerRepository TrainerRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public ITrainer Create(ITrainer trainer)
         {
             return TrainerRepository.Create(trainer);
@@ -36,16 +41,16 @@ namespace FitnessCenterStereo.Service
             return TrainerRepository.Find(filter);
         }
 
+        public ITrainer Get(Guid id)
+        {
+            return TrainerRepository.Get(id);
+        }
+
         public bool Update(ITrainer trainer)
         {
             return TrainerRepository.Update(trainer);
         }
 
-        public ITrainer Get(Guid id)
-        {
-            return TrainerRepository.Get(id);
-        }
+        #endregion Methods
     }
-
 }
-

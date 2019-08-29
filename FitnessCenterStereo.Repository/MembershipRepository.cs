@@ -9,21 +9,35 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-    class MembershipRepository : IMembershipRepository
+    internal class MembershipRepository : IMembershipRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public MembershipRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             this.mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IMembership Create(IMembership membership)
         {
             membership.Id = Guid.NewGuid();
@@ -40,7 +54,6 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.Membership.Remove(toDelete);
             AppDbContext.SaveChanges();
             return AppDbContext.SaveChanges() == 1;
-
         }
 
         public PaginatedList<IMembership> Find(IFilter filter)
@@ -49,7 +62,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                membership = membership.Where(c => c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                membership = membership.Where(c => c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -60,6 +73,7 @@ namespace FitnessCenterStereo.Repository
                         membership = membership.OrderBy(c => c.Price);
 
                     break;
+
                 case "dateupdated":
                     if (!filter.SortAscending)
                         membership = membership.OrderByDescending(c => c.DateUpdated);
@@ -67,6 +81,7 @@ namespace FitnessCenterStereo.Repository
                         membership = membership.OrderBy(c => c.DateUpdated);
 
                     break;
+
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
@@ -74,7 +89,6 @@ namespace FitnessCenterStereo.Repository
             var count = membership.Count();
 
             var items = membership.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
 
             return new PaginatedList<IMembership>(mapper.Map<IEnumerable<IMembership>>(items), count, filter.Page, filter.RecordsPerPage);
         }
@@ -93,5 +107,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

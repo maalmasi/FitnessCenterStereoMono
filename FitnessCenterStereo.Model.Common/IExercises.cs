@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IExercises : IBaseModel
+    public interface IExercises : IBaseModel
     {
-      
-        String Name { get; set; }
-       
+        #region Properties
+
         Guid BodyPartId { get; set; }
         Guid ComplexityLevelTypeId { get; set; }
+        String Name { get; set; }
 
+        #endregion Properties
     }
 }

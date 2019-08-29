@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class PlanTrainerService : IPlanTrainerService
+    internal class PlanTrainerService : IPlanTrainerService
     {
+        #region Constructors
+
         public PlanTrainerService(IPlanTrainerRepository planTrainerRepository)
         {
             PlanTrainerRepository = planTrainerRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IPlanTrainerRepository PlanTrainerRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IPlanTrainer Create(IPlanTrainer planTrainer)
         {
@@ -25,7 +33,7 @@ namespace FitnessCenterStereo.Service
 
         public bool Delete(Guid id)
         {
-                return PlanTrainerRepository.Delete(id);
+            return PlanTrainerRepository.Delete(id);
         }
 
         public PaginatedList<IPlanTrainer> Find(IFilter filter)
@@ -42,6 +50,7 @@ namespace FitnessCenterStereo.Service
         {
             return PlanTrainerRepository.Update(planTrainer);
         }
-    }
 
+        #endregion Methods
+    }
 }

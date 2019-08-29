@@ -2,17 +2,23 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Service.Common
 {
     public interface IComplexityLevelTypeService
     {
-        PaginatedList<IComplexityLevelType> Find(IFilter filter);
+        #region Methods
+
         IComplexityLevelType Create(IComplexityLevelType complexityLevel);
+
         bool Delete(Guid id);
-        bool Update(IComplexityLevelType complexityLevel);
+
+        PaginatedList<IComplexityLevelType> Find(IFilter filter);
+
         IComplexityLevelType Get(Guid id);
+
+        bool Update(IComplexityLevelType complexityLevel);
+
+        #endregion Methods
     }
 }

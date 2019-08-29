@@ -1,25 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Repository.Common;
-using FitnessCenterStereo.DAL.Models;
+﻿using AutoMapper;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.DAL.Data;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
+using FitnessCenterStereo.DAL.Models;
+using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    class ComplexityLevelTypeRepository : IComplexityLevelTypeRepository
+    internal class ComplexityLevelTypeRepository : IComplexityLevelTypeRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
         public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             Mapper = mapper;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
+        {
+            complexityLevel.Id = Guid.NewGuid();
+            complexityLevel.DateCreated = DateTime.UtcNow;
+            complexityLevel.DateUpdated = DateTime.UtcNow;
+            AppDbContext.ComplexityLevelType.Add(Mapper.Map<ComplexityLevelType>(complexityLevel));
+            AppDbContext.SaveChanges();
+            return complexityLevel;
+        }
+
+        public bool Delete(Guid id)
+        {
+            var toDelete = AppDbContext.ComplexityLevelType.Find(id);
+            AppDbContext.ComplexityLevelType.Remove(toDelete);
+            return AppDbContext.SaveChanges() == 1;
         }
 
         public PaginatedList<IComplexityLevelType> Find(IFilter filter)
@@ -41,6 +74,7 @@ namespace FitnessCenterStereo.Repository
                         complexityLevel = complexityLevel.OrderBy(cmp => cmp.Name);
 
                     break;
+
                 case "abbreviation":
                     if (!filter.SortAscending)
                         complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Abbreviation);
@@ -55,7 +89,6 @@ namespace FitnessCenterStereo.Repository
                         complexityLevel = complexityLevel.OrderBy(cmp => cmp.DateUpdated);
                     break;
 
-
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
@@ -64,26 +97,12 @@ namespace FitnessCenterStereo.Repository
 
             var items = complexityLevel.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IComplexityLevelType>(Mapper.Map<IEnumerable<IComplexityLevelType>>(items), count, filter.Page, filter.RecordsPerPage);
-
         }
 
-        public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
+        public IComplexityLevelType Get(Guid id)
         {
-            complexityLevel.Id = Guid.NewGuid();
-            complexityLevel.DateCreated = DateTime.UtcNow;
-            complexityLevel.DateUpdated = DateTime.UtcNow;
-            AppDbContext.ComplexityLevelType.Add(Mapper.Map<ComplexityLevelType>(complexityLevel));
-            AppDbContext.SaveChanges();
-            return complexityLevel;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.ComplexityLevelType.Find(id);
-            AppDbContext.ComplexityLevelType.Remove(toDelete);
-            return AppDbContext.SaveChanges() == 1;
+            return Mapper.Map<IComplexityLevelType>(AppDbContext.ComplexityLevelType.Find(id));
         }
 
         public bool Update(IComplexityLevelType complexityLevel)
@@ -92,11 +111,6 @@ namespace FitnessCenterStereo.Repository
             return AppDbContext.SaveChanges() == 1;
         }
 
-        public IComplexityLevelType Get(Guid id)
-        {
-            return Mapper.Map<IComplexityLevelType>(AppDbContext.ComplexityLevelType.Find(id));
-        }
-
-
+        #endregion Methods
     }
 }

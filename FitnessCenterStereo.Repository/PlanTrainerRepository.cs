@@ -10,19 +10,34 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-
 namespace FitnessCenterStereo.Repository
 {
-    class PlanTrainerRepository : IPlanTrainerRepository
+    internal class PlanTrainerRepository : IPlanTrainerRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
-       
+
+        #endregion Fields
+
+        #region Constructors
+
         public PlanTrainerRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
             AppDbContext = dbContext;
             Mapper = mapper;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IPlanTrainer Create(IPlanTrainer planTrainer)
         {
             planTrainer.DateCreated = DateTime.UtcNow;
@@ -30,8 +45,6 @@ namespace FitnessCenterStereo.Repository
             planTrainer.Id = Guid.NewGuid();
             AppDbContext.PlanTrainer.Add(Mapper.Map<PlanTrainer>(planTrainer));
             return planTrainer;
-
-
         }
 
         public bool Delete(Guid id)
@@ -60,6 +73,7 @@ namespace FitnessCenterStereo.Repository
                         planTrainer = planTrainer.OrderBy(pln => pln.PlanId);
 
                     break;
+
                 case "dateupdated":
                     if (!filter.SortAscending)
                         planTrainer = planTrainer.OrderByDescending(pln => pln.DateUpdated);
@@ -73,17 +87,13 @@ namespace FitnessCenterStereo.Repository
                     else
                         planTrainer = planTrainer.OrderBy(pln => pln.DateUpdated);
                     break;
-
-                
             }
 
             var count = planTrainer.Count();
 
             var items = planTrainer.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IPlanTrainer>(Mapper.Map<IEnumerable<IPlanTrainer>>(items), count, filter.Page, filter.RecordsPerPage);
-
         }
 
         public IPlanTrainer Get(Guid id)
@@ -96,5 +106,7 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.PlanTrainer.Update(Mapper.Map<PlanTrainer>(planTrainer));
             return AppDbContext.SaveChanges() == 1;
         }
+
+        #endregion Methods
     }
 }

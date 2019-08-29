@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IPlan : IBaseModel
+    public interface IPlan : IBaseModel
     {
-       
-        String Name { get; set; }
-        
+        #region Properties
+
         Guid DietTypeId { get; set; }
+        String Name { get; set; }
+
+        #endregion Properties
     }
 }

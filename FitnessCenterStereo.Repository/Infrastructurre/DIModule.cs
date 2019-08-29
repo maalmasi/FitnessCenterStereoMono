@@ -7,6 +7,8 @@ namespace FitnessCenterStereo.Repository.Infrastructurre
 {
     public class DIModule : Module
     {
+        #region Methods
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ApplicationDbContext>().AsSelf();
@@ -25,8 +27,8 @@ namespace FitnessCenterStereo.Repository.Infrastructurre
             builder.RegisterType<ScheduleRepository>().As<IScheduleRepository>();
             builder.RegisterType<StepRepositoy>().As<IStepRepository>();
             builder.RegisterType<TrainerRepository>().As<ITrainerRepository>();
-
-
         }
+
+        #endregion Methods
     }
 }

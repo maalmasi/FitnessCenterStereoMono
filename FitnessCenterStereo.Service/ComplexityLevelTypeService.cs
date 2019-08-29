@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class ComplexityLevelTypeService : IComplexityLevelTypeService
+    internal class ComplexityLevelTypeService : IComplexityLevelTypeService
     {
+        #region Constructors
+
         public ComplexityLevelTypeService(IComplexityLevelTypeRepository complexityLevelTypeRepository)
         {
             ComplexityLevelTypeRepository = complexityLevelTypeRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IComplexityLevelTypeRepository ComplexityLevelTypeRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
         {
-            return ComplexityLevelTypeRepository.Create(complexityLevel);   
+            return ComplexityLevelTypeRepository.Create(complexityLevel);
         }
 
         public bool Delete(Guid id)
@@ -46,6 +54,7 @@ namespace FitnessCenterStereo.Service
                 return true;
             else return false;
         }
-    }
 
+        #endregion Methods
+    }
 }

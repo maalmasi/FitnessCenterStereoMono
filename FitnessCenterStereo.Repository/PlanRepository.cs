@@ -9,20 +9,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-    class PlanRepository : IPlanRepository
+    internal class PlanRepository : IPlanRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
 
-        public PlanRepository(ApplicationDbContext dbContext,IMapper mapper)
+        #endregion Fields
+
+        #region Constructors
+
+        public PlanRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
             Mapper = mapper;
             AppDbContext = dbContext;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IPlan Create(IPlan plan)
         {
             plan.Id = Guid.NewGuid();
@@ -31,7 +46,6 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.Plan.Add(Mapper.Map<Plan>(plan));
             AppDbContext.SaveChanges();
             return plan;
-
         }
 
         public bool Delete(Guid id)
@@ -48,7 +62,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                plan = plan.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())||c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.DietTypeId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                plan = plan.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.DietTypeId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -67,7 +81,6 @@ namespace FitnessCenterStereo.Repository
 
                     break;
 
-                
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
@@ -75,7 +88,6 @@ namespace FitnessCenterStereo.Repository
             var count = plan.Count();
 
             var items = plan.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
 
             return new PaginatedList<IPlan>(Mapper.Map<IEnumerable<IPlan>>(items), count, filter.Page, filter.RecordsPerPage);
         }
@@ -94,5 +106,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

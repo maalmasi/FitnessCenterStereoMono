@@ -10,21 +10,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-
 
 namespace FitnessCenterStereo.Repository
 {
     public class CardRepository : ICardRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
         public CardRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             this.mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public ICard Create(ICard card)
         {
             card.Id = Guid.NewGuid();
@@ -41,7 +55,6 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.Card.Remove(toDelete);
             AppDbContext.SaveChanges();
             return AppDbContext.SaveChanges() == 1;
-
         }
 
         public PaginatedList<ICard> Find(IFilter filter)
@@ -50,7 +63,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                card = card.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.MembershipId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -76,7 +89,6 @@ namespace FitnessCenterStereo.Repository
 
             var items = card.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<ICard>(mapper.Map<IEnumerable<ICard>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
@@ -93,7 +105,8 @@ namespace FitnessCenterStereo.Repository
                 return AppDbContext.SaveChanges() == 1;
             }
             return false;
-
         }
+
+        #endregion Methods
     }
 }

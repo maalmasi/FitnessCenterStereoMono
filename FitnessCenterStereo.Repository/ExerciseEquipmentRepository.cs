@@ -9,21 +9,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-    class ExerciseEquipmentRepository : IExerciseEquipmentRepository
+    internal class ExerciseEquipmentRepository : IExerciseEquipmentRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public ExerciseEquipmentRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             this.mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IExerciseEquipment Create(IExerciseEquipment exerciseEquipment)
         {
             exerciseEquipment.Id = Guid.NewGuid();
@@ -40,7 +54,6 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.ExerciseEquipment.Remove(toDelete);
             AppDbContext.SaveChanges();
             return AppDbContext.SaveChanges() == 1;
-
         }
 
         public PaginatedList<IExerciseEquipment> Find(IFilter filter)
@@ -49,7 +62,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                exEquip = exEquip.Where(c => c.EquipmentId.Equals(filter.SearchQuery) || c.ExercisesId.Equals(filter.SearchQuery) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                exEquip = exEquip.Where(c => c.EquipmentId.Equals(filter.SearchQuery) || c.ExercisesId.Equals(filter.SearchQuery) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -84,7 +97,6 @@ namespace FitnessCenterStereo.Repository
 
             var items = exEquip.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IExerciseEquipment>(mapper.Map<IEnumerable<IExerciseEquipment>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
@@ -102,5 +114,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

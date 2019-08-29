@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class StepService : IStepService
+    internal class StepService : IStepService
     {
+        #region Constructors
 
-        protected IStepRepository StepRepository { get; private set; }
-        
         public StepService(IStepRepository stepRepository)
         {
             StepRepository = stepRepository;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected IStepRepository StepRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IStep Create(IStep step)
         {
             return StepRepository.Create(step);
@@ -42,5 +50,7 @@ namespace FitnessCenterStereo.Service
         {
             return StepRepository.Update(step);
         }
+
+        #endregion Methods
     }
 }

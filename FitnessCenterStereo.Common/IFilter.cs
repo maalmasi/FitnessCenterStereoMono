@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Common
 {
     public interface IFilter
     {
-        String SearchQuery { get; set; }
-        String SortBy { get; set; }
-        bool SortAscending { get; set; }
+        #region Properties
+
         int Page { get; set; }
-        int RecordsPerPage{ get; set; }
+        int RecordsPerPage { get; set; }
+        String SearchQuery { get; set; }
+        bool SortAscending { get; set; }
+        String SortBy { get; set; }
+
+        #endregion Properties
     }
 }

@@ -2,18 +2,23 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-   public interface ITrainerRepository
+    public interface ITrainerRepository
     {
-        PaginatedList<ITrainer> Find(IFilter filter);
+        #region Methods
+
         ITrainer Create(ITrainer trainer);
+
         bool Delete(Guid id);
-        bool Update(ITrainer trainer);
+
+        PaginatedList<ITrainer> Find(IFilter filter);
+
         ITrainer Get(Guid id);
 
+        bool Update(ITrainer trainer);
+
+        #endregion Methods
     }
 }

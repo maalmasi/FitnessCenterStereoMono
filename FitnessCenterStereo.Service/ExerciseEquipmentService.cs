@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class ExerciseEquipmentService : IExerciseEquipmentService
+    internal class ExerciseEquipmentService : IExerciseEquipmentService
     {
+        #region Constructors
+
         public ExerciseEquipmentService(IExerciseEquipmentRepository exerciseEquipmentRepository)
         {
             ExerciseEquipmentRepository = exerciseEquipmentRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IExerciseEquipmentRepository ExerciseEquipmentRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IExerciseEquipment Create(IExerciseEquipment bodyPartType)
         {
@@ -43,6 +51,6 @@ namespace FitnessCenterStereo.Service
             return ExerciseEquipmentRepository.Update(exerciseEquipment);
         }
 
+        #endregion Methods
     }
-
 }

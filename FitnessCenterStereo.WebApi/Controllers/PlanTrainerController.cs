@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.WebApi.Models;
+﻿using AutoMapper;
 using FitnessCenterStereo.Common;
-using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
-using FitnessCenterStereo.Service.Common;
-using AutoMapper;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,13 +14,35 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class PlanTrainerController : BaseApiController
     {
-        protected IPlanTrainerService Service { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public PlanTrainerController(IPlanTrainerService service, IMapper mapperInterface) : base()
         {
             Service = service;
             mapper = mapperInterface;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected IPlanTrainerService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public bool Delete(Guid id)
+        {
+            return Service.Delete(id);
         }
 
         public PaginatedList<PlanTrainerViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
@@ -50,14 +70,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public bool Put(PlanTrainerViewModel value)
         {
             return Service.Update(mapper.Map<IPlanTrainer>(value));
-
         }
 
-        // DELETE api/<controller>/<id>
-        [HttpDelete("{id}")]
-        public bool Delete(Guid id)
-        {
-            return Service.Delete(id);
-        }
+        #endregion Methods
     }
 }

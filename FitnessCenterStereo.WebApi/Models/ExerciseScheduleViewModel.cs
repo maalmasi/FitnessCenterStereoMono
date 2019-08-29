@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.WebApi.Models
 {
     public class ExerciseScheduleViewModel : BaseViewModel
     {
-        public Guid ScheduleId { get; set; }
+        #region Properties
+
         public Guid ExerciseId { get; set; }
+        public Guid ScheduleId { get; set; }
+
+        #endregion Properties
     }
 }

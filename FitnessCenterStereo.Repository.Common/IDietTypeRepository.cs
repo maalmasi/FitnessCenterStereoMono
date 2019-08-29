@@ -1,20 +1,9 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IDietTypeRepository
+    public interface IDietTypeRepository : IRepository<IDietType, IDietTypeFilter>
     {
-
-        PaginatedList<IDietType> Find(IFilter filter);
-        IDietType Create(IDietType bodyPartType);
-        bool Delete(Guid id);
-        bool Update(IDietType dietType);
-        IDietType Get(Guid id);
-
     }
 }

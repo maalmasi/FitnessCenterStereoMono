@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FitnessCenterStereo.Model.Common
+﻿namespace FitnessCenterStereo.Model.Common
 {
     public interface IMembership : IBaseModel
     {
+        #region Properties
+
         float Price { get; set; }
-       
+
+        #endregion Properties
     }
 }

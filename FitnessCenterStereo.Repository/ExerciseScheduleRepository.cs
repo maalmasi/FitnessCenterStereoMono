@@ -9,20 +9,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-    class ExerciseScheduleRepository : IExerciseScheduleRepository
+    internal class ExerciseScheduleRepository : IExerciseScheduleRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
         public ExerciseScheduleRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             this.mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IExerciseSchedule Create(IExerciseSchedule exerciseSchedule)
         {
             exerciseSchedule.Id = Guid.NewGuid();
@@ -66,7 +81,6 @@ namespace FitnessCenterStereo.Repository
 
             var items = exSch.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IExerciseSchedule>(mapper.Map<IEnumerable<IExerciseSchedule>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
@@ -83,7 +97,8 @@ namespace FitnessCenterStereo.Repository
                 return AppDbContext.SaveChanges() == 1;
             }
             return false;
-
         }
+
+        #endregion Methods
     }
 }

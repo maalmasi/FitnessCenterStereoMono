@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.WebApi.Models;
+﻿using AutoMapper;
 using FitnessCenterStereo.Common;
-using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
-using FitnessCenterStereo.Service.Common;
-using AutoMapper;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +14,13 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class PlanController : BaseApiController
     {
+        #region Fields
 
-        protected IPlanService Service { get; private set; }
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public PlanController(IPlanService service, IMapper mapperInterface) : base()
         {
@@ -26,7 +28,24 @@ namespace FitnessCenterStereo.WebApi.Controllers
             mapper = mapperInterface;
         }
 
-        public PaginatedList<PlanViewModel> Find(string searchQuerry=DefaultSearchQuerry, int page=DefaultPage, int rpp=DefaultRpp, string sortBy=DefaultSortBy, bool sortAsc=DefaultSortAsc)
+        #endregion Constructors
+
+        #region Properties
+
+        protected IPlanService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public bool Delete(Guid id)
+        {
+            return Service.Delete(id);
+        }
+
+        public PaginatedList<PlanViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<PlanViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
@@ -51,14 +70,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public bool Put(PlanViewModel value)
         {
             return Service.Update(mapper.Map<IPlan>(value));
-
         }
 
-        // DELETE api/<controller>/<id>
-        [HttpDelete("{id}")]
-        public bool Delete(Guid id)
-        {
-            return Service.Delete(id);
-        }
+        #endregion Methods
     }
 }

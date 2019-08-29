@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.WebApi.Models;
+﻿using AutoMapper;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using AutoMapper;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,13 +14,35 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class EquipmentController : BaseApiController
     {
-        protected IEquipmentService Service { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public EquipmentController(IEquipmentService service, IMapper mapperInterface) : base()
         {
             Service = service;
             mapper = mapperInterface;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected IEquipmentService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public bool Delete(Guid id)
+        {
+            return Service.Delete(id);
         }
 
         public PaginatedList<EquipmentViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
@@ -51,14 +70,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public bool Put(EquipmentViewModel value)
         {
             return Service.Update(mapper.Map<IEquipment>(value));
-
         }
 
-        // DELETE api/<controller>/<id>
-        [HttpDelete("{id}")]
-        public bool Delete(Guid id)
-        {
-            return Service.Delete(id);
-        }
+        #endregion Methods
     }
 }

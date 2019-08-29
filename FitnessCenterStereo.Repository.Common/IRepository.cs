@@ -5,19 +5,23 @@ using System;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IExerciseEquipmentRepository
+    public interface IRepository<T, TEntity, TFilter>
+        where T : IBaseModel
+        where TEntity : class
+        where TFilter : IFilter
+
     {
         #region Methods
 
-        IExerciseEquipment Create(IExerciseEquipment exerciseEquipment);
+        T Create(T model);
 
         bool Delete(Guid id);
 
-        PaginatedList<IExerciseEquipment> Find(IFilter filter);
+        PaginatedList<T> Find(TFilter filter);
 
-        IExerciseEquipment Get(Guid id);
+        T Get(Guid id);
 
-        bool Update(IExerciseEquipment exerciseEquipment);
+        bool Update(T model);
 
         #endregion Methods
     }

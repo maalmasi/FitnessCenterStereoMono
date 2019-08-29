@@ -6,10 +6,12 @@ namespace FitnessCenterStereo.Repository.Mappings
 {
     public class MappingProfileEntityDomain : Profile
     {
+        #region Constructors
+
         public MappingProfileEntityDomain()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<BodyPartType,IBodyPartType >().ReverseMap();
+            CreateMap<BodyPartType, IBodyPartType>().ReverseMap();
             CreateMap<ComplexityLevelType, IComplexityLevelType>().ReverseMap();
             CreateMap<Card, ICard>().ReverseMap();
             CreateMap<DietType, IDietType>().ReverseMap();
@@ -23,11 +25,8 @@ namespace FitnessCenterStereo.Repository.Mappings
             CreateMap<Schedule, ISchedule>().ReverseMap();
             CreateMap<Step, IStep>().ReverseMap();
             CreateMap<Trainer, ITrainer>().ReverseMap();
-
-
-
-
-
         }
+
+        #endregion Constructors
     }
 }

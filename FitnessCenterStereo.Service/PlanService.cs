@@ -1,25 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
 using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using AutoMapper;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class PlanService : IPlanService
+    internal class PlanService : IPlanService
     {
-       protected IPlanRepository PlanRepository { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public PlanService(IPlanRepository planRepository, IMapper mapper)
         {
             PlanRepository = planRepository;
             Mapper = mapper;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected IPlanRepository PlanRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IPlan Create(IPlan plan)
         {
@@ -45,5 +58,7 @@ namespace FitnessCenterStereo.Service
         {
             return PlanRepository.Update(plan);
         }
+
+        #endregion Methods
     }
 }

@@ -4,18 +4,27 @@ using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
-using System.Collections.Generic;
 
 namespace FitnessCenterStereo.Service
 {
-    class CardService : ICardService
+    internal class CardService : ICardService
     {
+        #region Constructors
+
         public CardService(ICardRepository cardRepository)
         {
             CardRepository = cardRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         public ICardRepository CardRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public ICard Create(ICard card)
         {
@@ -41,5 +50,7 @@ namespace FitnessCenterStereo.Service
         {
             return CardRepository.Update(card);
         }
+
+        #endregion Methods
     }
 }

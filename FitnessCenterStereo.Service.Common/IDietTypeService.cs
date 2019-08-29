@@ -1,4 +1,4 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
@@ -7,10 +7,18 @@ namespace FitnessCenterStereo.Service.Common
 {
     public interface IDietTypeService
     {
-        PaginatedList<IDietType> Find(IFilter filter);
+        #region Methods
+
         IDietType Create(IDietType dietType);
+
         bool Delete(Guid id);
-        bool Update(IDietType dietType);
+
+        PaginatedList<IDietType> Find(IDietTypeFilter filter);
+
         IDietType Get(Guid id);
+
+        bool Update(IDietType dietType);
+
+        #endregion Methods
     }
 }

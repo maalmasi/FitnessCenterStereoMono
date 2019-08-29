@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FitnessCenterStereo.WebApi.Models
+﻿namespace FitnessCenterStereo.WebApi.Models
 {
     public class MembershipViewModel : BaseViewModel
     {
+        #region Properties
+
         public float Price { get; set; }
+
+        #endregion Properties
     }
 }

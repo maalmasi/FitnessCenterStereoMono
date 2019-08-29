@@ -12,16 +12,32 @@ using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    class TrainerRepository : ITrainerRepository
+    internal class TrainerRepository : ITrainerRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public TrainerRepository(ApplicationDbContext dbcontext, IMapper mapper)
         {
             AppDbContext = dbcontext;
             Mapper = mapper;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public ITrainer Create(ITrainer trainer)
         {
             trainer.Id = Guid.NewGuid();
@@ -57,12 +73,14 @@ namespace FitnessCenterStereo.Repository
                         trainer = trainer.OrderBy(tr => tr.FirstName);
 
                     break;
+
                 case "lastname":
                     if (!filter.SortAscending)
                         trainer = trainer.OrderByDescending(tr => tr.LastName);
                     else
                         trainer = trainer.OrderBy(tr => tr.LastName);
                     break;
+
                 case "hiredat":
                     if (!filter.SortAscending)
                         trainer = trainer.OrderByDescending(tr => tr.HiredAt);
@@ -76,6 +94,7 @@ namespace FitnessCenterStereo.Repository
                     else
                         trainer = trainer.OrderBy(tr => tr.DateUpdated);
                     break;
+
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
@@ -83,7 +102,6 @@ namespace FitnessCenterStereo.Repository
             var count = trainer.Count();
 
             var items = trainer.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
 
             return new PaginatedList<ITrainer>(Mapper.Map<IEnumerable<ITrainer>>(items), count, filter.Page, filter.RecordsPerPage);
         }
@@ -102,5 +120,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

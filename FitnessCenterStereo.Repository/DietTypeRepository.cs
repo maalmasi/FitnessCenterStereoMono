@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
@@ -12,17 +12,32 @@ using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    class DietTypeRepository : IDietTypeRepository
+    internal class DietTypeRepository : IDietTypeRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public DietTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             AppDbContext = applicationDbContext;
             this.mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IDietType Create(IDietType dietType)
         {
             dietType.Id = Guid.NewGuid();
@@ -39,16 +54,15 @@ namespace FitnessCenterStereo.Repository
             AppDbContext.DietType.Remove(toDelete);
             AppDbContext.SaveChanges();
             return AppDbContext.SaveChanges() == 1;
-
         }
 
-        public PaginatedList<IDietType> Find(IFilter filter)
+        public PaginatedList<IDietType> Find(IDietTypeFilter filter)
         {
             IQueryable<DietType> dietType = AppDbContext.DietType.AsNoTracking();
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                dietType = dietType.Where(c => c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Ingridients.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", c.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             switch (filter.SortBy.ToLowerInvariant())
             {
@@ -88,7 +102,6 @@ namespace FitnessCenterStereo.Repository
 
             var items = dietType.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IDietType>(mapper.Map<IEnumerable<IDietType>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
@@ -105,7 +118,8 @@ namespace FitnessCenterStereo.Repository
                 return AppDbContext.SaveChanges() == 1;
             }
             return false;
-
         }
+
+        #endregion Methods
     }
 }

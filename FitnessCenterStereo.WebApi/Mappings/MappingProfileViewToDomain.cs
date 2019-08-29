@@ -6,6 +6,8 @@ namespace FitnessCenterStereo.WebApi.Mappings
 {
     public class MappingProfileViewDomain : Profile
     {
+        #region Constructors
+
         public MappingProfileViewDomain()
         {
             // Add as many of these lines as you need to map your objects
@@ -26,5 +28,7 @@ namespace FitnessCenterStereo.WebApi.Mappings
             CreateMap<ITrainer, TrainerViewModel>().ReverseMap();
             CreateMap<IComplexityLevelType, ComplexityLevelTypeViewModel>().ReverseMap();
         }
+
+        #endregion Constructors
     }
 }

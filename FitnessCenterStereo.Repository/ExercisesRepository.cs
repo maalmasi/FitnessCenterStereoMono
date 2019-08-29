@@ -9,22 +9,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-
-    class ExercisesRepository : IExercisesRepository
+    internal class ExercisesRepository : IExercisesRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public ExercisesRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
             AppDbContext = dbContext;
             Mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IExercises Create(IExercises exercises)
         {
             exercises.Id = Guid.NewGuid();
@@ -48,7 +61,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                exercises = exercises.Where(exc =>exc.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())  || exc.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",exc.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}",exc.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                exercises = exercises.Where(exc => exc.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || exc.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -76,7 +89,6 @@ namespace FitnessCenterStereo.Repository
 
             var items = exercises.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
 
-
             return new PaginatedList<IExercises>(Mapper.Map<IEnumerable<IExercises>>(items), count, filter.Page, filter.RecordsPerPage);
         }
 
@@ -94,5 +106,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

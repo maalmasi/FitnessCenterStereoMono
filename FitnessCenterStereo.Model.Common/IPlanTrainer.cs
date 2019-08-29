@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IPlanTrainer : IBaseModel
+    public interface IPlanTrainer : IBaseModel
     {
-        Guid TrainerId { get; set; }
+        #region Properties
+
         Guid PlanId { get; set; }
-       
+        Guid TrainerId { get; set; }
+
+        #endregion Properties
     }
 }

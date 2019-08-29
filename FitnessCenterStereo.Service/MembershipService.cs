@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
-    class MembershipService : IMembershipService
+    internal class MembershipService : IMembershipService
     {
+        #region Constructors
+
         public MembershipService(IMembershipRepository membershipRepository)
         {
             MembershipRepository = membershipRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IMembershipRepository MembershipRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IMembership Create(IMembership membership)
         {
@@ -43,6 +51,6 @@ namespace FitnessCenterStereo.Service
             return MembershipRepository.Update(membership);
         }
 
+        #endregion Methods
     }
-
 }

@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Service.Common;
-using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using FitnessCenterStereo.Repository.Common;
+using FitnessCenterStereo.Service.Common;
+using System;
 
 namespace FitnessCenterStereo.Service
 {
     public class BodyPartTypeService : IBodyPartTypeService
     {
+        #region Constructors
 
         public BodyPartTypeService(IBodyPartTypeRepository bodyPartTypeRepository)
         {
             BodyPartTypeRepository = bodyPartTypeRepository;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         protected IBodyPartTypeRepository BodyPartTypeRepository { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IBodyPartType Create(IBodyPartType bodyPartType)
         {
@@ -43,5 +51,6 @@ namespace FitnessCenterStereo.Service
             return BodyPartTypeRepository.Update(bodyPartType);
         }
 
+        #endregion Methods
     }
 }

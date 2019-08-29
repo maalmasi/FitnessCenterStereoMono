@@ -2,18 +2,23 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Service.Common
 {
     public interface IBodyPartTypeService
     {
-        PaginatedList<IBodyPartType> Find(IFilter filter);
+        #region Methods
+
         IBodyPartType Create(IBodyPartType bodyPartType);
+
         bool Delete(Guid id);
-        bool Update(IBodyPartType bodyPartType);
+
+        PaginatedList<IBodyPartType> Find(IFilter filter);
+
         IBodyPartType Get(Guid id);
 
+        bool Update(IBodyPartType bodyPartType);
+
+        #endregion Methods
     }
 }

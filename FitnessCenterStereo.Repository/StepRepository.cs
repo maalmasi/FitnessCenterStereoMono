@@ -9,22 +9,35 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 
 namespace FitnessCenterStereo.Repository
 {
-
-    class StepRepositoy : IStepRepository
+    internal class StepRepositoy : IStepRepository
     {
-        protected ApplicationDbContext AppDbContext { get; private set; }
+        #region Fields
+
         private readonly IMapper Mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public StepRepositoy(ApplicationDbContext dbContext, IMapper mapper)
         {
             AppDbContext = dbContext;
             Mapper = mapper;
-
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected ApplicationDbContext AppDbContext { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public IStep Create(IStep step)
         {
             step.Id = Guid.NewGuid();
@@ -48,7 +61,7 @@ namespace FitnessCenterStereo.Repository
 
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                step = step.Where(st => st.Abbreaviaton.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| st.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())||st.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())|| String.Format("{0:s}", st.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", st.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                step = step.Where(st => st.Abbreaviaton.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || st.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || st.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || st.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", st.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", st.DateCreated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
 
             switch (filter.SortBy.ToLowerInvariant())
@@ -60,19 +73,20 @@ namespace FitnessCenterStereo.Repository
                         step = step.OrderBy(st => st.Name);
 
                     break;
+
                 case "abbreviation":
                     if (!filter.SortAscending)
                         step = step.OrderByDescending(st => st.Abbreaviaton);
                     else
                         step = step.OrderBy(st => st.Abbreaviaton);
                     break;
+
                 case "dateupdated":
                     if (!filter.SortAscending)
                         step = step.OrderByDescending(st => st.DateUpdated);
                     else
                         step = step.OrderBy(st => st.DateUpdated);
                     break;
-             
 
                 case "description":
                     if (!filter.SortAscending)
@@ -88,7 +102,6 @@ namespace FitnessCenterStereo.Repository
             var count = step.Count();
 
             var items = step.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
 
             return new PaginatedList<IStep>(Mapper.Map<IEnumerable<IStep>>(items), count, filter.Page, filter.RecordsPerPage);
         }
@@ -107,5 +120,7 @@ namespace FitnessCenterStereo.Repository
             }
             return false;
         }
+
+        #endregion Methods
     }
 }

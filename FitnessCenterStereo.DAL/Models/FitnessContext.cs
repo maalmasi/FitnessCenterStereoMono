@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FitnessCenterStereo.DAL.Models
 {
     public partial class FitnessContext : DbContext
     {
+        #region Constructors
+
         public FitnessContext()
         {
         }
@@ -15,6 +15,9 @@ namespace FitnessCenterStereo.DAL.Models
         {
         }
 
+        #endregion Constructors
+
+        #region Properties
 
         public virtual DbSet<BodyPartType> BodyPartType { get; set; }
         public virtual DbSet<Card> Card { get; set; }
@@ -23,13 +26,17 @@ namespace FitnessCenterStereo.DAL.Models
         public virtual DbSet<DietType> DietType { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<ExerciseEquipment> ExerciseEquipment { get; set; }
-        public virtual DbSet<ExerciseSchedule> ExerciseSchedule { get; set; }
         public virtual DbSet<Exercises> Exercises { get; set; }
+        public virtual DbSet<ExerciseSchedule> ExerciseSchedule { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<Plan> Plan { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<Step> Step { get; set; }
         public virtual DbSet<Trainer> Trainer { get; set; }
+
+        #endregion Properties
+
+        #region Methods
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -44,7 +51,7 @@ namespace FitnessCenterStereo.DAL.Models
         {
             modelBuilder.HasPostgresExtension("pg_buffercache")
                 .HasPostgresExtension("pg_stat_statements")
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");         
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity<BodyPartType>(entity =>
             {
@@ -239,5 +246,7 @@ namespace FitnessCenterStereo.DAL.Models
                 entity.Property(e => e.HiredAt).HasColumnType("date");
             });
         }
+
+        #endregion Methods
     }
 }

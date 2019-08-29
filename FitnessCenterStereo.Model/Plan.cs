@@ -1,16 +1,15 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
     public class Plan : BaseModel, IPlan
     {
-      
-        public string Name { get; set; }
-    
+        #region Properties
+
         public Guid DietTypeId { get; set; }
+        public string Name { get; set; }
+
+        #endregion Properties
     }
 }
-

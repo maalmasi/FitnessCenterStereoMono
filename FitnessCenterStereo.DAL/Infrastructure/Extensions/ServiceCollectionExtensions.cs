@@ -1,15 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using FitnessCenterStereo.DAL.Data;
+﻿using FitnessCenterStereo.DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
-using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FitnessCenterStereo.DAL.Interface.ServiceExtensions
 {
     public static class ServiceCollectionExtensions
     {
+        #region Methods
+
         public static IServiceCollection AddAppDbContextExtension(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -21,5 +22,7 @@ namespace FitnessCenterStereo.DAL.Interface.ServiceExtensions
 
             return services;
         }
+
+        #endregion Methods
     }
 }

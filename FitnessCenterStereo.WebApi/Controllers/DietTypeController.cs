@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using FitnessCenterStereo.WebApi.Models;
-using FitnessCenterStereo.Common;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
-using AutoMapper;
 using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,8 +14,13 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class DietTypeController : BaseApiController
     {
-        protected IDietTypeService Service { get; private set; }
+        #region Fields
+
         private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
 
         public DietTypeController(IDietTypeService service, IMapper mapperInterface) : base()
         {
@@ -26,10 +28,27 @@ namespace FitnessCenterStereo.WebApi.Controllers
             mapper = mapperInterface;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        protected IDietTypeService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public bool Delete(Guid id)
+        {
+            return Service.Delete(id);
+        }
+
         public PaginatedList<DietTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<DietTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
+            IDietTypeFilter filter = new DietTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<DietTypeViewModel>>(Service.Find(mapper.Map<IDietTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
@@ -51,14 +70,8 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public bool Put(MembershipViewModel value)
         {
             return Service.Update(mapper.Map<IDietType>(value));
-
         }
 
-        // DELETE api/<controller>/<id>
-        [HttpDelete("{id}")]
-        public bool Delete(Guid id)
-        {
-            return Service.Delete(id);
-        }
+        #endregion Methods
     }
 }

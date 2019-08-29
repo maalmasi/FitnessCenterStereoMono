@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using FitnessCenterStereo.Service.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Service.Infrastructure
 {
     public class DIModule : Module
     {
+        #region Methods
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<BodyPartTypeService>().As<IBodyPartTypeService>();
@@ -25,5 +24,7 @@ namespace FitnessCenterStereo.Service.Infrastructure
             builder.RegisterType<StepService>().As<IStepService>();
             builder.RegisterType<TrainerService>().As<ITrainerService>();
         }
+
+        #endregion Methods
     }
 }
