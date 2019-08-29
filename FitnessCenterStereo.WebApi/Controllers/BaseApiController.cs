@@ -14,7 +14,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         protected const int DefaultRpp = 10;
         protected const string DefaultSearchQuerry = "";
         protected const bool DefaultSortAsc = true;
-        protected const string DefaultSortBy = "name";
+        protected const string DefaultSortBy = "dateUpdated";
 
         #endregion Fields
     }

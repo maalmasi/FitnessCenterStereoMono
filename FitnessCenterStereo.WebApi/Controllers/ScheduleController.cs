@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
@@ -48,7 +48,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public PaginatedList<ScheduleViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IScheduleFilter filter = new ScheduleFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
             return mapper.Map<PaginatedList<ScheduleViewModel>>(Service.Find(filter));
         }
 

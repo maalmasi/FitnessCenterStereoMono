@@ -1,106 +1,64 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class ScheduleRepository : IScheduleRepository
+    public class ScheduleRepository : Repository<ISchedule, Schedule, IScheduleFilter>, IScheduleRepository
     {
-        #region Fields
-
-        private readonly IMapper Mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public ScheduleRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public ScheduleRepository(ApplicationDbContext appDbContext, IMapper mapper) : base(appDbContext, mapper)
         {
-            AppDbContext = applicationDbContext;
-            Mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public ISchedule Create(ISchedule schedule)
+        protected IQueryable<Schedule> ApplyFilter(IQueryable<Schedule> entities, ITrainerFilter filter)
         {
-            schedule.Id = Guid.NewGuid();
-            schedule.DateCreated = DateTime.UtcNow;
-            schedule.DateUpdated = DateTime.UtcNow;
-            AppDbContext.Schedule.Add(Mapper.Map<Schedule>(schedule));
-            AppDbContext.SaveChanges();
-            return schedule;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.Schedule.Find(id);
-            AppDbContext.Schedule.Remove(toDelete);
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<ISchedule> Find(IFilter filter)
-        {
-            IQueryable<Schedule> schedules = AppDbContext.Schedule.AsNoTracking();
-
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                schedules = schedules.Where(sch => sch.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || sch.Frequency.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || sch.PlanId.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToLowerInvariant()) || String.Format("{0:s}", sch.DateCreated).ToUpperInvariant().Contains(filter.ToString().ToUpperInvariant()) || String.Format("{0:s}", sch.DateUpdated).ToUpperInvariant().Contains(filter.ToString().ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Frequency.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
+            return entities;
+        }
 
+        protected IQueryable<Schedule> ApplySort(IQueryable<Schedule> entities, ITrainerFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "frequency":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        schedules = schedules.OrderByDescending(sch => sch.Frequency);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        schedules = schedules.OrderBy(sch => sch.Frequency);
-
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        schedules = schedules.OrderByDescending(sch => sch.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        schedules = schedules.OrderBy(sch => sch.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
+
+                case "frequency":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Frequency);
+                    else
+                        entities = entities.OrderBy(c => c.Frequency);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = schedules.Count();
-
-            var items = schedules.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<ISchedule>(Mapper.Map<IEnumerable<ISchedule>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public ISchedule Get(Guid id)
-        {
-            return Mapper.Map<ISchedule>(AppDbContext.Schedule.Find(id));
-        }
-
-        public bool Update(ISchedule schedule)
-        {
-            AppDbContext.Schedule.Update(Mapper.Map<Schedule>(schedule));
-            return AppDbContext.SaveChanges() == 1;
+            return entities;
         }
 
         #endregion Methods
