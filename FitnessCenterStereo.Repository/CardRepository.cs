@@ -3,12 +3,13 @@ using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    public class CardRepository : Repository<ICard, Card, ICardFilter>
+    public class CardRepository : Repository<ICard, Card, ICardFilter>, ICardRepository
     {
         #region Constructors
 
@@ -20,16 +21,16 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<ICard> ApplyFilter(IQueryable<ICard> entities, ICardFilter filter)
+        protected override IQueryable<Card> ApplyFilter(IQueryable<Card> entities, ICardFilter filter)
         {
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }
 
-        protected IQueryable<ICard> ApplySort(IQueryable<ICard> entities, ICardFilter filter)
+        protected override IQueryable<Card> ApplySort(IQueryable<Card> entities, ICardFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {

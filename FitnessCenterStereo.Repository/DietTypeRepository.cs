@@ -3,12 +3,13 @@ using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Repository.Common;
 using System;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    public class DietTypeRepository : Repository<IDietType, DietType, IDietTypeFilter>
+    public class DietTypeRepository : Repository<IDietType, DietType, IDietTypeFilter>, IDietTypeRepository
     {
         #region Constructors
 
@@ -20,7 +21,7 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<IDietType> ApplyFilter(IQueryable<IDietType> entities, IDietTypeFilter filter)
+        protected override IQueryable<DietType> ApplyFilter(IQueryable<DietType> entities, IDietTypeFilter filter)
         {
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
@@ -29,7 +30,7 @@ namespace FitnessCenterStereo.Repository
             return entities;
         }
 
-        protected IQueryable<IDietType> ApplySort(IQueryable<IDietType> entities, IDietTypeFilter filter)
+        protected override IQueryable<DietType> ApplySort(IQueryable<DietType> entities, IDietTypeFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {

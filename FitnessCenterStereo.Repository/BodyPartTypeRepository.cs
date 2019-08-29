@@ -21,7 +21,7 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<IBodyPartType> ApplyFilter(IQueryable<IBodyPartType> entities, IBodyPartTypeFilter filter)
+        protected override IQueryable<BodyPartType> ApplyFilter(IQueryable<BodyPartType> entities, IBodyPartTypeFilter filter)
         {
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
@@ -30,7 +30,7 @@ namespace FitnessCenterStereo.Repository
             return entities;
         }
 
-        protected IQueryable<IBodyPartType> ApplySort(IQueryable<IBodyPartType> entities, IBodyPartTypeFilter filter)
+        protected override IQueryable<BodyPartType> ApplySort(IQueryable<BodyPartType> entities, IBodyPartTypeFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {
