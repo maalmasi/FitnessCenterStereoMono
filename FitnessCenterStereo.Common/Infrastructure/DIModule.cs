@@ -10,8 +10,7 @@ namespace FitnessCenterStereo.Common.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAggregateService<IAggregateService>();
-            //builder.Register(c => new ConfigReader("mysection")).As<IConfigReader>();
+            builder.RegisterAggregateService<IFacadeFilter>();
             builder.Register(c => new BodyPartTypeFilter()).As<IBodyPartTypeFilter>();
             builder.Register(c => new CardFilter()).As<ICardFilter>();
             builder.Register(c => new ComplexityLevelTypeFilter()).As<IComplexityLevelTypeFilter>();
@@ -20,7 +19,7 @@ namespace FitnessCenterStereo.Common.Infrastructure
             builder.Register(c => new ExercisesFilter()).As<IExercisesFilter>();
             builder.Register(c => new MembershipFilter()).As<IMembershipFilter>();
             builder.Register(c => new PlanFilter()).As<IPlanFilter>();
-            builder.Register(c => new ScheduleFilter()).As<IPlanFilter>();
+            builder.Register(c => new ScheduleFilter()).As<IScheduleFilter>();
             builder.Register(c => new StepFilter()).As<IStepFilter>();
             builder.Register(c => new TrainerFilter()).As<ITrainerFilter>();
         }
