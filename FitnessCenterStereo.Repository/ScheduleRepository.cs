@@ -21,16 +21,17 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        protected IQueryable<Schedule> ApplyFilter(IQueryable<Schedule> entities, ITrainerFilter filter)
+        protected override IQueryable<Schedule> ApplyFilter(IQueryable<Schedule> entities, IScheduleFilter filter)
         {
+            entities = base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Frequency.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Union(entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Frequency.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
             }
             return entities;
         }
 
-        protected IQueryable<Schedule> ApplySort(IQueryable<Schedule> entities, ITrainerFilter filter)
+        protected override IQueryable<Schedule> ApplySort(IQueryable<Schedule> entities, IScheduleFilter filter)
         {
             switch (filter.SortBy.ToLowerInvariant())
             {

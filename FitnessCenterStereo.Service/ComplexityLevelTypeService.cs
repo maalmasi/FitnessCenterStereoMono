@@ -1,4 +1,4 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
@@ -38,7 +38,7 @@ namespace FitnessCenterStereo.Service
             else return false;
         }
 
-        public PaginatedList<IComplexityLevelType> Find(IFilter filter)
+        public PaginatedList<IComplexityLevelType> Find(IComplexityLevelTypeFilter filter)
         {
             return ComplexityLevelTypeRepository.Find(filter);
         }

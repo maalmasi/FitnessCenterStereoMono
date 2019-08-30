@@ -1,114 +1,73 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class ComplexityLevelTypeRepository : IComplexityLevelTypeRepository
+    public class ComplexityLevelTypeRepository : Repository<IComplexityLevelType, ComplexityLevelType, IComplexityLevelTypeFilter>, IComplexityLevelTypeRepository
     {
-        #region Fields
-
-        private readonly IMapper Mapper;
-
-        #endregion Fields
-
         #region Constructors
 
-        public ComplexityLevelTypeRepository(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public ComplexityLevelTypeRepository(ApplicationDbContext appDbContext, IMapper mapper) : base(appDbContext, mapper)
         {
-            AppDbContext = applicationDbContext;
-            Mapper = mapper;
         }
 
         #endregion Constructors
 
-        #region Properties
-
-        protected ApplicationDbContext AppDbContext { get; private set; }
-
-        #endregion Properties
-
         #region Methods
 
-        public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
+        protected override IQueryable<ComplexityLevelType> ApplyFilter(IQueryable<ComplexityLevelType> entities, IComplexityLevelTypeFilter filter)
         {
-            complexityLevel.Id = Guid.NewGuid();
-            complexityLevel.DateCreated = DateTime.UtcNow;
-            complexityLevel.DateUpdated = DateTime.UtcNow;
-            AppDbContext.ComplexityLevelType.Add(Mapper.Map<ComplexityLevelType>(complexityLevel));
-            AppDbContext.SaveChanges();
-            return complexityLevel;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.ComplexityLevelType.Find(id);
-            AppDbContext.ComplexityLevelType.Remove(toDelete);
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<IComplexityLevelType> Find(IFilter filter)
-        {
-            IQueryable<ComplexityLevelType> complexityLevel = AppDbContext.ComplexityLevelType.AsNoTracking();
-            //select bpt;
-
+            entities = base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                complexityLevel = complexityLevel.Where(cmp => cmp.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || String.Format("{0:s}", cmp.DateUpdated).ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || cmp.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Union(entities.Where(c => c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
             }
+            return entities;
+        }
 
+        protected override IQueryable<ComplexityLevelType> ApplySort(IQueryable<ComplexityLevelType> entities, IComplexityLevelTypeFilter filter)
+        {
             switch (filter.SortBy.ToLowerInvariant())
             {
-                case "name":
+                case "datecreated":
                     if (!filter.SortAscending)
-                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Name);
+                        entities = entities.OrderByDescending(c => c.DateCreated);
                     else
-                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.Name);
-
-                    break;
-
-                case "abbreviation":
-                    if (!filter.SortAscending)
-                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.Abbreviation);
-                    else
-                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.Abbreviation);
+                        entities = entities.OrderBy(c => c.DateCreated);
                     break;
 
                 case "dateupdated":
                     if (!filter.SortAscending)
-                        complexityLevel = complexityLevel.OrderByDescending(cmp => cmp.DateUpdated);
+                        entities = entities.OrderByDescending(c => c.DateUpdated);
                     else
-                        complexityLevel = complexityLevel.OrderBy(cmp => cmp.DateUpdated);
+                        entities = entities.OrderBy(c => c.DateUpdated);
+                    break;
+
+                case "name":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Name);
+                    else
+                        entities = entities.OrderBy(c => c.Name);
+                    break;
+
+                case "abbreviation":
+                    if (!filter.SortAscending)
+                        entities = entities.OrderByDescending(c => c.Abbreviation);
+                    else
+                        entities = entities.OrderBy(c => c.Abbreviation);
                     break;
 
                 default:
                     throw new Exception($"Unknown column {filter.SortBy}");
             }
-
-            var count = complexityLevel.Count();
-
-            var items = complexityLevel.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<IComplexityLevelType>(Mapper.Map<IEnumerable<IComplexityLevelType>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public IComplexityLevelType Get(Guid id)
-        {
-            return Mapper.Map<IComplexityLevelType>(AppDbContext.ComplexityLevelType.Find(id));
-        }
-
-        public bool Update(IComplexityLevelType complexityLevel)
-        {
-            AppDbContext.ComplexityLevelType.Update(Mapper.Map<ComplexityLevelType>(complexityLevel));
-            return AppDbContext.SaveChanges() == 1;
+            return entities;
         }
 
         #endregion Methods
