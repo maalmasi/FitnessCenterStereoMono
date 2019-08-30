@@ -4,17 +4,17 @@
     {
         #region Properties
 
-        IBodyPartTypeFilter bodyPartTypeFilter { get; }
-        ICardFilter cardFilter { get; }
-        IComplexityLevelTypeFilter complexityLevelTypeFilter { get; }
-        IDietTypeFilter dietTypeFilter { get; }
-        IEquipmentFilter equipmentFilter { get; }
-        IExercisesFilter exercisesFilter { get; }
-        IMembershipFilter membershipFilter { get; }
-        IPlanFilter planFilter { get; }
-        IScheduleFilter scheduleFilter { get; }
-        IStepFilter stepFilter { get; }
-        ITrainerFilter trainerFilter { get; }
+        IBodyPartTypeFilter BodyPartTypeFilter { get; }
+        ICardFilter CardFilter { get; }
+        IComplexityLevelTypeFilter ComplexityLevelTypeFilter { get; }
+        IDietTypeFilter DietTypeFilter { get; }
+        IEquipmentFilter EquipmentFilter { get; }
+        IExercisesFilter ExercisesFilter { get; }
+        IMembershipFilter MembershipFilter { get; }
+        IPlanFilter PlanFilter { get; }
+        IScheduleFilter ScheduleFilter { get; }
+        IStepFilter StepFilter { get; }
+        ITrainerFilter TrainerFilter { get; }
 
         #endregion Properties
     }
