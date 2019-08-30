@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FitnessCenterStereo.Repository
 {
-    internal class MembershipRepository : Repository<IMembership, Membership, IMembershipFilter>, IMembershipRepository
+    public class MembershipRepository : Repository<IMembership, Membership, IMembershipFilter>, IMembershipRepository
     {
         #region Constructors
 
@@ -23,9 +23,10 @@ namespace FitnessCenterStereo.Repository
 
         protected override IQueryable<Membership> ApplyFilter(IQueryable<Membership> entities, IMembershipFilter filter)
         {
+            entities = base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
+                entities = entities.Union(entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Price.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
             }
             return entities;
         }

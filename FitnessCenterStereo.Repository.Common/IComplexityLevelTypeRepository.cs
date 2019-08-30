@@ -1,24 +1,10 @@
-﻿using FitnessCenterStereo.Common;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
-using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
-using System;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IComplexityLevelTypeRepository
+    public interface IComplexityLevelTypeRepository : IRepository<IComplexityLevelType, ComplexityLevelType, IComplexityLevelTypeFilter>
     {
-        #region Methods
-
-        IComplexityLevelType Create(IComplexityLevelType complexityLevel);
-
-        bool Delete(Guid id);
-
-        PaginatedList<IComplexityLevelType> Find(IFilter filter);
-
-        IComplexityLevelType Get(Guid id);
-
-        bool Update(IComplexityLevelType complexityLevel);
-
-        #endregion Methods
     }
 }

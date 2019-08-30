@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitnessCenterStereo.Common;
+using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
 using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
@@ -51,7 +52,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IFilter>(filter)));
+            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IComplexityLevelTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
