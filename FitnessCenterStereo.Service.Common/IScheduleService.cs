@@ -2,6 +2,7 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service.Common
 {
@@ -9,15 +10,15 @@ namespace FitnessCenterStereo.Service.Common
     {
         #region Methods
 
-        ISchedule Create(ISchedule schedule);
+        Task<ISchedule> CreateAsync(ISchedule schedule);
 
-        bool Delete(Guid id);
+        Task<bool> DeleteAsync(Guid id);
 
-        PaginatedList<ISchedule> Find(IScheduleFilter filter);
+        Task<PaginatedList<ISchedule>> FindAsync(IScheduleFilter filter);
 
-        ISchedule Get(Guid id);
+        Task<ISchedule> GetAsync(Guid id);
 
-        bool Update(ISchedule schedule);
+        Task<bool> UpdateAsync(ISchedule schedule);
 
         #endregion Methods
     }

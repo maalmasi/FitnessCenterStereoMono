@@ -4,6 +4,7 @@ using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service
 {
@@ -26,29 +27,29 @@ namespace FitnessCenterStereo.Service
 
         #region Methods
 
-        public ITrainer Create(ITrainer trainer)
+        public Task<ITrainer> CreateAsync(ITrainer trainer)
         {
-            return TrainerRepository.Create(trainer);
+            return TrainerRepository.CreateAsync(trainer);
         }
 
-        public bool Delete(Guid id)
+        public Task<bool> DeleteAsync(Guid id)
         {
-            return TrainerRepository.Delete(id);
+            return TrainerRepository.DeleteAsync(id);
         }
 
-        public PaginatedList<ITrainer> Find(ITrainerFilter filter)
+        public Task<PaginatedList<ITrainer>> FindAsync(ITrainerFilter filter)
         {
-            return TrainerRepository.Find(filter);
+            return TrainerRepository.FindAsync(filter);
         }
 
-        public ITrainer Get(Guid id)
+        public Task<ITrainer> GetAsync(Guid id)
         {
-            return TrainerRepository.Get(id);
+            return TrainerRepository.GetAsync(id);
         }
 
-        public bool Update(ITrainer trainer)
+        public Task<bool> UpdateAsync(ITrainer trainer)
         {
-            return TrainerRepository.Update(trainer);
+            return TrainerRepository.UpdateAsync(trainer);
         }
 
         #endregion Methods
