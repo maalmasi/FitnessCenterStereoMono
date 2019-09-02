@@ -1,10 +1,9 @@
 ﻿using FitnessCenterStereo.Common.Filters;
-using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IMembershipRepository : IRepository<IMembership, Membership, IMembershipFilter>
+    public interface IMembershipRepository : IRepository<IMembership, IMembershipFilter>
     {
     }
 }

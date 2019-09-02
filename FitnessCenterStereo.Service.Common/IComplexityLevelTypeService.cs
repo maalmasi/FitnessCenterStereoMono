@@ -2,6 +2,7 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service.Common
 {
@@ -9,15 +10,15 @@ namespace FitnessCenterStereo.Service.Common
     {
         #region Methods
 
-        IComplexityLevelType Create(IComplexityLevelType complexityLevel);
+        Task<IComplexityLevelType> CreateAsync(IComplexityLevelType complexityLevel);
 
-        bool Delete(Guid id);
+        Task<bool> DeleteAsync(Guid id);
 
-        PaginatedList<IComplexityLevelType> Find(IComplexityLevelTypeFilter filter);
+        Task<PaginatedList<IComplexityLevelType>> FindAsync(IComplexityLevelTypeFilter filter);
 
-        IComplexityLevelType Get(Guid id);
+        Task<IComplexityLevelType> GetAsync(Guid id);
 
-        bool Update(IComplexityLevelType complexityLevel);
+        Task<bool> UpdateAsync(IComplexityLevelType complexityLevel);
 
         #endregion Methods
     }

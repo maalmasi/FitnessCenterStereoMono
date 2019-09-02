@@ -4,6 +4,7 @@ using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service
 {
@@ -26,29 +27,29 @@ namespace FitnessCenterStereo.Service
 
         #region Methods
 
-        public IDietType Create(IDietType dietType)
+        public Task<IDietType> CreateAsync(IDietType dietType)
         {
-            return DietTypeRepository.Create(dietType);
+            return DietTypeRepository.CreateAsync(dietType);
         }
 
-        public bool Delete(Guid id)
+        public Task<bool> DeleteAsync(Guid id)
         {
-            return DietTypeRepository.Delete(id);
+            return DietTypeRepository.DeleteAsync(id);
         }
 
-        public PaginatedList<IDietType> Find(IDietTypeFilter filter)
+        public Task<PaginatedList<IDietType>> FindAsync(IDietTypeFilter filter)
         {
-            return DietTypeRepository.Find(filter);
+            return DietTypeRepository.FindAsync(filter);
         }
 
-        public IDietType Get(Guid id)
+        public IDietType GetAsync(Guid id)
         {
-            return DietTypeRepository.Get(id);
+            return DietTypeRepository.GetAsync(id);
         }
 
-        public bool Update(IDietType dietType)
+        public bool UpdateAsync(IDietType dietType)
         {
-            return DietTypeRepository.Update(dietType);
+            return DietTypeRepository.UpdateAsync(dietType);
         }
 
         #endregion Methods

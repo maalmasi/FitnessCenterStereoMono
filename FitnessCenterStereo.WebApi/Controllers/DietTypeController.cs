@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,36 +41,36 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
-        public PaginatedList<DietTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<DietTypeViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IDietTypeFilter filter = new DietTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<DietTypeViewModel>>(Service.Find(mapper.Map<IDietTypeFilter>(filter)));
+            return mapper.Map<PaginatedList<DietTypeViewModel>>(await Service.FindAsync(mapper.Map<IDietTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public DietTypeViewModel Get(Guid id)
+        public async Task<DietTypeViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<DietTypeViewModel>(Service.Get(id));
+            return mapper.Map<DietTypeViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public DietTypeViewModel Post([FromBody]DietTypeViewModel value)
+        public async Task<DietTypeViewModel> Post([FromBody]DietTypeViewModel value)
         {
-            return mapper.Map<DietTypeViewModel>(Service.Create(mapper.Map<IDietType>(value)));
+            return mapper.Map<DietTypeViewModel>(await Service.CreateAsync(mapper.Map<IDietType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(MembershipViewModel value)
+        public async Task<bool> Put(MembershipViewModel value)
         {
-            return Service.Update(mapper.Map<IDietType>(value));
+            return await Service.UpdateAsync(mapper.Map<IDietType>(value));
         }
 
         #endregion Methods
