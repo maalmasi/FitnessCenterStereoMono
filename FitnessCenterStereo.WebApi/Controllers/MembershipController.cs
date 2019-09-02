@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,36 +41,36 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return Service.DeleteAsync(id);
         }
 
-        public PaginatedList<MembershipViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<MembershipViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IMembershipFilter filter = new MembershipFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<MembershipViewModel>>(Service.Find(mapper.Map<IMembershipFilter>(filter)));
+            return mapper.Map<PaginatedList<MembershipViewModel>>(await Service.FindAsync(mapper.Map<IMembershipFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public MembershipViewModel Get(Guid id)
+        public async Task<MembershipViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<MembershipViewModel>(Service.Get(id));
+            return mapper.Map<MembershipViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public MembershipViewModel Post([FromBody]MembershipViewModel value)
+        public async Task<MembershipViewModel> PostAsync([FromBody]MembershipViewModel value)
         {
-            return mapper.Map<MembershipViewModel>(Service.Create(mapper.Map<IMembership>(value)));
+            return mapper.Map<MembershipViewModel>(await Service.CreateAsync(mapper.Map<IMembership>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(MembershipViewModel value)
+        public async Task<bool> PutAsync(MembershipViewModel value)
         {
-            return Service.Update(mapper.Map<IMembership>(value));
+            return await Service.UpdateAsync(mapper.Map<IMembership>(value));
         }
 
         #endregion Methods

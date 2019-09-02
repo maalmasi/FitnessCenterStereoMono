@@ -4,10 +4,11 @@ using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service
 {
-    internal class EquipmentService : IEquipmentService
+    public class EquipmentService : IEquipmentService
     {
         #region Constructors
 
@@ -26,29 +27,29 @@ namespace FitnessCenterStereo.Service
 
         #region Methods
 
-        public IEquipment Create(IEquipment equipment)
+        public Task<IEquipment> CreateAsync(IEquipment equipment)
         {
-            return EquipmentRepository.Create(equipment);
+            return EquipmentRepository.CreateAsync(equipment);
         }
 
-        public bool Delete(Guid id)
+        public Task<bool> DeleteAsync(Guid id)
         {
-            return EquipmentRepository.Delete(id);
+            return EquipmentRepository.DeleteAsync(id);
         }
 
-        public PaginatedList<IEquipment> Find(IEquipmentFilter filter)
+        public Task<PaginatedList<IEquipment>> FindAsync(IEquipmentFilter filter)
         {
-            return EquipmentRepository.Find(filter);
+            return EquipmentRepository.FindAsync(filter);
         }
 
-        public IEquipment Get(Guid id)
+        public Task<IEquipment> GetAsync(Guid id)
         {
-            return EquipmentRepository.Get(id);
+            return EquipmentRepository.GetAsync(id);
         }
 
-        public bool Update(IEquipment equipment)
+        public Task<bool> UpdateAsync(IEquipment equipment)
         {
-            return EquipmentRepository.Update(equipment);
+            return EquipmentRepository.UpdateAsync(equipment);
         }
 
         #endregion Methods

@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,36 +41,36 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
-        public PaginatedList<EquipmentViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<EquipmentViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IEquipmentFilter filter = new EquipmentFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<EquipmentViewModel>>(Service.Find(mapper.Map<IEquipmentFilter>(filter)));
+            return mapper.Map<PaginatedList<EquipmentViewModel>>(await Service.FindAsync(mapper.Map<IEquipmentFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public EquipmentViewModel Get(Guid id)
+        public async Task<EquipmentViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<EquipmentViewModel>(Service.Get(id));
+            return mapper.Map<EquipmentViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public EquipmentViewModel Post([FromBody]EquipmentViewModel value)
+        public async Task<EquipmentViewModel> PostAsync([FromBody]EquipmentViewModel value)
         {
-            return mapper.Map<EquipmentViewModel>(Service.Create(mapper.Map<IEquipment>(value)));
+            return mapper.Map<EquipmentViewModel>(await Service.CreateAsync(mapper.Map<IEquipment>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(EquipmentViewModel value)
+        public async Task<bool> PutAsync(EquipmentViewModel value)
         {
-            return Service.Update(mapper.Map<IEquipment>(value));
+            return await Service.UpdateAsync(mapper.Map<IEquipment>(value));
         }
 
         #endregion Methods

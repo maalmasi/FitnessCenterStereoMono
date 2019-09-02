@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FitnessCenterStereo.Common;
 using FitnessCenterStereo.Common.Filters;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Service.Common;
@@ -7,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,43 +37,41 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #endregion Properties
 
-        // GET: api/<controller>
-
         #region Methods
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         [HttpGet]
-        public PaginatedList<ComplexityLevelTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<ComplexityLevelTypeViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            Filter filter = new Filter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(Service.Find(mapper.Map<IComplexityLevelTypeFilter>(filter)));
+            IComplexityLevelTypeFilter filter = new ComplexityLevelTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(await Service.FindAsync(mapper.Map<IComplexityLevelTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public BaseViewModel Get(Guid id)
+        public async Task<ComplexityLevelTypeViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<BaseViewModel>(Service.Get(id));
+            return mapper.Map<ComplexityLevelTypeViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public BaseViewModel Post([FromBody]BaseViewModel value)
+        public async Task<ComplexityLevelTypeViewModel> PostAsync([FromBody]ComplexityLevelTypeViewModel value)
         {
-            return mapper.Map<BaseViewModel>(Service.Create(mapper.Map<IComplexityLevelType>(value)));
+            return mapper.Map<ComplexityLevelTypeViewModel>(await Service.CreateAsync(mapper.Map<IComplexityLevelType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(BaseViewModel value)
+        public async Task<bool> PutAsync(ComplexityLevelTypeViewModel value)
         {
-            return Service.Update(mapper.Map<IComplexityLevelType>(value));
+            return await Service.UpdateAsync(mapper.Map<IComplexityLevelType>(value));
         }
 
         #endregion Methods

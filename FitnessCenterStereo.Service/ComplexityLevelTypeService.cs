@@ -4,6 +4,7 @@ using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
 using FitnessCenterStereo.Service.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Service
 {
@@ -26,33 +27,29 @@ namespace FitnessCenterStereo.Service
 
         #region Methods
 
-        public IComplexityLevelType Create(IComplexityLevelType complexityLevel)
+        public Task<IComplexityLevelType> CreateAsync(IComplexityLevelType complexityLevel)
         {
-            return ComplexityLevelTypeRepository.Create(complexityLevel);
+            return ComplexityLevelTypeRepository.CreateAsync(complexityLevel);
         }
 
-        public bool Delete(Guid id)
+        public Task<bool> DeleteAsync(Guid id)
         {
-            if (ComplexityLevelTypeRepository.Delete(id))
-                return true;
-            else return false;
+            return ComplexityLevelTypeRepository.DeleteAsync(id);
         }
 
-        public PaginatedList<IComplexityLevelType> Find(IComplexityLevelTypeFilter filter)
+        public Task<PaginatedList<IComplexityLevelType>> FindAsync(IComplexityLevelTypeFilter filter)
         {
-            return ComplexityLevelTypeRepository.Find(filter);
+            return ComplexityLevelTypeRepository.FindAsync(filter);
         }
 
-        public IComplexityLevelType Get(Guid id)
+        public Task<IComplexityLevelType> GetAsync(Guid id)
         {
-            return ComplexityLevelTypeRepository.Get(id);
+            return ComplexityLevelTypeRepository.GetAsync(id);
         }
 
-        public bool Update(IComplexityLevelType complexityLevel)
+        public Task<bool> UpdateAsync(IComplexityLevelType complexityLevel)
         {
-            if (ComplexityLevelTypeRepository.Update(complexityLevel))
-                return true;
-            else return false;
+            return ComplexityLevelTypeRepository.UpdateAsync(complexityLevel);
         }
 
         #endregion Methods
