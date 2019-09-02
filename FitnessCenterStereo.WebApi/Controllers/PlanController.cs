@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,36 +41,36 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.Delete(id);
         }
 
-        public PaginatedList<PlanViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<PlanViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IPlanFilter filter = new PlanFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<PlanViewModel>>(Service.Find(mapper.Map<IPlanFilter>(filter)));
+            return mapper.Map<PaginatedList<PlanViewModel>>(await Service.FindAsync(mapper.Map<IPlanFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public PlanViewModel Get(Guid id)
+        public async Task<PlanViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<PlanViewModel>(Service.Get(id));
+            return mapper.Map<PlanViewModel>(await Service.Get(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public PlanViewModel Post([FromBody]PlanViewModel value)
+        public async Task<PlanViewModel> PostAsync([FromBody]PlanViewModel value)
         {
-            return mapper.Map<PlanViewModel>(Service.Create(mapper.Map<IPlan>(value)));
+            return mapper.Map<PlanViewModel>(await Service.CreateAsync(mapper.Map<IPlan>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(PlanViewModel value)
+        public async Task<bool> PutAsync(PlanViewModel value)
         {
-            return Service.Update(mapper.Map<IPlan>(value));
+            return await Service.UpdateAsync(mapper.Map<IPlan>(value));
         }
 
         #endregion Methods
