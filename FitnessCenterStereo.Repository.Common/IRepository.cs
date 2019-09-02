@@ -2,26 +2,26 @@
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using System;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IRepository<T, TEntity, TFilter>
+    public interface IRepository<T, TFilter>
         where T : IBaseModel
-        where TEntity : class
         where TFilter : IFilter
 
     {
         #region Methods
 
-        T Create(T model);
+        Task<T> CreateAsync(T model);
 
-        bool Delete(Guid id);
+        Task<bool> DeleteAsync(Guid id);
 
-        PaginatedList<T> Find(TFilter filter);
+        Task<PaginatedList<T>> FindAsync(TFilter filter);
 
-        T Get(Guid id);
+        Task<T> GetAsync(Guid id);
 
-        bool Update(T model);
+        Task<bool> UpdateAsync(T model);
 
         #endregion Methods
     }
