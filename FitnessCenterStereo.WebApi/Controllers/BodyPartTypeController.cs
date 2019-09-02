@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,37 +41,37 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         [HttpGet]
-        public PaginatedList<BodyPartTypeViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<BodyPartTypeViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IBodyPartTypeFilter filter = new BodyPartTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<BodyPartTypeViewModel>>(Service.Find(mapper.Map<IBodyPartTypeFilter>(filter)));
+            return mapper.Map<PaginatedList<BodyPartTypeViewModel>>(await Service.FindAsync(mapper.Map<IBodyPartTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public BodyPartTypeViewModel Get(Guid id)
+        public async Task<BodyPartTypeViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<BodyPartTypeViewModel>(Service.Get(id));
+            return mapper.Map<BodyPartTypeViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public BodyPartTypeViewModel Post([FromBody]BodyPartTypeViewModel value)
+        public async Task<BodyPartTypeViewModel> PostAsync([FromBody]BodyPartTypeViewModel value)
         {
-            return mapper.Map<BodyPartTypeViewModel>(Service.Create(mapper.Map<IBodyPartType>(value)));
+            return mapper.Map<BodyPartTypeViewModel>(await Service.CreateAsync(mapper.Map<IBodyPartType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(BodyPartTypeViewModel value)
+        public async Task<bool> PutAsync(BodyPartTypeViewModel value)
         {
-            return Service.Update(mapper.Map<IBodyPartType>(value));
+            return await Service.UpdateAsync(mapper.Map<IBodyPartType>(value));
         }
 
         #endregion Methods
