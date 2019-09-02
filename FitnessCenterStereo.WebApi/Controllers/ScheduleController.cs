@@ -26,7 +26,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         public ScheduleController(IScheduleService service, IMapper mapper)
         {
             Service = service;
-            this.mapper = mapper;
+            this.Mapper = mapper;
         }
 
         #endregion Constructors
