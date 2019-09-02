@@ -8,14 +8,25 @@ import Header from './components/header';
 import Home from './components/home'
 import Footer from './components/footer'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//ReactDOM.render(<App />, document.getElementById('root'));
+
+function Index()
+{
+  return (
+    <React.Fragment>
+        <Header />
+        <Home />
+        <Footer />
+    </React.Fragment>
+  )
+}
+  
 
 ReactDOM.render(
-    //<h1>Fitness Studio Stereo</h1>,
-    <Home />,
-    document.getElementById('root'),
-  );
-
+  //<h1>Fitness Studio Stereo</h1>,
+  <Index/>,
+  document.getElementById('root')
+);
   
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
