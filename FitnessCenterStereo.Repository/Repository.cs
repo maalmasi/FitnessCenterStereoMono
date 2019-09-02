@@ -9,10 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessCenterStereo.Repository
 {
-    public class Repository<T, TEntity, TFilter> : IRepository<T, TEntity, TFilter>
+    public class Repository<T, TEntity, TFilter> : IRepository<T, TFilter>
         where T : IBaseModel
         where TEntity : BaseModel
         where TFilter : IFilter
@@ -36,50 +37,85 @@ namespace FitnessCenterStereo.Repository
 
         #region Methods
 
-        public T Create(T model)
+        public async Task<T> CreateAsync(T model)
         {
-            model.Id = Guid.NewGuid();
-            model.DateCreated = DateTime.UtcNow;
-            model.DateUpdated = DateTime.UtcNow;
-            AppDbContext.Set<TEntity>().Add(Mapper.Map<TEntity>(model));
-            AppDbContext.SaveChanges();
-            return model;
-        }
-
-        public bool Delete(Guid id)
-        {
-            var toDelete = AppDbContext.Set<TEntity>().Find(id);
-            AppDbContext.Set<TEntity>().Remove(toDelete);
-            return AppDbContext.SaveChanges() == 1;
-        }
-
-        public PaginatedList<T> Find(TFilter filter)
-        {
-            IQueryable<TEntity> entities = AppDbContext.Set<TEntity>().AsNoTracking();
-
-            entities = ApplyFilter(entities, filter);
-            entities = ApplySort(entities, filter);
-
-            var count = entities.Count();
-
-            var items = entities.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToList();
-
-            return new PaginatedList<T>(Mapper.Map<IEnumerable<T>>(items), count, filter.Page, filter.RecordsPerPage);
-        }
-
-        public T Get(Guid id)
-        {
-            return Mapper.Map<T>(AppDbContext.Set<TEntity>().Find(id));
-        }
-
-        public bool Update(T model)
-        {
-            if (AppDbContext.Set<TEntity>().Find(model.Id) != null)
+            try
             {
-                AppDbContext.Set<TEntity>().Update(Mapper.Map<TEntity>(model));
-                return AppDbContext.SaveChanges() == 1;
+                model.Id = Guid.NewGuid();
+                model.DateCreated = DateTime.UtcNow;
+                model.DateUpdated = DateTime.UtcNow;
+                AppDbContext.Set<TEntity>().Add(Mapper.Map<TEntity>(model));
+                await AppDbContext.SaveChangesAsync();
+                return model;
             }
-            return false;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var toDelete = AppDbContext.Set<TEntity>().Find(id);
+                AppDbContext.Set<TEntity>().Remove(toDelete);
+                return await AppDbContext.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<PaginatedList<T>> FindAsync(TFilter filter)
+        {
+            try
+            {
+                IQueryable<TEntity> entities = AppDbContext.Set<TEntity>().AsNoTracking();
+
+                entities = ApplyFilter(entities, filter);
+                entities = ApplySort(entities, filter);
+
+                var count = await entities.CountAsync();
+
+                var items = await entities.Skip((filter.Page - 1) * filter.RecordsPerPage).Take(filter.RecordsPerPage).ToListAsync();
+
+                return new PaginatedList<T>(Mapper.Map<IEnumerable<T>>(items), count, filter.Page, filter.RecordsPerPage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<T> GetAsync(Guid id)
+        {
+            try
+            {
+                return Mapper.Map<T>(await AppDbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(T model)
+        {
+            try
+            {
+                if (await GetAsync(model.Id) != null)
+                {
+                    AppDbContext.Set<TEntity>().Update(Mapper.Map<TEntity>(model));
+                    return await AppDbContext.SaveChangesAsync() > 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected virtual IQueryable<TEntity> ApplyFilter(IQueryable<TEntity> entities, TFilter filter)
