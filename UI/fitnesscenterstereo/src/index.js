@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import './components/header'
-import './components/home'
-import './components/footer'
+import Header from './components/header';
+import Home from './components/home'
+import Footer from './components/footer'
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
 ReactDOM.render(
-    <h1>Fitness Studio Stereo</h1>,
-    document.getElementById('root')
+    //<h1>Fitness Studio Stereo</h1>,
+    <Home />,
+    document.getElementById('root'),
   );
 
   
