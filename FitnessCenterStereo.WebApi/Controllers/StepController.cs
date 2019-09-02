@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,39 +41,39 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         [HttpGet]
-        public PaginatedList<StepViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<StepViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IStepFilter filter = new StepFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return Mapper.Map<PaginatedList<StepViewModel>>(Service.Find(Mapper.Map<IStepFilter>(filter)));
+            return Mapper.Map<PaginatedList<StepViewModel>>(await Service.FindAsync(Mapper.Map<IStepFilter>(filter)));
         }
 
         // GET: api/<controller>
         [HttpGet("{id}")]
-        public StepViewModel Get(Guid id)
+        public async Task<StepViewModel> GetAsync(Guid id)
         {
-            return Mapper.Map<StepViewModel>(Service.Get(id));
+            return Mapper.Map<StepViewModel>(await Service.GetAsync(id));
         }
 
         // GET api/<controller>/<id>
 
         // POST api/<controller>
         [HttpPost]
-        public StepViewModel Post([FromBody]StepViewModel step)
+        public async Task<StepViewModel> PostAsync([FromBody]StepViewModel step)
         {
-            return Mapper.Map<StepViewModel>(Service.Create(Mapper.Map<IStep>(step)));
+            return Mapper.Map<StepViewModel>(await Service.CreateAsync(Mapper.Map<IStep>(step)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(StepViewModel step)
+        public async Task<bool> PutAsync(StepViewModel step)
         {
-            return Service.Update(Mapper.Map<IStep>(step));
+            return await Service.UpdateAsync(Mapper.Map<IStep>(step));
         }
 
         #endregion Methods

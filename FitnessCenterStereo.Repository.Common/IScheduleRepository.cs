@@ -3,7 +3,7 @@ using FitnessCenterStereo.Model.Common;
 
 namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IScheduleRepository : IRepository<ISchedule, ISchedule, IScheduleFilter>
+    public interface IScheduleRepository : IRepository<ISchedule, IScheduleFilter>
     {
     }
 }
