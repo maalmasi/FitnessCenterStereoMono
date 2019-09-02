@@ -120,10 +120,6 @@ namespace FitnessCenterStereo.Repository
 
         protected virtual IQueryable<TEntity> ApplyFilter(IQueryable<TEntity> entities, TFilter filter)
         {
-            if (!String.IsNullOrEmpty(filter.SearchQuery))
-            {
-                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
-            }
             return entities;
         }
 
