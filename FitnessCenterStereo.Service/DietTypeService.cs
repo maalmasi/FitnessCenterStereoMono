@@ -42,12 +42,12 @@ namespace FitnessCenterStereo.Service
             return DietTypeRepository.FindAsync(filter);
         }
 
-        public IDietType GetAsync(Guid id)
+        public Task<IDietType> GetAsync(Guid id)
         {
             return DietTypeRepository.GetAsync(id);
         }
 
-        public bool UpdateAsync(IDietType dietType)
+        public Task<bool> UpdateAsync(IDietType dietType)
         {
             return DietTypeRepository.UpdateAsync(dietType);
         }

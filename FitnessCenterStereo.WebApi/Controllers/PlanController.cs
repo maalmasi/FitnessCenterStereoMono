@@ -43,7 +43,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> DeleteAsync(Guid id)
         {
-            return await Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         public async Task<PaginatedList<PlanViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
@@ -56,7 +56,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<PlanViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<PlanViewModel>(await Service.Get(id));
+            return mapper.Map<PlanViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
