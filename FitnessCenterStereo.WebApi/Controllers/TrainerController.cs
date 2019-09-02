@@ -49,10 +49,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<PaginatedList<TrainerViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<TrainerViewModel>> FindAsync(string searchQuery = DefaultSearchQuery, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             ITrainerFilter filter = Filter.CreateTrainerFilter();
-            filter.SearchQuery = searchQuerry;
+            filter.SearchQuery = searchQuery;
             filter.Page = page;
             filter.RecordsPerPage = rpp;
             filter.SortBy = sortBy;

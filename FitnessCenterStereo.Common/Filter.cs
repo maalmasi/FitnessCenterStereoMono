@@ -7,6 +7,7 @@ namespace FitnessCenterStereo.Common
         #region Fields
 
         private int page;
+
         private int recordsPerPage;
 
         #endregion Fields
@@ -41,7 +42,9 @@ namespace FitnessCenterStereo.Common
             }
         }
 
+        public int Rpp { get; }
         public string SearchQuery { get; set; }
+        public bool SortAsc { get; }
         public bool SortAscending { get; set; }
         public string SortBy { get; set; }
 

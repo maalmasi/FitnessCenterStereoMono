@@ -48,10 +48,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
             return await Service.DeleteAsync(id);
         }
 
-        public async Task<PaginatedList<EquipmentViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<EquipmentViewModel>> FindAsync(string searchQuery = DefaultSearchQuery, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IEquipmentFilter filter = Filter.CreateEquipmentFilter();
-            filter.SearchQuery = searchQuerry;
+            filter.SearchQuery = searchQuery;
             filter.Page = page;
             filter.RecordsPerPage = rpp;
             filter.SortBy = sortBy;
