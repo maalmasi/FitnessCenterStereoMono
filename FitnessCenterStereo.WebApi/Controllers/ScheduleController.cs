@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public ScheduleController(IScheduleService service, IMapper mapper)
+        public ScheduleController(IScheduleService service, IMapper mapper, IFacadeFilter filter)
         {
             Service = service;
-            this.Mapper = mapper;
+            Mapper = mapper;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IScheduleService Service { get; private set; }
 
         #endregion Properties
@@ -49,7 +51,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public async Task<PaginatedList<ScheduleViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IScheduleFilter filter = new ScheduleFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IScheduleFilter filter = Filter.CreateScheduleFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return Mapper.Map<PaginatedList<ScheduleViewModel>>(await Service.FindAsync(Mapper.Map<IScheduleFilter>(filter)));
         }
 

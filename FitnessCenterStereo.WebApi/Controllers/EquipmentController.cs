@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public EquipmentController(IEquipmentService service, IMapper mapperInterface) : base()
+        public EquipmentController(IEquipmentService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
             Service = service;
             mapper = mapperInterface;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IEquipmentService Service { get; private set; }
 
         #endregion Properties
@@ -48,7 +50,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         public async Task<PaginatedList<EquipmentViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IEquipmentFilter filter = new EquipmentFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IEquipmentFilter filter = Filter.CreateEquipmentFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return mapper.Map<PaginatedList<EquipmentViewModel>>(await Service.FindAsync(mapper.Map<IEquipmentFilter>(filter)));
         }
 

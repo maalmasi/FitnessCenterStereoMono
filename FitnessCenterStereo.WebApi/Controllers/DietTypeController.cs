@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public DietTypeController(IDietTypeService service, IMapper mapperInterface) : base()
+        public DietTypeController(IDietTypeService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
             Service = service;
             mapper = mapperInterface;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IDietTypeService Service { get; private set; }
 
         #endregion Properties
@@ -48,7 +50,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         public async Task<PaginatedList<DietTypeViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IDietTypeFilter filter = new DietTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IDietTypeFilter filter = Filter.CreateDietTypeFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return mapper.Map<PaginatedList<DietTypeViewModel>>(await Service.FindAsync(mapper.Map<IDietTypeFilter>(filter)));
         }
 

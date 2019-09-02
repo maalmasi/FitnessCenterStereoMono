@@ -23,15 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public CardController(ICardService service, IMapper mapper)
+        public CardController(ICardService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
             Service = service;
-            this.mapper = mapper;
+            Filter = filter;
+            mapper = mapperInterface;
         }
 
         #endregion Constructors
 
         #region Properties
+
+        protected IFacadeFilter Filter { get; private set; }
 
         protected ICardService Service { get; private set; }
 
@@ -49,7 +52,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public async Task<PaginatedList<CardViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            ICardFilter filter = new CardFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            ICardFilter filter = Filter.CreateCardFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return mapper.Map<PaginatedList<CardViewModel>>(await Service.FindAsync(filter));
         }
 

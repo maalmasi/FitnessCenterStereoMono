@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public ComplexityLevelTypeController(IComplexityLevelTypeService service, IMapper mapper) : base()
+        public ComplexityLevelTypeController(IComplexityLevelTypeService service, IMapper mapper, IFacadeFilter filter) : base()
         {
             Service = service;
             this.mapper = mapper;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IComplexityLevelTypeService Service { get; private set; }
 
         #endregion Properties
@@ -49,7 +51,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public async Task<PaginatedList<ComplexityLevelTypeViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IComplexityLevelTypeFilter filter = new ComplexityLevelTypeFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IComplexityLevelTypeFilter filter = Filter.CreateComplexityLevelTypeFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(await Service.FindAsync(mapper.Map<IComplexityLevelTypeFilter>(filter)));
         }
 

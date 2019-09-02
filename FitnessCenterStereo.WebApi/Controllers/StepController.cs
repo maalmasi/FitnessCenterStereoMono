@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public StepController(IStepService service, IMapper mapper)
+        public StepController(IStepService service, IMapper mapper, IFacadeFilter filter)
         {
             Mapper = mapper;
             Service = service;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IStepService Service { get; private set; }
 
         #endregion Properties
@@ -49,7 +51,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public async Task<PaginatedList<StepViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IStepFilter filter = new StepFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IStepFilter filter = Filter.CreateStepFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return Mapper.Map<PaginatedList<StepViewModel>>(await Service.FindAsync(Mapper.Map<IStepFilter>(filter)));
         }
 
@@ -59,8 +66,6 @@ namespace FitnessCenterStereo.WebApi.Controllers
         {
             return Mapper.Map<StepViewModel>(await Service.GetAsync(id));
         }
-
-        // GET api/<controller>/<id>
 
         // POST api/<controller>
         [HttpPost]

@@ -23,9 +23,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public ExercisesController(IExercisesService service, IMapper mapper)
+        public ExercisesController(IExercisesService service, IMapper mapper, IFacadeFilter filter)
         {
             Mapper = mapper;
+            Filter = filter;
             Service = service;
         }
 
@@ -33,6 +34,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IExercisesService Service { get; private set; }
 
         #endregion Properties
@@ -49,7 +51,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
         [HttpGet]
         public async Task<PaginatedList<ExercisesViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IExercisesFilter filter = new ExercisesFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IExercisesFilter filter = Filter.CreateExercisesFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return Mapper.Map<PaginatedList<ExercisesViewModel>>(await Service.FindAsync(Mapper.Map<IExercisesFilter>(filter)));
         }
 
@@ -59,8 +66,6 @@ namespace FitnessCenterStereo.WebApi.Controllers
         {
             return Mapper.Map<ExercisesViewModel>(await Service.GetAsync(id));
         }
-
-        // GET api/<controller>/<id>
 
         // POST api/<controller>
         [HttpPost]

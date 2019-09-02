@@ -23,16 +23,18 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         #region Constructors
 
-        public PlanController(IPlanService service, IMapper mapperInterface) : base()
+        public PlanController(IPlanService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
             Service = service;
             mapper = mapperInterface;
+            Filter = filter;
         }
 
         #endregion Constructors
 
         #region Properties
 
+        protected IFacadeFilter Filter { get; private set; }
         protected IPlanService Service { get; private set; }
 
         #endregion Properties
@@ -48,7 +50,12 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         public async Task<PaginatedList<PlanViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
-            IPlanFilter filter = new PlanFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
+            IPlanFilter filter = Filter.CreatePlanFilter();
+            filter.SearchQuery = searchQuerry;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
             return mapper.Map<PaginatedList<PlanViewModel>>(await Service.FindAsync(mapper.Map<IPlanFilter>(filter)));
         }
 
