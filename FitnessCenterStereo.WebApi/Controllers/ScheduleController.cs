@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,7 +17,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
     {
         #region Fields
 
-        private readonly IMapper mapper;
+        private readonly IMapper Mapper;
 
         #endregion Fields
 
@@ -40,37 +41,37 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         [HttpGet]
-        public PaginatedList<ScheduleViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<ScheduleViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IScheduleFilter filter = new ScheduleFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return mapper.Map<PaginatedList<ScheduleViewModel>>(Service.Find(filter));
+            return Mapper.Map<PaginatedList<ScheduleViewModel>>(await Service.FindAsync(Mapper.Map<IScheduleFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
-        public ScheduleViewModel Get(Guid id)
+        public async Task<ScheduleViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<ScheduleViewModel>(Service.Get(id));
+            return Mapper.Map<ScheduleViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public ScheduleViewModel Post([FromBody] ScheduleViewModel value)
+        public async Task<ScheduleViewModel> PostAsync([FromBody] ScheduleViewModel value)
         {
-            return mapper.Map<ScheduleViewModel>(Service.Create(mapper.Map<ISchedule>(value)));
+            return Mapper.Map<ScheduleViewModel>(await Service.CreateAsync(Mapper.Map<ISchedule>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public bool Put(ScheduleViewModel value)
+        public async Task<bool> PutAsync(ScheduleViewModel value)
         {
-            return Service.Update(mapper.Map<ISchedule>(value));
+            return await Service.UpdateAsync(Mapper.Map<ISchedule>(value));
         }
 
         #endregion Methods
