@@ -7,8 +7,7 @@ namespace FitnessCenterStereo.Common
         #region Fields
 
         private int page;
-
-        private int recordsPerPage;
+        private int rpp;
 
         #endregion Fields
 
@@ -31,21 +30,21 @@ namespace FitnessCenterStereo.Common
         {
             get
             {
-                return recordsPerPage;
+                return rpp;
             }
             set
             {
-                if (String.IsNullOrEmpty(value.ToString())) recordsPerPage = 10;
-                else if (value < 10) recordsPerPage = 10;
-                else if (value > 100) recordsPerPage = 100;
-                else recordsPerPage = value;
+                if (String.IsNullOrEmpty(value.ToString())) rpp = 10;
+                else if (value < 10) rpp = 10;
+                else if (value > 100) rpp = 100;
+                else rpp = value;
             }
         }
 
-        public int Rpp { get; }
         public string SearchQuery { get; set; }
-        public bool SortAsc { get; }
+
         public bool SortAscending { get; set; }
+
         public string SortBy { get; set; }
 
         #endregion Properties
