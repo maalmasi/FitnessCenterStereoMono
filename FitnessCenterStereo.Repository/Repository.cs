@@ -5,9 +5,9 @@ using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
 using FitnessCenterStereo.Repository.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
