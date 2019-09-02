@@ -6,6 +6,7 @@ using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,39 +41,39 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // DELETE api/<controller>/<id>
         [HttpDelete("{id}")]
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.Delete(id);
+            return await Service.DeleteAsync(id);
         }
 
         [HttpGet]
-        public PaginatedList<ExercisesViewModel> Find(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        public async Task<PaginatedList<ExercisesViewModel>> FindAsync(string searchQuerry = DefaultSearchQuerry, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
         {
             IExercisesFilter filter = new ExercisesFilter() { SearchQuery = searchQuerry, Page = page, RecordsPerPage = rpp, SortAscending = sortAsc, SortBy = sortBy };
-            return Mapper.Map<PaginatedList<ExercisesViewModel>>(Service.Find(Mapper.Map<IExercisesFilter>(filter)));
+            return Mapper.Map<PaginatedList<ExercisesViewModel>>(await Service.FindAsync(Mapper.Map<IExercisesFilter>(filter)));
         }
 
         // GET: api/<controller>
         [HttpGet("{id}")]
-        public ExercisesViewModel Get(Guid id)
+        public async Task<ExercisesViewModel> GetAsync(Guid id)
         {
-            return Mapper.Map<ExercisesViewModel>(Service.Get(id));
+            return Mapper.Map<ExercisesViewModel>(await Service.GetAsync(id));
         }
 
         // GET api/<controller>/<id>
 
         // POST api/<controller>
         [HttpPost]
-        public ExercisesViewModel Post([FromBody]ExercisesViewModel exercises)
+        public async Task<ExercisesViewModel> PostAsync([FromBody]ExercisesViewModel exercises)
         {
-            return Mapper.Map<ExercisesViewModel>(Service.Create(Mapper.Map<IExercises>(exercises)));
+            return Mapper.Map<ExercisesViewModel>(await Service.CreateAsync(Mapper.Map<IExercises>(exercises)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public bool Put(ExercisesViewModel exercises)
+        public async Task<bool> PutAsync(ExercisesViewModel exercises)
         {
-            return Service.Update(Mapper.Map<IExercises>(exercises));
+            return await Service.UpdateAsync(Mapper.Map<IExercises>(exercises));
         }
 
         #endregion Methods
