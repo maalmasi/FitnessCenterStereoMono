@@ -23,10 +23,9 @@ namespace FitnessCenterStereo.Repository
 
         protected override IQueryable<Step> ApplyFilter(IQueryable<Step> entities, IStepFilter filter)
         {
-            entities = base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Union(entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
+                entities = entities.Where(c => c.Id.ToString().ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Description.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }

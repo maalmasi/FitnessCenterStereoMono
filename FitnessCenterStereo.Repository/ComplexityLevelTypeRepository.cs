@@ -4,7 +4,6 @@ using FitnessCenterStereo.DAL.Data;
 using FitnessCenterStereo.DAL.Models;
 using FitnessCenterStereo.Model.Common;
 using FitnessCenterStereo.Repository.Common;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -24,10 +23,9 @@ namespace FitnessCenterStereo.Repository
 
         protected override IQueryable<ComplexityLevelType> ApplyFilter(IQueryable<ComplexityLevelType> entities, IComplexityLevelTypeFilter filter)
         {
-            entities = base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Union(entities.Where(c => c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
+                entities = entities.Where(c => c.Abbreviation.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()) || c.Name.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }

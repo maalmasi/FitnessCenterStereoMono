@@ -23,10 +23,9 @@ namespace FitnessCenterStereo.Repository
 
         protected override IQueryable<Card> ApplyFilter(IQueryable<Card> entities, ICardFilter filter)
         {
-            base.ApplyFilter(entities, filter);
             if (!String.IsNullOrEmpty(filter.SearchQuery))
             {
-                entities = entities.Union(entities.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant())));
+                entities = entities.Where(c => c.UserId.ToUpperInvariant().Contains(filter.SearchQuery.ToUpperInvariant()));
             }
             return entities;
         }
