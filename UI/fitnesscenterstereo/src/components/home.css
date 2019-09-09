@@ -1,0 +1,16 @@
+div .row{
+
+    margin: 0px;
+    
+}
+
+p{
+    border-style: solid;
+    border-color: coral;
+
+    height: 350px;
+    width:400px;
+    margin:120px;
+
+
+}
