@@ -10,16 +10,7 @@ import Footer from './components/Footer'
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 
-function Index()
-{
-  return (
-    <React.Fragment>
-        <Header />
-        <Home />
-        <Footer />
-    </React.Fragment>
-  )
-}
+
   
 
 ReactDOM.render(
