@@ -11,4 +11,3 @@ import {inject, observer} from 'mobx-react';
 }
 
 export default inject('rootStore')(observer(DietTypeEditForm));
-export default inject('rootStore')(observer(DietTypeEditForm));
