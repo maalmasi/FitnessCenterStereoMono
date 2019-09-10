@@ -7,18 +7,18 @@ class Home extends React.Component
             <div class="row">
                 <div class="col-lg-6 text-center">
                     <rect>
-                        <p>Trainer</p>
+                        <p className="placeholder">Trainer</p>
                     </rect>
                     <rect>
-                        <p>Trainer</p>
+                        <p className="placeholder">Trainer</p>
                     </rect>
                 </div>
                 <div class="col-lg-6 text-center">
                     <rect>
-                        <p>Trainer</p>
+                        <p className="placeholder">Trainer</p>
                     </rect>
                     <rect>
-                        <p>Trainer</p>
+                        <p className="placeholder">Trainer</p>
                     </rect>
                 </div>
             </div>
