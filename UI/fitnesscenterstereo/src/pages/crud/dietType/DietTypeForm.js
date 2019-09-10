@@ -1,32 +1,19 @@
-import MobxReactForm from "mobx-react-form";
-import dvr from "mobx-react-form/lib/validators/DVR";
-import validatorjs from "validatorjs";
+import React from 'react';
+import { observer } from 'mobx-react';
+import SimpleInput from './inputs/SimpleInput';
 
-const plugins = {
-  dvr: dvr(validatorjs),
-};
+const $btn = 'btn-primary';
 
-const fields = [{
-    name: 'name',
-    label: 'Name',
-    placeholder: 'Enter diet name',
-    rules: 'required|string|between:3, 25',
-  },{
-    name: 'ingridients',
-    label: 'Ingridients',
-    placeholder: 'Enter ingredients',
-    rules: 'required|string|between:5,100',
-  }];
+export default observer(({ form }) => (
+  <form onSubmit={form.onSubmit}>
+    <SimpleInput field={form.$('name')} />
+    <SimpleInput field={form.$('ingridients')} />
 
-  const hooks = {
-    onSuccess(form) {
-      alert('Form is valid! Send the request here.');
-      console.log('Form Values!', form.values());
-    },
-    onError(form) {
-      alert('Form has errors!');
-      console.log('All form errors', form.errors());
-    }
-  }
+    <br />
+    <button type="submit" className={$btn} onClick={form.onSubmit}>Submit</button>
+    <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
+    <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
 
-  export default new MobxReactForm({ fields }, { plugins, hooks });
+    <p>{form.error}</p>
+  </form>
+));
