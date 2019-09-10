@@ -10,5 +10,10 @@ export const routes = [
     {
         name: 'dietType',
         pattern: '/dietType'
+    },    
+    {
+        name: 'trainer',
+        pattern: '/trainer'
     }
+
 ];

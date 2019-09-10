@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'mobx-react';
 import { HistoryAdapter } from 'mobx-state-router';
 import { RootStore } from './stores/RootStore';
@@ -15,8 +15,8 @@ historyAdapter.observeRouterStateChanges();
 function App() {
   return (
     <Provider rootStore={rootStore}>
-                <Shell />
-            </Provider>
+      <Shell />
+    </Provider>
   );
 }
 

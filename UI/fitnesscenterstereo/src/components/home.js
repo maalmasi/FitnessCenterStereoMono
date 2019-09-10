@@ -1,6 +1,6 @@
 import React from 'react';
 import './home.css'
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import picture from '../images/gym_background.jpg'
 import {inject, observer} from 'mobx-react';
 import Header from './Header';
