@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from './newForm';
-import form from './DietTypeForm';
+import Form from './DietTypeForm';
+import form from './formFields';
 
 export default class DietTypeEditForm extends React.Component {
     render() {
