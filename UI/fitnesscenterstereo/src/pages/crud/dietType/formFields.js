@@ -1,6 +1,8 @@
 import MobxReactForm from "mobx-react-form";
+import React from 'react';
 import dvr from "mobx-react-form/lib/validators/DVR";
 import validatorjs from "validatorjs";
+import FormToast from '../../../components/FormToast';
 
 const plugins = {
   dvr: dvr(validatorjs),
@@ -20,12 +22,16 @@ const fields = [{
 
   const hooks = {
     onSuccess(form) {
-      alert('Form is valid! Send the request here.');
       console.log('Form Values!', form.values());
+      return(
+        <FormToast text="Form is valid!"/>
+      );
     },
     onError(form) {
-      alert('Form has errors!');
       console.log('All form errors', form.errors());
+      return(
+        <FormToast text="Form is invalid!"/>
+      );
     }
   }
 
