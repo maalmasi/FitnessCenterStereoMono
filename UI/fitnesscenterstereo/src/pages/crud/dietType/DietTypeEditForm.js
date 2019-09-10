@@ -1,5 +1,4 @@
 import React from 'react';
-import DietTypeForm from './DietTypeForm';
 import { observer } from 'mobx-react';
 import SimpleInput from './inputs/SimpleInput';
 
