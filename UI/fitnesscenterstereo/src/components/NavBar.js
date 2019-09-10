@@ -15,3 +15,5 @@ import { Navbar,Nav,Form,Button,FormControl } from 'react-bootstrap';
     </Form>
   </Navbar.Collapse>
 </Navbar>
+
+export default Navbar;
