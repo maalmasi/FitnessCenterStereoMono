@@ -9,8 +9,6 @@ import Home from './components/Home'
 import Footer from './components/Footer'
 
 //ReactDOM.render(<App />, document.getElementById('root'));
-
-
   
 
 ReactDOM.render(

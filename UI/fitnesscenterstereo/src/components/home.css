@@ -1,16 +1,13 @@
 div .row{
-
     margin: 0px;
-    
-}
-
-p{
-    border-style: solid;
-    border-color: coral;
-
-    height: 350px;
-    width:400px;
-    margin:120px;
-
+    padding: 25px;
+    height: 100%;
 
 }
+
+
+.card{
+    width: 30rem;
+    margin: 50px;
+}
+
