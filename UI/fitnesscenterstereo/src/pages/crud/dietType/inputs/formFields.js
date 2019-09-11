@@ -2,11 +2,9 @@ import MobxReactForm from "mobx-react-form";
 import dvr from "mobx-react-form/lib/validators/DVR";
 import validatorjs from "validatorjs";
 import toaster from 'toasted-notes';
-
 const plugins = {
   dvr: dvr(validatorjs),
 };
-
 const fields = [{
     name: 'name',
     label: 'Name',
@@ -18,7 +16,6 @@ const fields = [{
     placeholder: 'Enter ingredients',
     rules: 'required|string|between:5,100',
   }];
-
   const hooks = {
     onSuccess(form) {
       console.log('Form Values!', form.values());
@@ -33,5 +30,4 @@ const fields = [{
       })
     }
   }
-
   export default new MobxReactForm({ fields }, { plugins, hooks });
