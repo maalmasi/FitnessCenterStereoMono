@@ -5,6 +5,7 @@ import picture from '../images/gym_background.jpg'
 import { inject, observer } from 'mobx-react';
 import Header from './Header';
 import Footer from './Footer';
+import SideBar from './SideBar';
 
 @inject(stores => ({
   rootStore: stores.rootStore
@@ -15,6 +16,7 @@ class Home extends React.Component {
     return (
       <div>
         <Header />
+        <SideBar/>
         <div class="row" >
           <div class="col">
             <Card className="card" class="card card-inline">
