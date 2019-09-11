@@ -3,7 +3,7 @@ import { inject } from 'mobx-react';
 import { RouterView } from 'mobx-state-router';
 import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
-import DietType from './pages/crud/dietType/DietTypeEditForm'
+import DietType from './pages/crud/dietType/DietType'
 import Trainer from './pages/crud/trainer/TrainerEditForm'
 
 

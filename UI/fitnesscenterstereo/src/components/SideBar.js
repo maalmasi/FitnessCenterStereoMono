@@ -29,8 +29,9 @@ class SideBar extends React.Component {
                     backgroundColor='#FFFFFF'
                     items={[
                         <div>
-                            <a onClick={() => this.handleClick("trainer")}>Trainer</a>
                             <a onClick={() => this.handleClick("home")}>Home</a>
+                            <a onClick={() => this.handleClick("dietType")}>DietType</a>
+                            <a onClick={() => this.handleClick("trainer")}>Trainer</a>
                         </div>
                     ]} />
             </div>
