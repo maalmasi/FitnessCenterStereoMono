@@ -11,7 +11,7 @@ export default observer(({ field, type = 'text', placeholder = null }) => (
     <label htmlFor={field.id} className={$label}>
       {field.label}
     </label>
-    <input {...field.bind({ type, placeholder }) } className={$input}/>
+    <input {...field.bind({ type, placeholder })} className={$input} />
     <small className={$small}>
       {field.error}
     </small>

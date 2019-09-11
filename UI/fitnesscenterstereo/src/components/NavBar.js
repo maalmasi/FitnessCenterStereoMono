@@ -1,4 +1,4 @@
-import { Navbar,Nav,Form,Button,FormControl } from 'react-bootstrap';
+import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
 
 <Navbar bg="light" expand="lg">
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
