@@ -30,7 +30,7 @@ class SideBar extends React.Component {
                     items={[
                         <div>
                             <a onClick={() => this.handleClick("trainer")}>Trainer</a>
-                            <a onClick={() => this.handleClick("")}>Home</a>
+                            <a onClick={() => this.handleClick("home")}>Home</a>
                         </div>
                     ]} />
             </div>
