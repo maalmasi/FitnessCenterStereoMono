@@ -8,7 +8,7 @@ class TrainerEditForm extends React.Component {
         return (
             <React.Fragment>
                 <Layout>
-                    <TrainerComponent/>
+                    <TrainerComponent />
                 </Layout>
             </React.Fragment>
         );

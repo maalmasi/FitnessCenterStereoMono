@@ -7,10 +7,10 @@ class DietTypeEditForm extends React.Component {
     render() {
         return (
             <React.Fragment>
-            <Layout>
-                <DietTypeComponent/>
-            </Layout>
-        </React.Fragment>
+                <Layout>
+                    <DietTypeComponent />
+                </Layout>
+            </React.Fragment>
         );
     }
 }
