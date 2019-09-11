@@ -1,8 +1,6 @@
 import './notFoundPage.css'
 import React from 'react';
 
-
-
 export default class NotFoundPage extends React.Component {
     render() {
         return (
@@ -12,4 +10,3 @@ export default class NotFoundPage extends React.Component {
         );
     }
 }
-
