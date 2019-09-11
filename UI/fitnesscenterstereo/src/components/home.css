@@ -1,4 +1,4 @@
-div .row{
+div .row {
     margin: 0px;
     padding: 25px;
     height: 100%;
@@ -6,8 +6,7 @@ div .row{
 }
 
 
-.card{
+.card {
     width: 30rem;
     margin: 50px;
 }
-
