@@ -1,13 +1,14 @@
 import { observable, action } from 'mobx';
 
-class TrainerViewStore {
+class DietTypeViewStore {
     @observable page;
     @observable recordsperpage;
     @observable sortby;
     @observable sortascending;
-    @observable searchquery;
+    @observable searchquerry;
 
 
+    
     @action onPageChange(page){
         this.page=page;
 
@@ -29,4 +30,4 @@ class TrainerViewStore {
     }
 }
 
-export default TrainerViewStore;
+export default DietTypeViewStore;

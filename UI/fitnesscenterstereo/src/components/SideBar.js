@@ -26,12 +26,19 @@ class SideBar extends React.Component {
                     onHideNav={() => this.setState({ showNav: false })}
                     title={<div> </div>}
                     titleStyle={{ backgroundColor: '#FFFFFF' }}
-                    backgroundColor='#FFFFFF'
                     items={[
                         <div>
-                            <a onClick={() => this.handleClick("home")}>Home</a>
-                            <a onClick={() => this.handleClick("dietType")}>DietType</a>
-                            <a onClick={() => this.handleClick("trainer")}>Trainer</a>
+                            <a className="small py-1" onClick={() => this.handleClick("home")}>Home</a>
+                            <a className="small py-1" onClick={() => this.handleClick("bodyparttype")}>BodyPartType</a>
+                            <a className="small py-1" onClick={() => this.handleClick("complexityleveltype")}>ComplexityLevelType</a>
+                            <a className="small py-1" onClick={() => this.handleClick("diettype")}>DietType</a>
+                            <a className="small py-1" onClick={() => this.handleClick("equipment")}>Equipment</a>
+                            <a className="small py-1" onClick={() => this.handleClick("exercises")}>Exercises</a>
+                            <a className="small py-1" onClick={() => this.handleClick("membership")}>Membership</a>
+                            <a className="small py-1" onClick={() => this.handleClick("plan")}>Plan</a>
+                            <a className="small py-1" onClick={() => this.handleClick("schedule")}>Schedule</a>
+                            <a className="small py-1" onClick={() => this.handleClick("step")}>Step</a>
+                            <a className="small py-1" onClick={() => this.handleClick("trainer")}>Trainer</a>
                         </div>
                     ]} />
             </div>
