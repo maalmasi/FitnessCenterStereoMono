@@ -28,7 +28,7 @@ const viewMap = {
     equipmentedit: <EquipmentEdit />,
     plan: <Plan />,
     planedit: <PlanEdit />,
-    trainer: <Trainer />
+    trainer: <Trainer />,
     trainerEdit: <TrainerEdit />,
 };
 
