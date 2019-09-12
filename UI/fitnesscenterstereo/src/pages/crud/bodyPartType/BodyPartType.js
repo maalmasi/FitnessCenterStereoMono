@@ -21,6 +21,7 @@ export default  class BodyPartType extends React.Component {
                       { title: "First name", field: "fn" },
                       { title: "Last name", field: "ln" },
                       { title: "Date hired", field: "dh", type: "numeric" }]}
+
               />
           </Layout>
       </React.Fragment>  

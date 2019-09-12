@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 
 @inject('rootStore')
 @observer
-class Trainer extends React.Component {
+class Schedule extends React.Component {
     handleClick(e) {
         const { rootStore } = this.props;
         rootStore.routerStore.goTo(e);
@@ -19,15 +19,14 @@ class Trainer extends React.Component {
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
-                        <Button onClick={() => this.handleClick("traineredit")} variant="outline-success">Create/Edit</Button>
+                        <Button onClick={() => this.handleClick("scheduleedit")} variant="outline-success">Create/Edit</Button>
 
                     </Form>
                     <MaterialTable
-                        title="Trainers"
+                        title="Schedule"
                         columns={[
-                            { title: "First name", field: "firstname" },
-                            { title: "Last name", field: "lastname" },
-                            { title: "Date hired", field: "datehired", type: "numeric" }]}
+                            { title: "Frequency", field: "frequency" },
+                            { title: "PlanID", field: "planID", type: "string" }]}
                         options={{
                             search: false,
                             pageSizeOptions: [10, 20, 50, 100],
@@ -40,4 +39,4 @@ class Trainer extends React.Component {
         );
     };
 }
-export default Trainer;
+export default Schedule;

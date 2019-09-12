@@ -12,6 +12,8 @@ import Equipment from './pages/crud/equipment/Equipment';
 import EquipmentEdit from './pages/crud/equipment/EquipmentEdit';
 import Plan from './pages/crud/plan/Plan';
 import PlanEdit from './pages/crud/plan/PlanEdit';
+import Schedule from './pages/crud/schedule/Schedule';
+import ScheduleEdit from './pages/crud/schedule/ScheduleEdit';
 import Trainer from './pages/crud/trainer/Trainer';
 import TrainerEdit from './pages/crud/trainer/TrainerEdit';
 
@@ -19,7 +21,7 @@ import TrainerEdit from './pages/crud/trainer/TrainerEdit';
 const viewMap = {
     home: <Home />,
     notFound: <NotFoundPage />,
-    body:<BodyPartType/>,
+    bodyparttype:<BodyPartType/>,
     complexityleveltype: <ComplexityLevelType />,
     complexityleveltypeedit: <ComplexityLevelTypeEdit />,
     diettype: <DietType />,
@@ -28,6 +30,8 @@ const viewMap = {
     equipmentedit: <EquipmentEdit />,
     plan: <Plan />,
     planedit: <PlanEdit />,
+    schedule: <Schedule />,
+    scheduleedit: <ScheduleEdit />,
     trainer: <Trainer />,
     trainerEdit: <TrainerEdit />,
 };

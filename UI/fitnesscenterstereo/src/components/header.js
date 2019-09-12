@@ -1,7 +1,8 @@
 import React from 'react';
 import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
+@inject('rootStore')
 @observer
 class Header extends React.Component {
   handleClick(e) {

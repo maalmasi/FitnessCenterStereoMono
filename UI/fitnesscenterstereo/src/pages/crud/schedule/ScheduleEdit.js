@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Layout from '../../../components/Layout';
-import TrainerForm from './TrainerForm'
+import ScheduleForm from './ScheduleForm'
 import { Button, FormControl } from 'react-bootstrap';
 
 
 @observer
-class TrainerEdit extends React.Component {
+class ScheduleEdit extends React.Component {
     render() {
         return (
             <React.Fragment>
@@ -18,11 +18,11 @@ class TrainerEdit extends React.Component {
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     </div>
                     </div>
-                <TrainerForm />
+                <ScheduleForm />
                 </Layout>
             </React.Fragment >
         );
     }
 }
 
-export default TrainerEdit;
+export default ScheduleEdit;
