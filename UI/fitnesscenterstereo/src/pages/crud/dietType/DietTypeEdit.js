@@ -1,20 +1,22 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Layout from '../../../components/Layout'
-import DietTypeComponent from './DietTypeComponent';
+import DietTypeForm from './DietTypeForm';
 
-class DietTypeEditForm extends React.Component {
+
+@observer
+class DietTypeEdit extends React.Component {
     render() {
         return (
             <React.Fragment>
                 <Layout>
-                    <DietTypeComponent />
+                    <DietTypeForm />
                 </Layout>
             </React.Fragment>
         );
     }
 }
 
-export default inject('rootStore')(observer(DietTypeEditForm));
+export default DietTypeEdit;
 
 
