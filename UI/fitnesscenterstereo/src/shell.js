@@ -14,12 +14,17 @@ import Plan from './pages/crud/plan/Plan';
 import PlanEdit from './pages/crud/plan/PlanEdit';
 import Trainer from './pages/crud/trainer/Trainer';
 import TrainerEdit from './pages/crud/trainer/TrainerEdit';
+import Membership from'./pages/crud/membership/Membership'
+import MembershipEdit from'./pages/crud/membership/MembershipEdit'
+import BodyPartTypeForm from './pages/crud/bodyPartType/BodyPartTypeForm';
+import BodyPartTypeEdit from './pages/crud/bodyPartType/BodyPartTypeEdit';
 
 
 const viewMap = {
     home: <Home />,
     notFound: <NotFoundPage />,
-    body:<BodyPartType/>,
+    bodyparttype:<BodyPartType/>,
+    bodyparttypeedit:<BodyPartTypeEdit/>,
     complexityleveltype: <ComplexityLevelType />,
     complexityleveltypeedit: <ComplexityLevelTypeEdit />,
     diettype: <DietType />,
@@ -30,6 +35,8 @@ const viewMap = {
     planedit: <PlanEdit />,
     trainer: <Trainer />,
     trainerEdit: <TrainerEdit />,
+    membership:<Membership/>,
+    membershipedit:<MembershipEdit/>
 };
 
 export const Shell = inject('rootStore')(
