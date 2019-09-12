@@ -3,16 +3,19 @@ import { inject } from 'mobx-react';
 import { RouterView } from 'mobx-state-router';
 import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
+import DietTypeEdit from './pages/crud/dietType/DietTypeEdit'
 import DietType from './pages/crud/dietType/DietType'
 import Trainer from './pages/crud/trainer/Trainer'
-import TrainerEditForm from './pages/crud/trainer/TrainerEditForm'
+import BodyPartType from './pages/crud/bodyPartType/BodyPartType';
+
 
 const viewMap = {
     home: <Home />,
     notFound: <NotFoundPage />,
     dietType: <DietType />,
+    dietTypeEdit: <DietTypeEdit />,
     trainer: <Trainer />,
-    trainerEdit :<TrainerEditForm/>
+    body:<BodyPartType/>
 };
 
 export const Shell = inject('rootStore')(

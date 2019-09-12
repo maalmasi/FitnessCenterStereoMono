@@ -12,12 +12,17 @@ export const routes = [
         pattern: '/dietType'
     },
     {
+        name: 'dietTypeEdit',
+        pattern: '/dietType/edit'
+    },
+    {
         name: 'trainer',
         pattern: '/trainer'
     },
     {
-        name: 'trainerEdit',
-        pattern: '/trainer'
+        name:'bodyparttype',
+        pattern:'/bodyparttype'
+
     }
 
 ];
