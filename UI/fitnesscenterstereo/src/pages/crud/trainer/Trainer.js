@@ -19,13 +19,12 @@ class Trainer extends React.Component {
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
-                        <Button onClick={() => this.handleClick("edit")} variant="outline-success">Create/Edit</Button>
+                        <Button onClick={() => this.handleClick("trainerEdit")} variant="outline-success">Create/Edit</Button>
 
                     </Form>
                     <MaterialTable
                         title="Trainers"
                         columns={[
-                            { title: "ID", field: "id" },
                             { title: "First name", field: "fn" },
                             { title: "Last name", field: "ln" },
                             { title: "Date hired", field: "dh", type: "numeric" }]}
