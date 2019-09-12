@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 
 @inject('rootStore')
 @observer
-class Plan extends React.Component {
+class Exercise extends React.Component {
     handleClick(e) {
         const { rootStore } = this.props;
         rootStore.routerStore.goTo(e);
@@ -19,7 +19,7 @@ class Plan extends React.Component {
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("planedit")}>Create</Button>
+                            <Button onClick={() => this.handleClick("exerciseedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -29,10 +29,12 @@ class Plan extends React.Component {
                         <MaterialTable
                             columns={[
                                 { title: "Name", field: "name" },
+                                { title: "Body Part", field: "bodypartid" },
+                                { title: "Complexity Level", field: "complexityleveltypeid" }
                             ]}
                             data={[
-                                { name: "Krumpir", dietTypeId: "1234567890123456789012" },
-                                { name: "Paradajz", dietTypeId: "1234567890123456789012" }
+                                { name: "Krumpir", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" },
+                                { name: "Paradajz", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" }
                             ]}
                             options={{
                                 search: false,
@@ -48,4 +50,4 @@ class Plan extends React.Component {
     }
 }
 
-export default Plan;
+export default Exercise;

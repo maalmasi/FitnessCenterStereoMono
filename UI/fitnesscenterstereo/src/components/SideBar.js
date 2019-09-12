@@ -33,7 +33,7 @@ class SideBar extends React.Component {
                             <a className="small py-1" onClick={() => this.handleClick("complexityleveltype")}>ComplexityLevelType</a>
                             <a className="small py-1" onClick={() => this.handleClick("diettype")}>DietType</a>
                             <a className="small py-1" onClick={() => this.handleClick("equipment")}>Equipment</a>
-                            <a className="small py-1" onClick={() => this.handleClick("exercises")}>Exercises</a>
+                            <a className="small py-1" onClick={() => this.handleClick("exercise")}>Exercises</a>
                             <a className="small py-1" onClick={() => this.handleClick("membership")}>Membership</a>
                             <a className="small py-1" onClick={() => this.handleClick("plan")}>Plan</a>
                             <a className="small py-1" onClick={() => this.handleClick("schedule")}>Schedule</a>

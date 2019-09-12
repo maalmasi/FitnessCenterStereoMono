@@ -10,6 +10,8 @@ import DietType from './pages/crud/dietType/DietType';
 import DietTypeEdit from './pages/crud/dietType/DietTypeEdit';
 import Equipment from './pages/crud/equipment/Equipment';
 import EquipmentEdit from './pages/crud/equipment/EquipmentEdit';
+import Exercise from './pages/crud/exercise/Exercise';
+import ExerciseEdit from './pages/crud/exercise/ExerciseEdit';
 import Plan from './pages/crud/plan/Plan';
 import PlanEdit from './pages/crud/plan/PlanEdit';
 import Trainer from './pages/crud/trainer/Trainer';
@@ -31,6 +33,8 @@ const viewMap = {
     diettypeedit: <DietTypeEdit />,
     equipment: <Equipment />,
     equipmentedit: <EquipmentEdit />,
+    exercise: <Exercise />,
+    exerciseedit: <ExerciseEdit />,
     plan: <Plan />,
     planedit: <PlanEdit />,
     trainer: <Trainer />,
