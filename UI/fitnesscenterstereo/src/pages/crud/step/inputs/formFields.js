@@ -13,13 +13,18 @@ const fields = [{
 }, {
   name: 'name',
   label: 'Name',
-  placeholder: 'Enter diet name',
+  placeholder: 'Enter step name',
   rules: 'required|string|between:3, 25',
 }, {
-  name: 'ingridients',
-  label: 'Ingridients',
-  placeholder: 'Enter ingredients',
-  rules: 'required|string|between:5,100',
+  name: 'desc',
+  label: 'Description',
+  placeholder: 'Enter step descrioption',
+  rules: 'required|string|between:3, 200',
+}, {
+  name: 'exercisesid',
+  label: 'Exercise ID',
+  placeholder: 'Enter exercise',
+  rules: 'required|string|between:32, 32',
 }];
 const hooks = {
   onSuccess(form) {

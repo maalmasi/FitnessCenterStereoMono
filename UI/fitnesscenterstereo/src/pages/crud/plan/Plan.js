@@ -31,7 +31,7 @@ class Plan extends React.Component {
                                 { title: "Name", field: "name" },
                             ]}
                             data={[
-                                { name: "Krumpir", dietTypeId: "1234567890123456789012"},
+                                { name: "Krumpir", dietTypeId: "1234567890123456789012" },
                                 { name: "Paradajz", dietTypeId: "1234567890123456789012" }
                             ]}
                             options={{

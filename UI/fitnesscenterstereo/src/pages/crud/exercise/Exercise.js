@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 
 @inject('rootStore')
 @observer
-class BodyPartType extends React.Component {
+class Exercise extends React.Component {
     handleClick(e) {
         const { rootStore } = this.props;
         rootStore.routerStore.goTo(e);
@@ -19,7 +19,7 @@ class BodyPartType extends React.Component {
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("bodyparttypeedit")}>Create</Button>
+                            <Button onClick={() => this.handleClick("exerciseedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -29,18 +29,19 @@ class BodyPartType extends React.Component {
                         <MaterialTable
                             columns={[
                                 { title: "Name", field: "name" },
-                                { title: "Abbreviation", field: "abbreviation" }
+                                { title: "Body Part", field: "bodypartid" },
+                                { title: "Complexity Level", field: "complexityleveltypeid" }
                             ]}
                             data={[
-                                { name: "Biceps", abbreviation: "bcp" },
-                                { name: "Triceps", abbreviation: "trc" }
+                                { name: "Krumpir", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" },
+                                { name: "Paradajz", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" }
                             ]}
                             options={{
                                 search: false,
                                 pageSizeOptions: [10, 25, 50, 100],
                                 pageSize: 10
                             }}
-                            title="Body Part Type"
+                            title="Plan"
                         />
                     </div>
                 </Layout>
@@ -49,4 +50,4 @@ class BodyPartType extends React.Component {
     }
 }
 
-export default BodyPartType;
+export default Exercise;

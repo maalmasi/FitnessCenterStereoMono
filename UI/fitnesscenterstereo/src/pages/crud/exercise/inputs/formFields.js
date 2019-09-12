@@ -6,20 +6,20 @@ const plugins = {
   dvr: dvr(validatorjs),
 };
 const fields = [{
-  name: 'abrv',
-  label: 'Abbreviation',
-  placeholder: 'Enter abbreviation',
-  rules: 'required|string|between:3, 25',
-}, {
   name: 'name',
   label: 'Name',
-  placeholder: 'Enter diet name',
+  placeholder: 'Enter plan name',
   rules: 'required|string|between:3, 25',
 }, {
-  name: 'ingridients',
-  label: 'Ingridients',
-  placeholder: 'Enter ingredients',
-  rules: 'required|string|between:5,100',
+  name: 'bodypartid',
+  label: 'Body Part Type ID',
+  placeholder: 'Enter diet type',
+  rules: 'required|string|between:32, 32',
+}, {
+  name: 'complexityleveltypeid',
+  label: 'Complexity Level Type ID',
+  placeholder: 'Enter diet type',
+  rules: 'required|string|between:32, 32',
 }];
 const hooks = {
   onSuccess(form) {

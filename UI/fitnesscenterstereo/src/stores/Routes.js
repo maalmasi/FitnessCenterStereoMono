@@ -12,6 +12,10 @@ export const routes = [
         pattern:'/bodyparttype'
     },
     {
+        name:'bodyparttypeedit',
+        pattern:'/bodyparttype/edit'
+    },
+    {
         name:'complexityleveltype',
         pattern:'/complexityleveltype'
     },
@@ -36,12 +40,37 @@ export const routes = [
         pattern: '/equipment/edit'
     },
     {
+        name: 'exercise',
+        pattern: '/exercise'
+    },
+    {
+        name: 'exerciseedit',
+        pattern: '/exercise/edit'
+    },
+    {
         name: 'plan',
         pattern: '/plan'
     },
     {
         name: 'planedit',
         pattern: '/plan/edit'
+    },
+  
+    {
+        name:'membership',
+        pattern:'/membership'
+    },
+    {
+        name:'membershipedit',
+        pattern:'/membership/edit'
+    },
+    {
+        name: 'step',
+        pattern: '/step'
+    },
+    {
+        name: 'stepedit',
+        pattern: '/step/edit'
     },
     {
         name: 'schedule',

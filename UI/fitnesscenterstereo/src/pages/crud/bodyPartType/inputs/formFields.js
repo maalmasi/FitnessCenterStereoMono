@@ -6,21 +6,21 @@ const plugins = {
   dvr: dvr(validatorjs),
 };
 const fields = [{
-  name: 'abrv',
-  label: 'Abbreviation',
-  placeholder: 'Enter abbreviation',
-  rules: 'required|string|between:3, 25',
-}, {
   name: 'name',
   label: 'Name',
-  placeholder: 'Enter diet name',
+  placeholder: 'Enter Body Part name',
   rules: 'required|string|between:3, 25',
-}, {
-  name: 'ingridients',
-  label: 'Ingridients',
-  placeholder: 'Enter ingredients',
-  rules: 'required|string|between:5,100',
-}];
+},
+{
+  name: 'abbreviation',
+  label: 'Abbreviation',
+  placeholder: 'Enter Abbreviation',
+  rules: 'required|string|between:3, 25',
+
+
+}
+
+];
 const hooks = {
   onSuccess(form) {
     console.log('Form Values!', form.values());

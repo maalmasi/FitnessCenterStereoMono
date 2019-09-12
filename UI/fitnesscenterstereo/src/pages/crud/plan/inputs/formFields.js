@@ -10,7 +10,7 @@ const fields = [{
   label: 'Name',
   placeholder: 'Enter plan name',
   rules: 'required|string|between:3, 25',
-},{
+}, {
   name: 'dietTypeId',
   label: 'Diet Type ID',
   placeholder: 'Enter diet type',

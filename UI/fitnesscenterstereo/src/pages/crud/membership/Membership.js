@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 
 @inject('rootStore')
 @observer
-class BodyPartType extends React.Component {
+class Membership extends React.Component {
     handleClick(e) {
         const { rootStore } = this.props;
         rootStore.routerStore.goTo(e);
@@ -19,7 +19,7 @@ class BodyPartType extends React.Component {
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("bodyparttypeedit")}>Create</Button>
+                            <Button onClick={() => this.handleClick("membershipedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -28,19 +28,18 @@ class BodyPartType extends React.Component {
                     <div>
                         <MaterialTable
                             columns={[
-                                { title: "Name", field: "name" },
-                                { title: "Abbreviation", field: "abbreviation" }
+                                { title: "Price", field: "price" },
+                                
                             ]}
                             data={[
-                                { name: "Biceps", abbreviation: "bcp" },
-                                { name: "Triceps", abbreviation: "trc" }
+                                { name: "Price" },
                             ]}
                             options={{
                                 search: false,
                                 pageSizeOptions: [10, 25, 50, 100],
                                 pageSize: 10
                             }}
-                            title="Body Part Type"
+                            title="Membership"
                         />
                     </div>
                 </Layout>
@@ -49,4 +48,4 @@ class BodyPartType extends React.Component {
     }
 }
 
-export default BodyPartType;
+export default Membership;

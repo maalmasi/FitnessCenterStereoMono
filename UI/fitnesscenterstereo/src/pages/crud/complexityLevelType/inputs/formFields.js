@@ -6,9 +6,14 @@ const plugins = {
   dvr: dvr(validatorjs),
 };
 const fields = [{
+  name: 'abrv',
+  label: 'Abbreviation',
+  placeholder: 'Enter abbreviation',
+  rules: 'required|string|between:3, 25',
+}, {
   name: 'name',
   label: 'Name',
-  placeholder: 'Enter diet name',
+  placeholder: 'Enter complexity level',
   rules: 'required|string|between:3, 25',
 }];
 const hooks = {
