@@ -5,15 +5,15 @@ class TrainerViewStore {
     @observable recordsperpage;
     @observable sortby;
     @observable sortascending;
-    @observable searchquerry;
+    @observable searchquery;
 
 
-    @action onpageChange(page){
+    @action onPageChange(page){
         this.page=page;
 
     }
 
-    @action onrecordsperpageChange(recordsperpage){
+    @action onRecordsPerPageChange(recordsperpage){
         this.recordsperpage=recordsperpage;
     }
 
@@ -22,7 +22,7 @@ class TrainerViewStore {
 
     }
 
-    @action onThreadClickChange(sortascending,sortby){
+    @action onTableHeaderClick(sortascending,sortby){
         this.sortascending=sortascending;
         this.sortby=sortby;
 

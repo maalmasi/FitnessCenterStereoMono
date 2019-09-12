@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 class EquipmentEditViewStore {
     @observable name;
 
-    @action onnameChange(name) {
+    @action onNameChange(name) {
         this.name = name;
     }
 

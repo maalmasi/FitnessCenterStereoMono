@@ -4,7 +4,7 @@ class MembershipEditViewStore {
     @observable price;
     
 
-    @action onnameChange(price){
+    @action onPriceChange(price){
         this.price=price;
 
     }

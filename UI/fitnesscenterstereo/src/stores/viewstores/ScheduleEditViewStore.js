@@ -4,7 +4,7 @@ class ScheduleEditViewStore {
     @observable frequency;
     @observable planid;
 
-    @action onnameChange(frequency){
+    @action onFrequencyChange(frequency){
         this.frequency=frequency;
 
     }

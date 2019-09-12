@@ -4,7 +4,7 @@ class PlanEditViewStore {
     @observable name;
     @observable diettypeid;
 
-    @action onnameChange(name){
+    @action onNameChange(name){
         this.name=name;
 
     }

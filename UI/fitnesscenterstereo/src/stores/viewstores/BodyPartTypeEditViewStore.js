@@ -4,12 +4,12 @@ class BodyPartTypeEditViewStore {
     @observable name;
     @observable abbreviation;
 
-    @action onnameChange(name){
+    @action onNameChange(name){
         this.name=name;
 
     }
 
-    @action onabbreviationChange(abbreviation){
+    @action onAbbreviationChange(abbreviation){
         this.abbreviation=abbreviation;
 
     }

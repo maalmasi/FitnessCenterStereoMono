@@ -6,16 +6,16 @@ class StepEditViewStore {
     @observable desc;
     @observable exercisesid;
 
-    @action onnameChange(name){
+    @action onNameChange(name){
         this.name=name;
 
     }
 
-    @action onabrvChange(abrv){
+    @action onAbrvChange(abrv){
         this.abrv=abrv;
 
     }
-    @action ondescChange(desc){
+    @action onDescChange(desc){
         this.desc=desc;
 
     }

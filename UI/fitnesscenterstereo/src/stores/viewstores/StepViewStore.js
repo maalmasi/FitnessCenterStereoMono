@@ -8,12 +8,12 @@ class StepViewStore {
     @observable searchquerry;
 
 
-    @action onpageChange(page){
+    @action onPageChange(page){
         this.page=page;
 
     }
 
-    @action onrecordsperpageChange(recordsperpage){
+    @action onRecordsPerPageChange(recordsperpage){
         this.recordsperpage=recordsperpage;
     }
 
@@ -22,7 +22,7 @@ class StepViewStore {
 
     }
 
-    @action onThreadClickChange(sortascending,sortby){
+    @action onTableHeaderClick(sortascending,sortby){
         this.sortascending=sortascending;
         this.sortby=sortby;
 

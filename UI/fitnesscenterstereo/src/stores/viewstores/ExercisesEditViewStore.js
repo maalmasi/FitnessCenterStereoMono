@@ -5,7 +5,7 @@ class ExercisesEditViewStore {
     @observable bodypartid;
     @observable complexityleveltypeid;
 
-    @action onnameChange(name){
+    @action onNameChange(name){
         this.name=name;
 
     }

@@ -5,17 +5,17 @@ class TrainerEditViewStore {
     @observable lastname;
     @observable hiredat;
 
-    @action onfirstnameChange(firstname){
+    @action onFirstnameChange(firstname){
         this.firstname=firstname;
 
     }
 
-    @action onlastnameChange(lastname){
+    @action onLastNameChange(lastname){
         this.lastname=lastname;
 
     }
 
-    @action onhiredatChange(hiredat){
+    @action onHiredatChange(hiredat){
         this.hiredat=hiredat;
 
     }
