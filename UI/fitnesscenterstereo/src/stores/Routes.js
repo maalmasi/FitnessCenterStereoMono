@@ -36,6 +36,14 @@ export const routes = [
         pattern: '/equipment/edit'
     },
     {
+        name: 'plan',
+        pattern: '/plan'
+    },
+    {
+        name: 'planedit',
+        pattern: '/plan/edit'
+    },
+    {
         name: 'trainer',
         pattern: '/trainer'
     }

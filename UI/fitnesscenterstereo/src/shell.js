@@ -6,11 +6,13 @@ import NotFoundPage from './components/NotFoundPage';
 import BodyPartType from './pages/crud/bodyPartType/BodyPartType';
 import ComplexityLevelType from './pages/crud/complexityLevelType/ComplexityLevelType';
 import ComplexityLevelTypeEdit from './pages/crud/complexityLevelType/ComplexityLevelTypeEdit';
-import DietType from './pages/crud/dietType/DietType'
-import DietTypeEdit from './pages/crud/dietType/DietTypeEdit'
-import Equipment from './pages/crud/equipment/Equipment'
-import EquipmentEdit from './pages/crud/equipment/EquipmentEdit'
-import Trainer from './pages/crud/trainer/Trainer'
+import DietType from './pages/crud/dietType/DietType';
+import DietTypeEdit from './pages/crud/dietType/DietTypeEdit';
+import Equipment from './pages/crud/equipment/Equipment';
+import EquipmentEdit from './pages/crud/equipment/EquipmentEdit';
+import Plan from './pages/crud/plan/Plan';
+import PlanEdit from './pages/crud/plan/PlanEdit';
+import Trainer from './pages/crud/trainer/Trainer';
 
 
 const viewMap = {
@@ -23,6 +25,8 @@ const viewMap = {
     diettypeedit: <DietTypeEdit />,
     equipment: <Equipment />,
     equipmentedit: <EquipmentEdit />,
+    plan: <Plan />,
+    planedit: <PlanEdit />,
     trainer: <Trainer />
 };
 
