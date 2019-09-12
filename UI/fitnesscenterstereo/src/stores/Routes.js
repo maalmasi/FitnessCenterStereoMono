@@ -14,6 +14,11 @@ export const routes = [
     {
         name: 'trainer',
         pattern: '/trainer'
+    },
+    {
+        name:'bodyparttype',
+        pattern:'/bodyparttype'
+
     }
 
 ];
