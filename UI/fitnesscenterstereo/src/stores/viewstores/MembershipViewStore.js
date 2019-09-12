@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-class TrainerViewStore {
+class MembershipViewStore {
     @observable page;
     @observable recordsperpage;
     @observable sortby;
@@ -29,4 +29,4 @@ class TrainerViewStore {
     }
 }
 
-export default TrainerViewStore;
+export default MembershipViewStore;

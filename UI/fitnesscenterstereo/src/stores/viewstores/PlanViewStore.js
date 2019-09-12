@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-class TrainerViewStore {
+class PlanViewStore {
     @observable page;
     @observable recordsperpage;
     @observable sortby;
@@ -15,6 +15,7 @@ class TrainerViewStore {
 
     @action onrecordsperpageChange(recordsperpage){
         this.recordsperpage=recordsperpage;
+
     }
 
     @action onsearchquerryChange(searchquerry){
@@ -29,4 +30,4 @@ class TrainerViewStore {
     }
 }
 
-export default TrainerViewStore;
+export default PlanViewStore;
