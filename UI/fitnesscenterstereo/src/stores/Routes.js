@@ -65,6 +65,14 @@ export const routes = [
         pattern:'/membership/edit'
     },
     {
+        name: 'step',
+        pattern: '/step'
+    },
+    {
+        name: 'stepedit',
+        pattern: '/step/edit'
+    },
+    {
         name: 'trainer',
         pattern: '/trainer'
     },

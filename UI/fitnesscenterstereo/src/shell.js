@@ -14,6 +14,8 @@ import Exercise from './pages/crud/exercise/Exercise';
 import ExerciseEdit from './pages/crud/exercise/ExerciseEdit';
 import Plan from './pages/crud/plan/Plan';
 import PlanEdit from './pages/crud/plan/PlanEdit';
+import Step from './pages/crud/step/Step';
+import StepEdit from './pages/crud/step/StepEdit';
 import Trainer from './pages/crud/trainer/Trainer';
 import TrainerEdit from './pages/crud/trainer/TrainerEdit';
 import Membership from'./pages/crud/membership/Membership'
@@ -37,6 +39,8 @@ const viewMap = {
     exerciseedit: <ExerciseEdit />,
     plan: <Plan />,
     planedit: <PlanEdit />,
+    step: <Step />,
+    stepedit: <StepEdit />,
     trainer: <Trainer />,
     trainerEdit: <TrainerEdit />,
     membership:<Membership/>,
