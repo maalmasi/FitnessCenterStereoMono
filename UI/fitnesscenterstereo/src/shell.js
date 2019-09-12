@@ -4,6 +4,7 @@ import { RouterView } from 'mobx-state-router';
 import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
 import BodyPartType from './pages/crud/bodyPartType/BodyPartType';
+import BodyPartTypeEdit from './pages/crud/bodyPartType/BodyPartTypeEdit';
 import ComplexityLevelType from './pages/crud/complexityLevelType/ComplexityLevelType';
 import ComplexityLevelTypeEdit from './pages/crud/complexityLevelType/ComplexityLevelTypeEdit';
 import DietType from './pages/crud/dietType/DietType';
@@ -22,8 +23,6 @@ import Trainer from './pages/crud/trainer/Trainer';
 import TrainerEdit from './pages/crud/trainer/TrainerEdit';
 import Membership from'./pages/crud/membership/Membership'
 import MembershipEdit from'./pages/crud/membership/MembershipEdit'
-import BodyPartTypeForm from './pages/crud/bodyPartType/BodyPartTypeForm';
-import BodyPartTypeEdit from './pages/crud/bodyPartType/BodyPartTypeEdit';
 
 
 const viewMap = {
@@ -46,7 +45,7 @@ const viewMap = {
     schedule: <Schedule />,
     scheduleedit: <ScheduleEdit />,
     trainer: <Trainer />,
-    trainerEdit: <TrainerEdit />,
+    traineredit: <TrainerEdit />,
     membership:<Membership/>,
     membershipedit:<MembershipEdit/>
 };

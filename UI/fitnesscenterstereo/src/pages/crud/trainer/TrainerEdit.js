@@ -13,12 +13,13 @@ class TrainerEdit extends React.Component {
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>                        </div>
-                    <div classname="col-6">
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>
+                        </div>
+                        <div classname="col-6">
+                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        </div>
                     </div>
-                    </div>
-                <TrainerForm />
+                    <TrainerForm />
                 </Layout>
             </React.Fragment >
         );

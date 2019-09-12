@@ -85,7 +85,7 @@ export const routes = [
         pattern: '/trainer'
     },
     {
-        name:'trainerEdit',
+        name:'traineredit',
         pattern:'/trainer/edit'
 
     }
