@@ -5,13 +5,14 @@ import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
 import DietType from './pages/crud/dietType/DietType'
 import Trainer from './pages/crud/trainer/Trainer'
-
+import TrainerEditForm from './pages/crud/trainer/TrainerEditForm'
 
 const viewMap = {
     home: <Home />,
     notFound: <NotFoundPage />,
     dietType: <DietType />,
-    trainer: <Trainer />
+    trainer: <Trainer />,
+    trainerEdit :<TrainerEditForm/>
 };
 
 export const Shell = inject('rootStore')(
