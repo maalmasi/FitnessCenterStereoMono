@@ -1,14 +1,13 @@
 import React from 'react';
 import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
-@inject('rootStore')
 @observer
 class Header extends React.Component {
   handleClick(e) {
     const { rootStore } = this.props;
     rootStore.routerStore.goTo(e);
-};
+}
   render() {
     return (
       <Navbar bg="light" expand="lg">
