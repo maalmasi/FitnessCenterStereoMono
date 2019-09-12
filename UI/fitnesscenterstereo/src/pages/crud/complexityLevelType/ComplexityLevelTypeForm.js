@@ -6,6 +6,7 @@ export default class ComplexityLevelTypeForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>
+                <SimpleInput field={form.$('abrv')} />
                 <SimpleInput field={form.$('name')} />
                 <br />
                 <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>

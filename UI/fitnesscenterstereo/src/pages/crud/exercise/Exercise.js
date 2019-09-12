@@ -29,12 +29,12 @@ class Exercise extends React.Component {
                         <MaterialTable
                             columns={[
                                 { title: "Name", field: "name" },
-                                {title: "Body Part", field: "bodypartid"},
-                                {title: "Complexity Level", field: "complexityleveltypeid"}
+                                { title: "Body Part", field: "bodypartid" },
+                                { title: "Complexity Level", field: "complexityleveltypeid" }
                             ]}
                             data={[
-                                { name: "Krumpir", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012"},
-                                { name: "Paradajz", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012"}
+                                { name: "Krumpir", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" },
+                                { name: "Paradajz", bodypartid: "1234567890123456789012", complexityleveltypeid: "1234567890123456789012" }
                             ]}
                             options={{
                                 search: false,

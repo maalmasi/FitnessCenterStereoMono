@@ -6,6 +6,7 @@ export default class DietTypeForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>
+                <SimpleInput field={form.$('abrv')} />
                 <SimpleInput field={form.$('name')} />
                 <SimpleInput field={form.$('ingridients')} />
                 <br />
