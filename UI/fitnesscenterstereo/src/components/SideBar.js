@@ -20,7 +20,7 @@ class SideBar extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.setState({ showNav: true })}>Btn</button>
+                <button onClick={() => this.setState({ showNav: true })}>Pages</button>
                 <SideNav
                     showNav={this.state.showNav}
                     onHideNav={() => this.setState({ showNav: false })}

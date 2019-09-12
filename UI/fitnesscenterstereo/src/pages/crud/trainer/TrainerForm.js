@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleInput from './inputs/SimpleInput';
 import form from './inputs/formFields'
 
-export default class TrainerComponent extends React.Component {
+export default class TrainerForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>

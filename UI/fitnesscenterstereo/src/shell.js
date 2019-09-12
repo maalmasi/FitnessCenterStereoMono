@@ -13,6 +13,7 @@ import EquipmentEdit from './pages/crud/equipment/EquipmentEdit';
 import Plan from './pages/crud/plan/Plan';
 import PlanEdit from './pages/crud/plan/PlanEdit';
 import Trainer from './pages/crud/trainer/Trainer';
+import TrainerEdit from './pages/crud/trainer/TrainerEdit';
 
 
 const viewMap = {
@@ -28,6 +29,7 @@ const viewMap = {
     plan: <Plan />,
     planedit: <PlanEdit />,
     trainer: <Trainer />
+    trainerEdit: <TrainerEdit />,
 };
 
 export const Shell = inject('rootStore')(

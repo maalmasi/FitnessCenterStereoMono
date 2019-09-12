@@ -46,5 +46,10 @@ export const routes = [
     {
         name: 'trainer',
         pattern: '/trainer'
+    },
+    {
+        name:'trainerEdit',
+        pattern:'/trainer/edit'
+
     }
 ];
