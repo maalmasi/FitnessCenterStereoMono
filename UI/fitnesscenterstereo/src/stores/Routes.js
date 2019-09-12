@@ -28,6 +28,14 @@ export const routes = [
         pattern: '/diettype/edit'
     },
     {
+        name: 'equipment',
+        pattern: '/equipment'
+    },
+    {
+        name: 'equipmentedit',
+        pattern: '/equipment/edit'
+    },
+    {
         name: 'trainer',
         pattern: '/trainer'
     }
