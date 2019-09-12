@@ -20,11 +20,12 @@ export default class Trainer extends React.Component {
                             { title: "First name", field: "fn" },
                             { title: "Last name", field: "ln" },
                             { title: "Date hired", field: "dh", type: "numeric" }]}
+                        options={[{search:false}]}
+
 
                     />
                 </Layout>
             </React.Fragment>
         );
     };
-}
 }
