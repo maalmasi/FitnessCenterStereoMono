@@ -19,7 +19,7 @@ class DietType extends React.Component {
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("dietTypeEdit")}>Create</Button>
+                            <Button onClick={() => this.handleClick("diettypeedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />

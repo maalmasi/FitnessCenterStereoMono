@@ -8,21 +8,27 @@ export const routes = [
         pattern: '/not-found'
     },
     {
-        name: 'dietType',
-        pattern: '/dietType'
+        name:'bodyparttype',
+        pattern:'/bodyparttype'
     },
     {
-        name: 'dietTypeEdit',
-        pattern: '/dietType/edit'
+        name:'complexityleveltype',
+        pattern:'/complexityleveltype'
+    },
+    {
+        name:'complexityleveltypeedit',
+        pattern:'/complexityleveltypeedit'
+    },
+    {
+        name: 'diettype',
+        pattern: '/diettype'
+    },
+    {
+        name: 'diettypeedit',
+        pattern: '/diettype/edit'
     },
     {
         name: 'trainer',
         pattern: '/trainer'
-    },
-    {
-        name:'bodyparttype',
-        pattern:'/bodyparttype'
-
     }
-
 ];
