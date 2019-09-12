@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, FormControl, Dropdown } from 'react-bootstrap';
+import { Button, FormControl } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
+import MaterialTable from 'material-table';
+
 
 @inject('rootStore')
 @observer
@@ -22,31 +24,23 @@ class DietType extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <table>
-                        <th>Name</th><th>Ingredients</th><th>Actions</th>
-                        <tr></tr><tr></tr><tr><Button onClick={() => this.handleClick("diettype/edit/")}>Edit</Button><Button onClick={() => this.handleClick("diettype/delete/")}>Delete</Button></tr>
-                    </table>
-                </div>
-                <div className="row">
-                    <div className="col-2">
-                        Pg/Tp
-                    </div>
-                    <div className="col-3">
-                        <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Items per page
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">10</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">25</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">50</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">100</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
-                    <div className="col-7">
-                        Pages
-                    </div>
+                    <MaterialTable
+                        columns={[
+                            { title: "Name", field: "name" },
+                            { title: "Ingredients", field: "ingredients" },
+                            { title: "Abbreviation", field: "abbreviation" }
+                        ]}
+                        data={[
+                            { name: "Krumpir", ingredients: "krumpir, krumpir, krumpir", abbreviation: "krm" },
+                            { name: "Paradajz", ingredients: "paradajz, rajcica, paradajz", abbreviation: "prd" }
+                        ]}
+                        options={[{
+                            search: false
+                        },{
+                            recordsPerPageOptions: [10, 25, 50, 100]
+                        }]}
+                        title="Diets"
+                    />
                 </div>
             </React.Fragment>
         )
