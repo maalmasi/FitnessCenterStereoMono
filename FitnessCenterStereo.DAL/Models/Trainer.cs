@@ -3,20 +3,24 @@ using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Trainer
+    public partial class Trainer : BaseModel
     {
+        #region Constructors
+
         public Trainer()
         {
-            Compiles = new HashSet<Compiles>();
+            PlanTrainers = new HashSet<PlanTrainer>();
         }
 
-        public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime? HiredAt { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+        #endregion Constructors
 
-        public virtual ICollection<Compiles> Compiles { get; set; }
+        #region Properties
+
+        public string FirstName { get; set; }
+        public DateTime? HiredAt { get; set; }
+        public string LastName { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
+
+        #endregion Properties
     }
 }

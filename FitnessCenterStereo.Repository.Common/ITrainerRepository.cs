@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Repository.Common
 {
-   public interface ITrainerRepository
+    public interface ITrainerRepository : IRepository<ITrainer, ITrainerFilter>
     {
-        Guid GetById(Guid Id);
-        String GetByFirstName(String FirstName);
-        String GetByLastName(String LastName);
-        DateTime GetByHiredAt(DateTime HiredAt);
-       
     }
 }

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Card
+    public partial class Card : BaseModel
     {
-        public Guid Id { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+        #region Properties
+
         public Guid? MembershipId { get; set; }
+        public virtual IdentityUser User { get; set; }
         public string UserId { get; set; }
 
-        public virtual AspNetUsers User { get; set; }
+        #endregion Properties
     }
 }

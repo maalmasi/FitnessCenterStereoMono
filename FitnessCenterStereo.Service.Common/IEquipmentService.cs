@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using System;
+using System.Threading.Tasks;
 
- namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
-  public interface IEquipmentService
+    public interface IEquipmentService
     {
+        #region Methods
 
-        Guid GetById(Guid Id);
-        String GetByName(String Name);
+        Task<IEquipment> CreateAsync(IEquipment equipment);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        Task<PaginatedList<IEquipment>> FindAsync(IEquipmentFilter filter);
+
+        Task<IEquipment> GetAsync(Guid id);
+
+        Task<bool> UpdateAsync(IEquipment equipment);
+
+        #endregion Methods
     }
 }

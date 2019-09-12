@@ -1,26 +1,31 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Plan
+    public partial class Plan : BaseModel
     {
+        #region Constructors
+
         public Plan()
         {
-            AspNetUsers = new HashSet<AspNetUsers>();
-            Compiles = new HashSet<Compiles>();
+            Users = new HashSet<IdentityUser>();
+            PlanTrainers = new HashSet<PlanTrainer>();
             Schedule = new HashSet<Schedule>();
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
-        public Guid? DietTypeId { get; set; }
+        #endregion Constructors
+
+        #region Properties
 
         public virtual DietType DietType { get; set; }
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
-        public virtual ICollection<Compiles> Compiles { get; set; }
+        public Guid? DietTypeId { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
         public virtual ICollection<Schedule> Schedule { get; set; }
+        public virtual ICollection<IdentityUser> Users { get; set; }
+
+        #endregion Properties
     }
 }

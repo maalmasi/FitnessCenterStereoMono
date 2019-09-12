@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FitnessCenterStereo.DAL.Models
+﻿namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Membership
+    public partial class Membership : BaseModel
     {
-        public Guid Id { get; set; }
+        #region Properties
+
         public decimal? Price { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+
+        #endregion Properties
     }
 }

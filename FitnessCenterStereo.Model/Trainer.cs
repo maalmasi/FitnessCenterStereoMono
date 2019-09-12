@@ -1,17 +1,27 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Trainer : IBaseModel, ITrainer
+    public class Trainer : BaseModel, ITrainer
     {
-        public Guid Id { get; set; }
+        #region Constructors
+
+        public Trainer()
+        {
+            PlanTrainers = new HashSet<PlanTrainer>();
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         public string Firstname { get; set; }
-        public string LastName { get; set; }
         public DateTime HiredAt { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public string LastName { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
+
+        #endregion Properties
     }
 }

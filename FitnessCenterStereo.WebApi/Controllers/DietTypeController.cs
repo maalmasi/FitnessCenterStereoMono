@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
+using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,36 +15,71 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class DietTypeController : BaseApiController
     {
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        #region Fields
+
+        private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public DietTypeController(IDietTypeService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
-            return new string[] { "value1", "value2" };
+            Service = service;
+            mapper = mapperInterface;
+            Filter = filter;
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        #endregion Constructors
+
+        #region Properties
+
+        protected IFacadeFilter Filter { get; private set; }
+        protected IDietTypeService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return "value";
+            return await Service.DeleteAsync(id);
+        }
+
+        public async Task<PaginatedList<DietTypeViewModel>> FindAsync(string searchQuery = DefaultSearchQuery, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        {
+            IDietTypeFilter filter = Filter.CreateDietTypeFilter();
+            filter.SearchQuery = searchQuery;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
+            return mapper.Map<PaginatedList<DietTypeViewModel>>(await Service.FindAsync(mapper.Map<IDietTypeFilter>(filter)));
+        }
+
+        // GET api/<controller>/<id>
+        [HttpGet("{id}")]
+        public async Task<DietTypeViewModel> GetAsync(Guid id)
+        {
+            return mapper.Map<DietTypeViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<DietTypeViewModel> Post([FromBody]DietTypeViewModel value)
         {
+            return mapper.Map<DietTypeViewModel>(await Service.CreateAsync(mapper.Map<IDietType>(value)));
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/<controller>/<id>
+        [HttpPut]
+        public async Task<bool> Put(MembershipViewModel value)
         {
+            return await Service.UpdateAsync(mapper.Map<IDietType>(value));
         }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        #endregion Methods
     }
 }

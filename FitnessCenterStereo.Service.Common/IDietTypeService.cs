@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using System;
+using System.Threading.Tasks;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IDietTypeService
     {
-        Guid GetById(Guid Id);
-        String GetByName(String name);
-        String GetByAbbreviation(String Abbrevation);
-        String GetByIngridients(String Ingirdients);
+        #region Methods
+
+        Task<IDietType> CreateAsync(IDietType dietType);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        Task<PaginatedList<IDietType>> FindAsync(IDietTypeFilter filter);
+
+        Task<IDietType> GetAsync(Guid id);
+
+        Task<bool> UpdateAsync(IDietType dietType);
+
+        #endregion Methods
     }
 }

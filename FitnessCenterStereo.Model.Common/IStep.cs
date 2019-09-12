@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-   public interface IStep
+    public interface IStep : IBaseModel
     {
-        
-        String Name { get; set; }
+        #region Properties
+
         String Abbreviation { get; set; }
         String Description { get; set; }
-        
         Guid ExercisesId { get; set; }
+        String Name { get; set; }
+
+        #endregion Properties
     }
 }

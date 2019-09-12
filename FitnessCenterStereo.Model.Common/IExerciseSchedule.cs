@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-    public interface IExerciseSchedule
+    public interface IExerciseSchedule : IBaseModel
     {
-        Guid ScheduleId { get; set; }
+        #region Properties
+
         Guid ExerciseId { get; set; }
-        Guid ExerciseScheduledId { get; set; }
-        
+        Guid ScheduleId { get; set; }
+
+        #endregion Properties
     }
 }

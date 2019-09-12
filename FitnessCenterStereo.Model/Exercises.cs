@@ -1,17 +1,21 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Exercises : IBaseModel, IExercises
+    public class Exercises : BaseModel, IExercises
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        #region Properties
+
+        public virtual BodyPartType BodyPart { get; set; }
         public Guid BodyPartId { get; set; }
         public Guid ComplexityLevelTypeId { get; set; }
+        public virtual ComplexityLevelType ComplexityLeveTypel { get; set; }
+        public virtual ICollection<ExerciseEquipment> ExerciseEquipment { get; set; }
+        public virtual ICollection<ExerciseSchedule> ExerciseSchedule { get; set; }
+        public string Name { get; set; }
+
+        #endregion Properties
     }
 }

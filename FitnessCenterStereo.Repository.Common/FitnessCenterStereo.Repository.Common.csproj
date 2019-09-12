@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FitnessCenterStereo.Common\FitnessCenterStereo.Common.csproj" />
+    <ProjectReference Include="..\FitnessCenterStereo.DAL\FitnessCenterStereo.DAL.csproj" />
     <ProjectReference Include="..\FitnessCenterStereo.Model.Common\FitnessCenterStereo.Model.Common.csproj" />
   </ItemGroup>
 

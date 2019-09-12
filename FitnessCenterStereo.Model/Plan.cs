@@ -1,17 +1,19 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class Plan : IBaseModel, IPlan
+    public class Plan : BaseModel, IPlan
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        #region Properties
+
+        public virtual DietType DietType { get; set; }
         public Guid DietTypeId { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<PlanTrainer> PlanTrainers { get; set; }
+        public virtual ICollection<Schedule> Schedule { get; set; }
+
+        #endregion Properties
     }
 }
-

@@ -1,17 +1,17 @@
 ﻿using FitnessCenterStereo.Model.Common;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
-    public class ExerciseSchedule : IBaseModel, IExerciseSchedule
+    public class ExerciseSchedule : BaseModel, IExerciseSchedule
     {
-        public Guid ScheduleId { get; set; }
+        #region Properties
+
         public Guid ExerciseId { get; set; }
-        public Guid ExerciseScheduledId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
-        public Guid Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual Exercises Exercises { get; set; }
+        public virtual Schedule Schedule { get; set; }
+        public Guid ScheduleId { get; set; }
+
+        #endregion Properties
     }
 }

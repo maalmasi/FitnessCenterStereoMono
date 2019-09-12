@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Service.Common;
+using FitnessCenterStereo.WebApi.Infrastracture.Pagination;
 using FitnessCenterStereo.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,41 +15,73 @@ namespace FitnessCenterStereo.WebApi.Controllers
     [Route("api/[controller]")]
     public class CardController : BaseApiController
     {
-        List<CardViewModel> cards = new List<CardViewModel>() {
-            new CardViewModel{
-                Id=Guid.NewGuid(),DateCreated = DateTime.Now, DateUpdated = DateTime.Now,MembershipId = Guid.NewGuid(),UserId=string.Empty
-            }
-        };
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<CardViewModel> Get()
+        #region Fields
+
+        private readonly IMapper mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public CardController(ICardService service, IMapper mapperInterface, IFacadeFilter filter) : base()
         {
-            return cards;
+            Service = service;
+            Filter = filter;
+            mapper = mapperInterface;
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        #endregion Constructors
+
+        #region Properties
+
+        protected IFacadeFilter Filter { get; private set; }
+
+        protected ICardService Service { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        // DELETE api/<controller>/<id>
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return "value";
+            return await Service.DeleteAsync(id);
+        }
+
+        [HttpGet]
+        public async Task<PaginatedList<CardViewModel>> FindAsync(string searchQuery = DefaultSearchQuery, int page = DefaultPage, int rpp = DefaultRpp, string sortBy = DefaultSortBy, bool sortAsc = DefaultSortAsc)
+        {
+            ICardFilter filter = Filter.CreateCardFilter();
+            filter.SearchQuery = searchQuery;
+            filter.Page = page;
+            filter.RecordsPerPage = rpp;
+            filter.SortBy = sortBy;
+            filter.SortAscending = sortAsc;
+            return mapper.Map<PaginatedList<CardViewModel>>(await Service.FindAsync(filter));
+        }
+
+        // GET api/<controller>/<id>
+        [HttpGet("{id}")]
+        public async Task<CardViewModel> GetAsync(Guid id)
+        {
+            return mapper.Map<CardViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<CardViewModel> PostAsync([FromBody] CardViewModel value)
         {
+            return mapper.Map<CardViewModel>(await Service.CreateAsync(mapper.Map<ICard>(value)));
         }
 
-        // PUT api/<controller>/5
+        // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<bool> Put(CardViewModel value)
         {
+            return await Service.UpdateAsync(mapper.Map<ICard>(value));
         }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        #endregion Methods
     }
 }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FitnessCenterStereo.WebApi.Models
+﻿namespace FitnessCenterStereo.WebApi.Models
 {
-    public class EquipmentViewModel
+    public class EquipmentViewModel : BaseViewModel
     {
-        public Guid Id { get; set; }
+        #region Properties
+
         public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+
+        #endregion Properties
     }
 }

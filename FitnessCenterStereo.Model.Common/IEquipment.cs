@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
- namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Model.Common
 {
-  public interface IEquipment
+    public interface IEquipment : IBaseModel
     {
+        #region Properties
 
-        
         String Name { get; set; }
-       
+
+        #endregion Properties
     }
 }

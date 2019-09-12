@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class ExerciseSchedule
+    public partial class ExerciseSchedule : BaseModel
     {
-        public Guid? ScheduleId { get; set; }
-        public Guid? ExercisesId { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
-        public Guid Id { get; set; }
+        #region Properties
 
         public virtual Exercises Exercises { get; set; }
+        public Guid? ExercisesId { get; set; }
+
         public virtual Schedule Schedule { get; set; }
+        public Guid? ScheduleId { get; set; }
+
+        #endregion Properties
     }
 }

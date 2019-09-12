@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
     public interface IBaseModel
     {
-        Guid Id { get; set; }
-        DateTime DateUpdated { get; set; }
+        #region Properties
+
         DateTime DateCreated { get; set; }
+        DateTime DateUpdated { get; set; }
+        Guid Id { get; set; }
+
+        #endregion Properties
     }
 }

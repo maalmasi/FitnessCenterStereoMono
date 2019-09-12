@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using System;
+using System.Threading.Tasks;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
-   public interface ITrainerService
+    public interface ITrainerService
     {
-        Guid GetById(Guid Id);
-        String GetByFirstName(String FirstName);
-        String GetByLastName(String LastName);
-        DateTime GetByHiredAt(DateTime HiredAt);
+        #region Methods
+
+        Task<ITrainer> CreateAsync(ITrainer trainer);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        Task<PaginatedList<ITrainer>> FindAsync(ITrainerFilter filter);
+
+        Task<ITrainer> GetAsync(Guid id);
+
+        Task<bool> UpdateAsync(ITrainer trainer);
+
+        #endregion Methods
     }
 }

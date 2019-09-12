@@ -1,20 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class Equipment
+    public partial class Equipment : BaseModel
     {
+        #region Constructors
+
         public Equipment()
         {
             ExerciseEquipment = new HashSet<ExerciseEquipment>();
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+        #endregion Constructors
+
+        #region Properties
 
         public virtual ICollection<ExerciseEquipment> ExerciseEquipment { get; set; }
+
+        public string Name { get; set; }
+
+        #endregion Properties
     }
 }

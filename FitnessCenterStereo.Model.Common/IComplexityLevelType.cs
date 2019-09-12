@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model.Common
 {
-    public interface IComplexityLevelType
+    public interface IComplexityLevelType : IBaseModel
     {
-       
-        String Name { get; set; }
+        #region Properties
+
         String Abbreviation { get; set; }
-       
+        String Name { get; set; }
+
+        #endregion Properties
     }
 }

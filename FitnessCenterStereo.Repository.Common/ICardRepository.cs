@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Repository.Common
 {
-    public interface ICardRepository
+    public interface ICardRepository : IRepository<ICard, ICardFilter>
     {
-        Guid GetById(Guid id);
-        Guid GetByMembershipId(Guid Id);
-        String GetByUserId(Guid Id);
-        
     }
 }

@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
+using FitnessCenterStereo.Model.Common.Infrastracture.Pagination;
+using System;
+using System.Threading.Tasks;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Service.Common
 {
     public interface IComplexityLevelTypeService
     {
-        Guid GetById(Guid Id);
-        String GetByName(String Name);
-        String GetByAbbreviation(String Abbrevation);
+        #region Methods
+
+        Task<IComplexityLevelType> CreateAsync(IComplexityLevelType complexityLevel);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        Task<PaginatedList<IComplexityLevelType>> FindAsync(IComplexityLevelTypeFilter filter);
+
+        Task<IComplexityLevelType> GetAsync(Guid id);
+
+        Task<bool> UpdateAsync(IComplexityLevelType complexityLevel);
+
+        #endregion Methods
     }
 }

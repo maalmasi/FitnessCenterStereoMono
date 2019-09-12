@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IScheduleRepository
+    public interface IScheduleRepository : IRepository<ISchedule, IScheduleFilter>
     {
-        Guid GetById(Guid Id);
-        int GetByFrequency(int Frequency);
-       
     }
 }

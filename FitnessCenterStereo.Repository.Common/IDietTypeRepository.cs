@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FitnessCenterStereo.Common.Filters;
+using FitnessCenterStereo.Model.Common;
 
-namespace FitnessCenterStereo.Model.Common
+namespace FitnessCenterStereo.Repository.Common
 {
-    public interface IDietTypeRepository
+    public interface IDietTypeRepository : IRepository<IDietType, IDietTypeFilter>
     {
-        Guid GetById(Guid Id);
-        String GetByName(String name);
-        String GetByAbbreviation(String Abbrevation);
-        String GetByIngridients(String Ingirdients);
-     
     }
 }

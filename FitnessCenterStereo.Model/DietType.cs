@@ -1,14 +1,17 @@
 ﻿using FitnessCenterStereo.Model.Common;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessCenterStereo.Model
 {
     public class DietType : BaseModel, IDietType
     {
-        public string Name { get; set; }
+        #region Properties
+
         public string Abbreviation { get; set; }
         public string Ingridients { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Plan> Plan { get; set; }
+
+        #endregion Properties
     }
 }

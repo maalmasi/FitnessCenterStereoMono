@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FitnessCenterStereo.DAL.Models
 {
-    public partial class BodyPartType
+    public partial class BodyPartType : BaseModel
     {
+        #region Constructors
+
         public BodyPartType()
         {
             Exercises = new HashSet<Exercises>();
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        #endregion Constructors
+
+        #region Properties
+
         public string Abbreviation { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
 
         public virtual ICollection<Exercises> Exercises { get; set; }
+
+        public string Name { get; set; }
+
+        #endregion Properties
     }
 }
