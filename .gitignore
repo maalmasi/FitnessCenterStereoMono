@@ -348,3 +348,4 @@ MigrationBackup/
 # End of https://www.gitignore.io/api/visualstudio
 .vs
 *.ide-shm
+FitnessCenterStereo.WebApi/appsettings.json
