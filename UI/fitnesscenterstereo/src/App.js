@@ -2,9 +2,9 @@ import './App.css';
 import React from 'react';
 import { Provider } from 'mobx-react';
 import { HistoryAdapter } from 'mobx-state-router';
-import { RootStore } from './stores/RootStore';
+import { RootStore } from './common/RootStore';
 import { history } from './utils/History';
-import { Shell } from './shell';
+import { Shell } from './common/shell';
 
 const rootStore = new RootStore();
 
