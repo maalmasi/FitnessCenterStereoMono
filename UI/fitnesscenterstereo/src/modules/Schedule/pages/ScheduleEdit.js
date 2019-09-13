@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
-import ScheduleForm from './ScheduleForm'
+import ScheduleForm from '../components/ScheduleForm'
 import { Button, FormControl } from 'react-bootstrap';
 
 

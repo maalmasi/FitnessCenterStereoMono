@@ -1,14 +1,12 @@
 import React from 'react';
 import SimpleInput from '../../../common/SimpleInput';
-import form from '../components/formFields'
+import form from './formFields'
 
-export default class DietTypeForm extends React.Component {
+export default class MembershipForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('abrv')} />
-                <SimpleInput field={form.$('name')} />
-                <SimpleInput field={form.$('ingridients')} />
+                <SimpleInput field={form.$('price')} />
                 <br />
                 <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
                 <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>

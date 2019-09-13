@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
-import ComplexityLevelTypeForm from './ComplexityLevelTypeForm';
+import ComplexityLevelTypeForm from '../components/ComplexityLevelTypeForm';
 
 
 @observer

@@ -1,8 +1,8 @@
 import React from 'react';
 import SimpleInput from '../../../common/SimpleInput';
-import form from '../components/formFields'
+import form from './formFields'
 
-export default class EquipmentForm extends React.Component {
+export default class BodyPartTypeForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>

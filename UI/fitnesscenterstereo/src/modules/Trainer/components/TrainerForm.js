@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleInput from '../../../common/SimpleInput';
-import form from '../components/formFields'
+import form from './formFields'
 
 export default class TrainerForm extends React.Component {
     render() {

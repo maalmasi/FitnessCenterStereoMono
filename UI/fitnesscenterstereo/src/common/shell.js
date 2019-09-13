@@ -13,6 +13,8 @@ import Equipment from '../modules/Equipment/pages/Equipment';
 import EquipmentEdit from '../modules/Equipment/pages/EquipmentEdit';
 import Exercise from '../modules/Exercises/pages/Exercise';
 import ExerciseEdit from '../modules/Exercises/pages/ExerciseEdit';
+import Membership from '../modules/Membership/pages/Membership';
+import MembershipEdit from '../modules/Membership/pages/MembershipEdit';
 import Plan from '../modules/Plan/pages/Plan';
 import PlanEdit from '../modules/Plan/pages/PlanEdit';
 import Step from '../modules/Step/pages/Step';
@@ -21,9 +23,6 @@ import Schedule from '../modules/Schedule/pages/Schedule';
 import ScheduleEdit from '../modules/Schedule/pages/ScheduleEdit';
 import Trainer from '../modules/Trainer/pages/Trainer';
 import TrainerEdit from '../modules/Trainer/pages/TrainerEdit';
-import Membership from'../modules/Membership/pages/Membership';
-import MembershipEdit from'../modules/Membership/pages/MembershipEdit'
-
 
 const viewMap = {
     home: <Home />,
@@ -38,6 +37,8 @@ const viewMap = {
     equipmentedit: <EquipmentEdit />,
     exercise: <Exercise />,
     exerciseedit: <ExerciseEdit />,
+    membership:<Membership/>,
+    membershipedit:<MembershipEdit/>,
     plan: <Plan />,
     planedit: <PlanEdit />,
     step: <Step />,
@@ -45,9 +46,7 @@ const viewMap = {
     schedule: <Schedule />,
     scheduleedit: <ScheduleEdit />,
     trainer: <Trainer />,
-    traineredit: <TrainerEdit />,
-    membership:<Membership/>,
-    membershipedit:<MembershipEdit/>
+    traineredit: <TrainerEdit />
 };
 
 export const Shell = inject('rootStore')(

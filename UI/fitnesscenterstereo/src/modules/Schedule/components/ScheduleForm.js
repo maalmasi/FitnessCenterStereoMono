@@ -1,16 +1,19 @@
 import React from 'react';
 import SimpleInput from '../../../common/SimpleInput';
-import form from '../components/formFields'
+import form from './formFields'
 
-export default class MembershipForm extends React.Component {
+export default class ScheduleForm extends React.Component {
     render() {
         return (
             <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('price')} />
+                <SimpleInput field={form.$('Frequency')} />
+                <SimpleInput field={form.$('PlanID')} />
+
                 <br />
                 <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
                 <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
                 <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+
                 <p>{form.error}</p>
             </form>
         );
