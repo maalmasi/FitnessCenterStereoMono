@@ -1,9 +1,14 @@
 import React from 'react';
-import {  observer } from 'mobx-react';
+import {  observer,inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
 import BodyPartTypeForm from '../components/BodyPartTypeForm';
+import BodyPartTypeEditViewStore from '../stores/BodyPartTypeEditViewStore'
 
-
+@inject(
+    i=>({
+        viewStore:new BodyPartTypeEditViewStore(i.rootStore)
+    })
+)
 @observer
 class BodyPartTypeEdit extends React.Component {
     render() {

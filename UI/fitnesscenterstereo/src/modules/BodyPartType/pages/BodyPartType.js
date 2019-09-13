@@ -3,15 +3,20 @@ import Layout from '../../../common/layouts/Layout';
 import { Button, FormControl } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table';
+import BodyPartTypeViewStore from '../stores/BodyPartTypeViewStore';
 
 
-@inject('rootStore')
+@inject(
+    i=>({
+        viewStore:new BodyPartTypeViewStore(i.rootStore)
+    })
+)
 @observer
 class BodyPartType extends React.Component {
-    handleClick(e) {
-        const { rootStore } = this.props;
-        rootStore.routerStore.goTo(e);
-    };
+    handleClick (e) {
+        const {viewStore}=this.props;
+        viewStore.rootStore.routerStore.goTo(e);
+    }
 
     render() {
         return (
