@@ -17,16 +17,16 @@ namespace FitnessCenterStereo.WebApi.Controllers
     {
         #region Fields
 
-        private readonly IMapper mapper;
+        private readonly IMapper Mapper;
 
         #endregion Fields
 
         #region Constructors
 
-        public ComplexityLevelTypeController(IComplexityLevelTypeService service, IMapper mapper, IFacadeFilter filter) : base()
+        public ComplexityLevelTypeController(IComplexityLevelTypeService service, IMapper mapper, IFacadeFilter filter)
         {
+            Mapper = mapper;
             Service = service;
-            this.mapper = mapper;
             Filter = filter;
         }
 
@@ -57,28 +57,28 @@ namespace FitnessCenterStereo.WebApi.Controllers
             filter.RecordsPerPage = rpp;
             filter.SortBy = sortBy;
             filter.SortAscending = sortAsc;
-            return mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(await Service.FindAsync(mapper.Map<IComplexityLevelTypeFilter>(filter)));
+            return Mapper.Map<PaginatedList<ComplexityLevelTypeViewModel>>(await Service.FindAsync(Mapper.Map<IComplexityLevelTypeFilter>(filter)));
         }
 
         // GET api/<controller>/<id>
         [HttpGet("{id}")]
         public async Task<ComplexityLevelTypeViewModel> GetAsync(Guid id)
         {
-            return mapper.Map<ComplexityLevelTypeViewModel>(await Service.GetAsync(id));
+            return Mapper.Map<ComplexityLevelTypeViewModel>(await Service.GetAsync(id));
         }
 
         // POST api/<controller>
         [HttpPost]
         public async Task<ComplexityLevelTypeViewModel> PostAsync([FromBody]ComplexityLevelTypeViewModel value)
         {
-            return mapper.Map<ComplexityLevelTypeViewModel>(await Service.CreateAsync(mapper.Map<IComplexityLevelType>(value)));
+            return Mapper.Map<ComplexityLevelTypeViewModel>(await Service.CreateAsync(Mapper.Map<IComplexityLevelType>(value)));
         }
 
         // PUT api/<controller>/<id>
         [HttpPut]
         public async Task<bool> PutAsync(ComplexityLevelTypeViewModel value)
         {
-            return await Service.UpdateAsync(mapper.Map<IComplexityLevelType>(value));
+            return await Service.UpdateAsync(Mapper.Map<IComplexityLevelType>(value));
         }
 
         #endregion Methods

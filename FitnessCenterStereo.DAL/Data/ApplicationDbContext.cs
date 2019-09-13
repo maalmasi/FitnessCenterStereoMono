@@ -45,7 +45,7 @@ namespace FitnessCenterStereo.DAL.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Server=praksafitness.postgres.database.azure.com;Database=Fitness;Port=5432;User Id=praksamonogym@praksafitness;Password=Fitness123.;Ssl Mode=Require;");
+                optionsBuilder.UseNpgsql("");
             }
         }
 

@@ -52,6 +52,7 @@ namespace FitnessCenterStereo.WebApi
                 app.UseHsts();
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -74,6 +75,16 @@ namespace FitnessCenterStereo.WebApi
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(corsBuilder =>
+                {
+                    corsBuilder.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin();
+                });
             });
 
             services.AddAppDbContextExtension(Configuration);
