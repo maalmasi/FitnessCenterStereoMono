@@ -5,40 +5,45 @@ import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table';
 
 
-@inject('rootStore')
+@inject(stores => ({
+    complexityLevelTypeViewStore: stores.rootStore.complexityLevelTypeViewStore
+}))
 @observer
 class ComplexityLevelType extends React.Component {
-    handleClick(e) {
-        const { rootStore } = this.props;
-        rootStore.routerStore.goTo(e);
-    };
-
+    constructor(props) {
+        super(props);
+    }
     render() {
+        const { searchQuery, isLoading, recordsPerPage, resultItems, handleClickRoute, handleClickGet, onSearchQueryChange } = this.props.complexityLevelTypeViewStore;
         return (
             <React.Fragment>
                 <Layout>
+                    <div>
+                    {resultItems===undefined ? (<span>Loading</span>) : (JSON.stringify(resultItems))}
+                        {/* map(item => <div>{item.name}</div>))} */}
+                    </div>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("complexityleveltypeedit")}>Create</Button>
+                            <Button onClick={() => handleClickRoute("complexityleveltypeedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                            <FormControl type="text" value={searchQuery} onChange={e => onSearchQueryChange(e.target.value)} placeholder="Search" className="mr-sm-2"/>
+                            <Button onClick={() => handleClickGet()}>Search</Button>
                         </div>
                     </div>
                     <div>
                         <MaterialTable
                             columns={[
                                 { title: "Name", field: "name" },
-                                { title: "Abbreviation", field: "abbreviation" }
+                                { title: "Abbreviation", field: "abrv" }
                             ]}
                             data={[
-                                { name: "Krumpir", abbreviation: "krm" },
-                                { name: "Paradajz", abbreviation: "prd" }
+                                
                             ]}
                             options={{
                                 search: false,
                                 pageSizeOptions: [10, 25, 50, 100],
-                                pageSize: 10
+                                pageSize: recordsPerPage
                             }}
                             title="Complexity Level"
                         />
