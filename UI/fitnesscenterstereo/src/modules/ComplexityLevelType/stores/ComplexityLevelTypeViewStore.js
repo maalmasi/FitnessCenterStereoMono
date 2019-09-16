@@ -6,7 +6,6 @@ class ComplexityLevelTypeViewStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
         this.routerStore = rootStore.routerStore;
-        this.dataStore = rootStore.complexityLevelTypeDataStore;
         this.handleClickGet();
     }
 
