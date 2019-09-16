@@ -1,14 +1,8 @@
-import { observable, action,inject } from 'mobx';
+import { observable, action } from 'mobx';
 
 
 
 class BodyPartTypeEditViewStore {
-    constructor(RootStore) {
-    
-    }
-
-
-    
 
     @observable name;
     @observable abbreviation;

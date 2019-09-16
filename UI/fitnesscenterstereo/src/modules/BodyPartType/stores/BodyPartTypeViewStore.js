@@ -1,29 +1,31 @@
 import { observable, action } from 'mobx';
 
 class BodyPartTypeViewStore {
+    constructor(rootStore){
+            this.rootStore=rootStore;
+    }
+
     @observable page;
     @observable recordsperpage;
     @observable sortby;
     @observable sortascending;
     @observable searchquerry;
 
-
-   
-    @action onPageChange(page){
+    @action.bound onPageChange(page){
         this.page=page;
 
     }
 
-    @action onRecordsPerPageChange(recordsperpage){
+    @action.bound onRecordsPerPageChange(recordsperpage){
         this.recordsperpage=recordsperpage;
     }
 
-    @action onsearchquerryChange(searchquerry){
+    @action.bound onsearchquerryChange(searchquerry){
         this.searchquerry=searchquerry;
 
     }
 
-    @action onTableHeaderClick(sortascending,sortby){
+    @action.bound onTableHeaderClick(sortascending,sortby){
         this.sortascending=sortascending;
         this.sortby=sortby;
 
