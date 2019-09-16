@@ -1,33 +1,37 @@
 import { observable, action } from 'mobx';
 
 class DietTypeViewStore {
-    @observable page;
-    @observable recordsperpage;
-    @observable sortby;
-    @observable sortascending;
-    @observable searchquerry;
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+    }
 
+    @observable page = 1;
+    @observable rpp = 10;
+    @observable sortBy = "name";
+    @observable sortAsc = true;
+    @observable searchQuery = "";
+    @observable resultItems;
 
+    @action.bound handleClick(e) {
+        this.rootStore.routerStore.goTo(e);
+    }
+    @action.bound onSearchQueryChange(value) {
+        this.searchQuery = value;
+        console.log(this.searchQuery)
+    }
+
+    @action.bound async find() {
+        console.log(this.searchQuery);
+        const filter = "searchQuery=" + this.searchQuery;
+        this.resultItems = await this.rootStore.dietTypeModuleStore.dietTypeDataStore.find(filter);
+    }
+    @action.bound onRowsSizeChange(value){
+        this.rpp=value;
+    }
+    @action.bound onChangePage(value){
+        this.page=value;
+    }
     
-    @action onPageChange(page){
-        this.page=page;
-
-    }
-
-    @action onRecordsPerPageChange(recordsperpage){
-        this.recordsperpage=recordsperpage;
-    }
-
-    @action onsearchquerryChange(searchquerry){
-        this.searchquerry=searchquerry;
-
-    }
-
-    @action onTableHeaderClick(sortascending,sortby){
-        this.sortascending=sortascending;
-        this.sortby=sortby;
-
-    }
 }
 
 export default DietTypeViewStore;
