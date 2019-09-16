@@ -11,6 +11,11 @@ class BodyPartTypeViewStore {
     @observable sortascending;
     @observable searchquerry;
 
+
+    @action.bound handleClick (e) {
+        this.rootStore.routerStore.goTo(e);
+    }
+
     @action.bound onPageChange(page){
         this.page=page;
 

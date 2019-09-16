@@ -13,18 +13,15 @@ import BodyPartTypeViewStore from '../stores/BodyPartTypeViewStore';
 )
 @observer
 class BodyPartType extends React.Component {
-    handleClick (e) {
-        const {viewStore}=this.props;
-        viewStore.rootStore.routerStore.goTo(e);
-    }
-
+ 
     render() {
+        const {viewStore}=this.props;
         return (
             <React.Fragment>
                 <Layout>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("bodyparttypeedit")}>Create</Button>
+                            <Button onClick={() => viewStore.handleClick("bodyparttypeedit")}>Create</Button>
                         </div>
                         <div classname="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
