@@ -1,10 +1,10 @@
-import BodyParTypeDataStore from './BodyPartTypeDataStore';
+import BodyPartTypeDataStore from './BodyPartTypeDataStore';
 
 
 export default class BodyPartTypeModule {
     constructor(rootStore) {
         this.rootStore=rootStore;
-        this.bodyParTypeDataStore=new BodyParTypeDataStore();
+        this.bodyPartTypeDataStore=new BodyPartTypeDataStore();
  }
   
 

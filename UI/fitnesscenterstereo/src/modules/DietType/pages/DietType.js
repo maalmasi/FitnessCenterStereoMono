@@ -3,45 +3,54 @@ import Layout from '../../../common/layouts/Layout';
 import { Button, FormControl } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table';
+import DietTypeViewStore from '../stores/DietTypeViewStore'
 
-
-@inject('rootStore')
+@inject(
+    i => ({
+        viewStore: new DietTypeViewStore(i.rootStore)
+    })
+)
 @observer
 class DietType extends React.Component {
-    handleClick(e) {
-        const { rootStore } = this.props;
-        rootStore.routerStore.goTo(e);
-    };
-
     render() {
+        const { viewStore } = this.props;
+        const { resultItems, onRowsSizeChange, onChangePage} = viewStore;
         return (
             <React.Fragment>
                 <Layout>
+                    <div>
+                        {JSON.stringify(resultItems)}
+                    </div>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => this.handleClick("diettypeedit")}>Create</Button>
+                            <Button onClick={() => viewStore.handleClick("diettypeedit")}>Create</Button>
                         </div>
-                        <div classname="col-6">
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <div className="col-6">
+                            <FormControl type="text" onChange={e => viewStore.onSearchQueryChange(e.target.value)} placeholder="Search" className="mr-sm-2" />
+                            <Button onClick={() => viewStore.find()}>Search</Button>
                         </div>
                     </div>
                     <div>
                         <MaterialTable
                             columns={[
                                 { title: "Name", field: "name" },
-                                { title: "Ingredients", field: "ingredients" },
-                                { title: "Abbreviation", field: "abbreviation" }
+                                { title: "Ingredients", field: "ingr" },
+                                { title: "Abbreviation", field: "abbr" }
                             ]}
                             data={[
-                                { name: "Krumpir", ingredients: "krumpir, krumpir, krumpir", abbreviation: "krm" },
-                                { name: "Paradajz", ingredients: "paradajz, rajcica, paradajz", abbreviation: "prd" }
+                                //resultItems === undefined ? { name: "", ingr: "", abbr: "" } : { name: resultItems.items[0].name, ingr: resultItems.items[0].ingredients, abbr: resultItems.items[0].abbreviation }
+
                             ]}
                             options={{
                                 search: false,
                                 pageSizeOptions: [10, 25, 50, 100],
                                 pageSize: 10
-                            }}
+                            }
+                            }
                             title="Diets"
+                            onChangeRowsPerPage={(pageSize) => {onRowsSizeChange(pageSize)}}
+                            onChangePage={(page) => {onChangePage(page)}}
+
                         />
                     </div>
                 </Layout>
