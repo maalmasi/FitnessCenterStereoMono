@@ -13,5 +13,6 @@ export class RootStore {
         this.dietTypeModuleStore = new DietTypeModuleStore(this);
 
     }
-    routerStore = new RouterStore(this, routes, notFound);
+    
+    
 }
