@@ -1,68 +1,74 @@
 import { observable, action } from 'mobx';
 
-const webApiUrl = 'http://localhost:57865/api/ComplexityLevelType/';
-
 class ComplexityLevelTypeViewStore {
     constructor(rootStore) {
-        this.rootStore = rootStore;
+        this.dataStore = rootStore.complexityLevelTypeModuleStore.complexityLevelTypeDataStore;
         this.routerStore = rootStore.routerStore;
-        this.handleClickGet();
+        this.onFind();
     }
 
+    resultItems;
     @observable isLoading = true;
-    @observable resultItems;
-    @observable response;
-    @observable result;
+    displayItems;
     @observable filter;
-    @observable complexityLevelTypes;
-    @observable page = 1;
+    @observable page;
     @observable recordsPerPage = 10;
     @observable sortBy;
     @observable sortAsc;
     @observable searchQuery = "";
 
-    @action.bound handleClickRoute(e) {
-        this.routerStore.goTo(e);
+    @action.bound onCreate() {
+        this.routerStore.goTo("complexityleveltypecreate");
     };
 
-    @action.bound handleClickGet() {
+    @action.bound onUpdate(id) {
+        this.routerStore.goTo("complexityleveltypeedit", { id: id });
+    }
+
+    @action.bound onDelete(id) {
+        return;
+    }
+
+    @action.bound async onFind() {
         this.isLoading = true;
-        this.filter = "page=" + this.page + "&rpp=" + this.recordsPerPage + "&searchQuery=" + this.searchQuery;
-        //this.complexityLevelTypes = this.dataStore.get(this.filter);
-        let get = async (filter) => {
-            const options = {
-                method: "GET",
-                }
-            const request = new Request(webApiUrl + "?" + filter, options);
-            this.response = (await fetch(request));
-            //Object.assign(this.resultItems, response);
-            this.isLoading = false;
-            this.result = this.response.json();
-            this.result.then((value) => {
-                console.log(value);
-                this.resultItems = value;
-                console.log(this.resultItems);
-            })
-        }
-        get(this.filter);
+        this.filter = this.page === undefined ? "page=1" : "page=" + this.page + this.recordsPerPage === undefined ? "&rpp=10" : "&rpp=" + this.recordsPerPage + "&searchQuery=" + this.searchQuery;        
+        this.resultItems = await (this.dataStore.find(this.filter));
+        this.resultsToArray();
+        this.isLoading = false;
     };
+
+    resultsToArray = () => {
+        this.displayItems = [];
+        for (let i = 0; i < this.resultItems.totalItems; i++) {
+            this.displayItems.push({
+                id: this.resultItems.items[i].id,
+                name: this.resultItems.items[i].name,
+                abbreviation: this.resultItems.items[i].abbreviation
+            });
+        }
+    }
 
     @action.bound onPageChange(page) {
         this.page = page;
+        console.log(page);
+        this.onFind();
     }
 
     @action.bound onRecordsPerPageChange(recordsPerPage) {
         this.recordsPerPage = recordsPerPage;
         console.log(recordsPerPage);
+        this.onFind();
     }
 
     @action.bound onSearchQueryChange(searchQuery) {
         this.searchQuery = searchQuery;
+        this.onFind();
     }
 
-    @action.bound onTableHeaderClick(sortAsc, sortBy) {
+    @action.bound onSortChange(sortBy, sortAsc) {
         this.sortAsc = sortAsc;
         this.sortBy = sortBy;
+        this.onFind();
     }
 }
 

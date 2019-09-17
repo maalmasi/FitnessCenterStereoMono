@@ -30,6 +30,7 @@ const viewMap = {
     bodyparttype:<BodyPartType/>,
     bodyparttypeedit:<BodyPartTypeEdit/>,
     complexityleveltype: <ComplexityLevelType />,
+    complexityleveltypecreate: <ComplexityLevelTypeEdit />,
     complexityleveltypeedit: <ComplexityLevelTypeEdit />,
     diettype: <DietType />,
     diettypeedit: <DietTypeEdit />,
