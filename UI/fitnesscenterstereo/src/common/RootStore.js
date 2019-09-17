@@ -1,6 +1,7 @@
 import { RouterState, RouterStore } from 'mobx-state-router';
 import { routes } from './Routes';
 import BodyPartTypeModule from '../modules/BodyPartType/stores/BodyPartTypeModule';
+import ComplexityLevelTypeModuleStore from '../modules/ComplexityLevelType/stores/ComplexityLevelTypeModuleStore';
 // import TrainerEditViewStore from '../stores/viewstores/TrainerEditViewStore';
 // import TrainerViewStore from '../stores/viewstores/TrainerViewStore';
 // import DietTypeEditViewStore from '../stores/viewstores/DietTypeEditViewStore';
@@ -27,6 +28,7 @@ const notFound = new RouterState('notFound');
 export class RootStore {
     constructor(){
         this.bodyPartTypeModule = new BodyPartTypeModule(this);
+        this.complexityLevelTypeModuleStore = new ComplexityLevelTypeModuleStore(this);
         // this.trainerEditViewStore=new TrainerEditViewStore(this);
         // this.trainerViewStore=new TrainerViewStore(this);
         // this.bodyPartTypeEditViewStore=new BodyPartTypeEditViewStore(this);

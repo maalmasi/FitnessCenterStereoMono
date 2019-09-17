@@ -20,8 +20,12 @@ export const routes = [
         pattern:'/complexityleveltype'
     },
     {
+        name:'complexityleveltypecreate',
+        pattern:'/complexityleveltypecreate'
+    },
+    {
         name:'complexityleveltypeedit',
-        pattern:'/complexityleveltypeedit'
+        pattern:'/complexityleveltypeedit/:id'
     },
     {
         name: 'diettype',
