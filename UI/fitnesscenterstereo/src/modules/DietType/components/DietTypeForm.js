@@ -1,11 +1,29 @@
 import React from 'react';
 import SimpleInput from '../../../common/SimpleInput';
 import form from './formFields'
+import DietTypeViewStore from '../stores/DietTypeViewStore';
+import { inject } from 'mobx-react';
 
-export default class DietTypeForm extends React.Component {
+
+@inject(
+    i => ({
+        viewStore: new DietTypeViewStore(i.rootStore)
+    })
+)
+class DietTypeForm extends React.Component {
+    constructor(){
+        super();
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+    onSubmit(event){
+        event.preventDefault();
+        this.props.viewStore.onUpdate(window.location.pathname.replace("/diettypeedit/",""));
+
+    }
+
     render() {
         return (
-            <form onSubmit={form.onSubmit}>
+            <form >
                 <SimpleInput field={form.$('abrv')} />
                 <SimpleInput field={form.$('name')} />
                 <SimpleInput field={form.$('ingridients')} />
@@ -18,3 +36,4 @@ export default class DietTypeForm extends React.Component {
         );
     }
 }
+export default DietTypeForm;

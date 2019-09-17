@@ -1,4 +1,4 @@
-import SideNav, { MenuIcon } from 'react-simple-sidenav';
+import SideNav from 'react-simple-sidenav';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -27,18 +27,19 @@ class SideBar extends React.Component {
                     title={<div> </div>}
                     titleStyle={{ backgroundColor: '#FFFFFF' }}
                     items={[
-                        <div>
-                            <a className="big py-1" onClick={() => this.handleClick("bodyparttype")}>BodyPartType</a>
-                            <a className="big py-1" onClick={() => this.handleClick("complexityleveltype")}>ComplexityLevelType</a>
-                            <a className="big py-1" onClick={() => this.handleClick("diettype")}>DietType</a>
-                            <a className="big py-1" onClick={() => this.handleClick("equipment")}>Equipment</a>
-                            <a className="big py-1" onClick={() => this.handleClick("exercise")}>Exercises</a>
-                            <a className="big py-1" onClick={() => this.handleClick("membership")}>Membership</a>
-                            <a className="big py-1" onClick={() => this.handleClick("plan")}>Plan</a>
-                            <a className="big py-1" onClick={() => this.handleClick("schedule")}>Schedule</a>
-                            <a className="big py-1" onClick={() => this.handleClick("step")}>Step</a>
-                            <a className="big py-1" onClick={() => this.handleClick("trainer")}>Trainer</a>
+                        <div className="btn-group-vertical" role="group" >
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("bodyparttype")}>BodyPartType</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("complexityleveltype")}>ComplexityLevelType</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("diettype")}>DietType</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("equipment")}>Equipment</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("exercise")}>Exercises</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("membership")}>Membership</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("plan")}>Plan</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("schedule")}>Schedule</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("step")}>Step</button>
+                            <button type="button" className="btn btn-success btn-lg btn-block" onClick={() => this.handleClick("trainer")}>Trainer</button>
                         </div>
+                    
                     ]} />
             </div>
         );

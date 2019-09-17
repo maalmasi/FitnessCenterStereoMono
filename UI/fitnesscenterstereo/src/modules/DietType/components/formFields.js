@@ -2,6 +2,8 @@ import MobxReactForm from "mobx-react-form";
 import dvr from "mobx-react-form/lib/validators/DVR";
 import validatorjs from "validatorjs";
 import toaster from 'toasted-notes';
+
+
 const plugins = {
   dvr: dvr(validatorjs),
 };
@@ -10,7 +12,7 @@ const fields = [{
   label: 'Abbreviation',
   placeholder: 'Enter abbreviation',
   rules: 'required|string|between:3, 25',
-}, {
+}, { 
   name: 'name',
   label: 'Name',
   placeholder: 'Enter diet name',
@@ -21,12 +23,14 @@ const fields = [{
   placeholder: 'Enter ingredients',
   rules: 'required|string|between:5,100',
 }];
+
 const hooks = {
   onSuccess(form) {
-    console.log('Form Values!', form.values());
+    //console.log('Form Values!', form.values());
     toaster.notify('Form is valid!', {
       duration: 2000
     })
+    
   },
   onError(form) {
     console.log('All form errors', form.errors());

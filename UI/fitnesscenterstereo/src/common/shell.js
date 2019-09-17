@@ -33,6 +33,7 @@ const viewMap = {
     complexityleveltypecreate: <ComplexityLevelTypeEdit />,
     complexityleveltypeedit: <ComplexityLevelTypeEdit />,
     diettype: <DietType />,
+    diettypecreate: <DietTypeEdit />,
     diettypeedit: <DietTypeEdit />,
     equipment: <Equipment />,
     equipmentedit: <EquipmentEdit />,

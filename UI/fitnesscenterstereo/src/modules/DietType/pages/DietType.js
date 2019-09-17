@@ -4,6 +4,8 @@ import { Button, FormControl } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table';
 import DietTypeViewStore from '../stores/DietTypeViewStore'
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 @inject(
     i => ({
@@ -14,33 +16,33 @@ import DietTypeViewStore from '../stores/DietTypeViewStore'
 class DietType extends React.Component {
     render() {
         const { viewStore } = this.props;
-        const { resultItems, onRowsSizeChange, onChangePage} = viewStore;
         return (
             <React.Fragment>
                 <Layout>
-                    <div>
-                        {JSON.stringify(resultItems)}
-                    </div>
                     <div className="row justify-content-between">
                         <div className="col-6">
-                            <Button onClick={() => viewStore.handleClick("diettypeedit")}>Create</Button>
+                            <Button onClick={() => viewStore.onRouteChange("diettypecreate")}>Create</Button>
                         </div>
                         <div className="col-6">
                             <FormControl type="text" onChange={e => viewStore.onSearchQueryChange(e.target.value)} placeholder="Search" className="mr-sm-2" />
-                            <Button onClick={() => viewStore.find()}>Search</Button>
+                            <Button onClick={() => viewStore.onFind()}>Search</Button>
                         </div>
                     </div>
                     <div>
                         <MaterialTable
+                            onChangeRowsPerPage={(pageSize) => viewStore.onRecordsPerPageChange(pageSize)}
+                            onChangePage={(page) => viewStore.onPageChange(page)}
+                            onOrderChange={(orderBy, orderDirection) => viewStore.onSortChange(orderBy, orderDirection)}
                             columns={[
                                 { title: "Name", field: "name" },
                                 { title: "Ingredients", field: "ingr" },
                                 { title: "Abbreviation", field: "abbr" }
                             ]}
-                            data={[
-                                //resultItems === undefined ? { name: "", ingr: "", abbr: "" } : { name: resultItems.items[0].name, ingr: resultItems.items[0].ingredients, abbr: resultItems.items[0].abbreviation }
 
-                            ]}
+                            data={
+                                viewStore.resultItems === undefined ? [{ name: "", ingr: "", abbr: "" }] : viewStore.displayItems
+                            }
+
                             options={{
                                 search: false,
                                 pageSizeOptions: [10, 25, 50, 100],
@@ -48,8 +50,18 @@ class DietType extends React.Component {
                             }
                             }
                             title="Diets"
-                            onChangeRowsPerPage={(pageSize) => {onRowsSizeChange(pageSize)}}
-                            onChangePage={(page) => {onChangePage(page)}}
+                            actions={[
+                                rowData => ({
+                                    icon: () => <EditIcon />,
+                                    tooltip: 'Edit entry',
+                                    onClick: (event, rowData) => viewStore.onEdit(rowData.id)
+                                }),
+                                rowData => ({
+                                    icon: () => <DeleteIcon />,
+                                    tooltip: 'Delete entry',
+                                    onClick: (event, rowData) => viewStore.onDelete(rowData.id)
+                                })
+                            ]}
 
                         />
                     </div>

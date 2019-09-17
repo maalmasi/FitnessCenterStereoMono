@@ -32,8 +32,12 @@ export const routes = [
         pattern: '/diettype'
     },
     {
+        name:'diettypecreate',
+        pattern: '/diettypecreate'
+    },
+    {
         name: 'diettypeedit',
-        pattern: '/diettype/edit'
+        pattern: '/diettypeedit/:id'
     },
     {
         name: 'equipment',

@@ -23,7 +23,7 @@ class BodyPartType extends React.Component {
                         <div className="col-6">
                             <Button onClick={() => viewStore.handleClick("bodyparttypeedit")}>Create</Button>
                         </div>
-                        <div classname="col-6">
+                        <div className="col-6">
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         </div>
                     </div>
