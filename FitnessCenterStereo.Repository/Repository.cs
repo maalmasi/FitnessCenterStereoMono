@@ -119,6 +119,7 @@ namespace FitnessCenterStereo.Repository
             {
                 if (await GetAsyncNoTracking(model.Id) != null)
                 {
+                    model.DateUpdated = DateTime.UtcNow;
                     AppDbContext.Set<TEntity>().Update(Mapper.Map<TEntity>(model));
                     return await AppDbContext.SaveChangesAsync() > 0;
                 }
