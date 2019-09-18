@@ -101,11 +101,23 @@ namespace FitnessCenterStereo.Repository
             }
         }
 
+        public async Task<T> GetAsyncNoTracking(Guid id)
+        {
+            try
+            {
+                return Mapper.Map<T>(await AppDbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<bool> UpdateAsync(T model)
         {
             try
             {
-                if (await GetAsync(model.Id) != null)
+                if (await GetAsyncNoTracking(model.Id) != null)
                 {
                     AppDbContext.Set<TEntity>().Update(Mapper.Map<TEntity>(model));
                     return await AppDbContext.SaveChangesAsync() > 0;

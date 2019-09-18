@@ -6,12 +6,12 @@ const $input = 'input-reset form-control';
 const $label = '.text-dark';
 const $small = 'text-danger';
 
-export default observer(({ field, type = 'text', placeholder = null }) => (
+export default observer(({ field, type = 'text', placeholder = null, value }) => (
   <div className="measure">
     <label htmlFor={field.id} className={$label}>
       {field.label}
     </label>
-    <input {...field.bind({ type, placeholder })} className={$input} />
+    <input {...field.bind({ type, placeholder })} className={$input} value={value} />
     <small className={$small}>
       {field.error}
     </small>
