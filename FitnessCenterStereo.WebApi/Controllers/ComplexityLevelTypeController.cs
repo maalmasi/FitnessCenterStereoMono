@@ -76,7 +76,7 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // PUT api/<controller>/<id>
         [HttpPut]
-        public async Task<bool> PutAsync(ComplexityLevelTypeViewModel value)
+        public async Task<bool> PutAsync([FromBody]ComplexityLevelTypeViewModel value)
         {
             return await Service.UpdateAsync(Mapper.Map<IComplexityLevelType>(value));
         }
