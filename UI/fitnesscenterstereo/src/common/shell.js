@@ -29,6 +29,7 @@ const viewMap = {
     notFound: <NotFoundPage />,
     bodyparttype:<BodyPartType/>,
     bodyparttypeedit:<BodyPartTypeEdit/>,
+    bodyparttypecreate:<BodyPartTypeEdit/>,
     complexityleveltype: <ComplexityLevelType />,
     complexityleveltypecreate: <ComplexityLevelTypeEdit />,
     complexityleveltypeedit: <ComplexityLevelTypeEdit />,

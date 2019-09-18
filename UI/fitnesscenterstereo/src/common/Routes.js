@@ -13,7 +13,12 @@ export const routes = [
     },
     {
         name:'bodyparttypeedit',
-        pattern:'/bodyparttype/edit'
+        pattern:'/bodyparttypeedit/:id'
+    },
+    {
+        name:'bodyparttypecreate',
+        pattern:'/bodyparttypecreate'
+
     },
     {
         name:'complexityleveltype',
