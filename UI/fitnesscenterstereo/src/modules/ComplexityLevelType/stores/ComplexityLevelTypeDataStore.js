@@ -35,7 +35,7 @@ export default class ComplextiyLevelTypeDataStore {
         return this.result;
     }
 
-    update = async (item) => {
+    update = async (item, id) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         var options = {
@@ -43,7 +43,7 @@ export default class ComplextiyLevelTypeDataStore {
             headers,
             body: JSON.stringify(item)
         }
-        const request = new Request(this.httpClient.webApiUrl, options);
+        const request = new Request(this.httpClient.webApiUrl + '/' + id, options);
         let response = await fetch(request);
         let result = await response.json();
         return result;
