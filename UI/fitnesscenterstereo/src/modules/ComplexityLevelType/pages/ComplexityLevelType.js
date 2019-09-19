@@ -14,7 +14,7 @@ import Modal from 'react-bootstrap/Modal'
 @observer
 class ComplexityLevelType extends React.Component {
     render() {
-        const { searchQuery, isLoading, isDeleting, page, recordsPerPage, displayItems, itemToDeleteName, onUpdate, onCreate, onFind, onDelete, onSearchQueryChange, onRecordsPerPageChange, onSortChange, onPageChange, onConfirmDelete, onCancelDelete } = this.props.complexityLevelTypeViewStore;
+        const { searchQuery, isLoading, columns, isDeleting, page, recordsPerPage, displayItems, itemToDeleteName, onUpdate, onCreate, onFind, onDelete, onSearchQueryChange, onRecordsPerPageChange, onSortChange, onPageChange, onConfirmDelete, onCancelDelete } = this.props.complexityLevelTypeViewStore;
         return (
             <React.Fragment>
                 <Layout>
@@ -37,10 +37,7 @@ class ComplexityLevelType extends React.Component {
                             onChangeRowsPerPage={(pageSize) => onRecordsPerPageChange(pageSize)}
                             onChangePage={(page) => onPageChange(page)}
                             onOrderChange={(orderBy, orderDirection) => onSortChange(orderBy, orderDirection)}
-                            columns={[
-                                { title: "Name", field: "name" },
-                                { title: "Abbreviation", field: "abbreviation" }
-                            ]}
+                            columns={columns}
                             data={
                                 isLoading ? [] : displayItems
                             }

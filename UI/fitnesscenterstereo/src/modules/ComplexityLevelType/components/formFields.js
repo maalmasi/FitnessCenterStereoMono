@@ -6,15 +6,23 @@ const plugins = {
   dvr: dvr(validatorjs),
 };
 const fields = [{
-  name: 'abrv',
+  name: 'abbreviation',
   label: 'Abbreviation',
   placeholder: 'Enter abbreviation',
   rules: 'required|string|between:3, 25',
+  observers: [{
+    key: 'value', // can be any prop
+    call: () => console.log('changed'),
+  }],
 }, {
   name: 'name',
   label: 'Name',
   placeholder: 'Enter complexity level',
   rules: 'required|string|between:3, 25',
+  observers: [{
+    key: 'value', // can be any prop
+    call: () => console.log('changed'),
+  }],
 }];
 const hooks = {
   onSuccess(form) {
