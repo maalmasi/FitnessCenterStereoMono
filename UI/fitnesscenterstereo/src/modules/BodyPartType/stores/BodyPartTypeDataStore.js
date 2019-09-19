@@ -16,7 +16,7 @@ export default class BodyPartTypeDataStore extends React.Component {
 
 
 
-    @action.bound find = async (filter) => {
+    @action.bound find (filter){
         const options = {
             method: "GET",
         }
@@ -27,7 +27,7 @@ export default class BodyPartTypeDataStore extends React.Component {
         return this.result;
     }
 
-    @action.bound post = async (model) => {
+    @action.bound post (model){
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         var options = {
@@ -43,7 +43,7 @@ export default class BodyPartTypeDataStore extends React.Component {
 
     }
 
-    @action.bound put = async (model) => {
+    @action.bound put(model) {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         var options = {
@@ -58,7 +58,7 @@ export default class BodyPartTypeDataStore extends React.Component {
         return this.result;
     }
 
-    @action.bound delete=async(id)=>{
+    @action.bound async delete(id){
 
         const headers=new Headers();
         headers.append("Content-Type","application/json");

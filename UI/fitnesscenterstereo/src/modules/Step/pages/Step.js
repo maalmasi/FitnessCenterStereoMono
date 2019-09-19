@@ -3,7 +3,6 @@ import Layout from '../../../common/layouts/Layout';
 import { Button, FormControl } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table';
-import BodyPartTypeViewStore from '../stores/BodyPartTypeViewStore';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 

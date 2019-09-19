@@ -31,7 +31,7 @@ class BodyPartTypeEditViewStore {
       this.result=await this.rootStore.bodyPartTypeModuleStore.bodyPartTypeDataStore.post(this.newItem)
     }
 
-    @action.bound onUpdate=async ()=>{
+    @action.bound onUpdate= async ()=>{
 
         this.result=await this.rootStore.bodyPartTypeModuleStore.bodyPartTypeDataStore.put(this.newItem)
 
