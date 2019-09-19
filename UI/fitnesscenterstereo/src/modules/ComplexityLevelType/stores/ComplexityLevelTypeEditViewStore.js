@@ -21,7 +21,7 @@ class ComplexityLevelTypeEditViewStore {
     @observable isLoading = true;
     @observable errorMessage = "";
 
-    initializeForm() {
+    initializeForm(store) {
         const fields = ["name", "abbreviation"];
         const placeholder = {
             "name": "Enter name",
@@ -39,37 +39,43 @@ class ComplexityLevelTypeEditViewStore {
             dvr: dvr(validatorjs),
         };
         const rules = {
-            "name":'required|string|between:3, 25',
-            "abbreviation":'required|string|between:3, 3'
-        }
+            "name": 'required|string|between:3, 25',
+            "abbreviation": 'required|string|between:3, 3'
+        };
+        const options = {
+            validateOnChange: true
+        };
         const hooks = {
             onSuccess(form) {
                 console.log('Form Values!', form.values());
                 toaster.notify('Form is valid!', {
                     duration: 2000
                 })
+                store.onUpdate();
             },
             onError(form) {
                 console.log('All form errors', form.errors());
                 toaster.notify('Form is invalid!', {
                     duration: 2000
                 })
+            },
+            onSubmit(form) {
             }
         }
-        this.form = new MobxReactForm ({fields, placeholder, labels, rules, values}, {plugins, hooks}) ;
+        this.form = new MobxReactForm({ fields, placeholder, labels, rules, values }, { plugins, hooks, options });
+        debugger
         this.isLoading = false;
     }
-
 
     @action.bound async get() {
         this.isLoading = true;
         this.item = await (this.dataStore.get(this.itemToUpdateId));
-        this.item ? this.initializeForm() : this.item = undefined;
+        this.item ? this.initializeForm(this) : this.item = undefined;
     }
 
     @action.bound async onUpdate() {
         try {
-            this.response = await (this.dataStore.update(this.item, this.itemToUpdateId));
+            this.response = await (this.dataStore.update(this.form.values(), this.itemToUpdateId));
             this.response ?
                 toaster.notify('Update successful!', { duration: 2000 })
                 :
