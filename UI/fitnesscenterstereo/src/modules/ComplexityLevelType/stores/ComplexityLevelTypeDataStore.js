@@ -48,4 +48,18 @@ export default class ComplextiyLevelTypeDataStore {
         let result = await response.json();
         return result;
     }
+
+    create = async (item) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        var options = {
+            method: "POST",
+            headers,
+            body: JSON.stringify(item)
+        }
+        const request = new Request(this.httpClient.webApiUrl, options);
+        let response = await fetch(request);
+        let result = await response.json();
+        return result;
+    }
 }

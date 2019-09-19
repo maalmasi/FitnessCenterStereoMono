@@ -11,6 +11,10 @@ class ComplexityLevelTypeViewStore {
     resultItems;
     @observable isLoading = true;
     @observable isDeleting = false
+    columns = [
+        { title: "Name", field: "name" },
+        { title: "Abbreviation", field: "abbreviation" }
+    ];
     displayItems;
     @observable itemToDeleteName;
     @observable itemToDeleteId;
@@ -42,6 +46,7 @@ class ComplexityLevelTypeViewStore {
             toaster.notify('Deletion successful!', {
                 duration: 2000
             })
+            this.onFind();
         } else {
             toaster.notify('Deletion failed!', {
                 duration: 2000
@@ -57,7 +62,7 @@ class ComplexityLevelTypeViewStore {
 
     @action.bound async onFind() {
         this.isLoading = true;
-        this.filter = (this.page === undefined ? "page=1" : "page=" + this.page) + (this.recordsPerPage === undefined ? "&rpp=10" : "&rpp=" + this.recordsPerPage) + "&searchQuery=" + this.searchQuery;
+        this.filter = ("sortBy=" + this.sortBy) + ("&sortAsc=" + this.sortAsc) + (this.page === undefined ? "&page=1" : "page=" + this.page) + (this.recordsPerPage === undefined ? "&rpp=10" : "&rpp=" + this.recordsPerPage) + "&searchQuery=" + this.searchQuery;
         this.resultItems = await (this.dataStore.find(this.filter));
         this.resultsToArray();
         this.isLoading = false;
@@ -89,8 +94,9 @@ class ComplexityLevelTypeViewStore {
     }
 
     @action.bound onSortChange(sortBy, sortAsc) {
-        this.sortAsc = sortAsc;
-        this.sortBy = sortBy;
+        debugger
+        this.sortAsc = sortAsc === "asc";
+        this.sortBy = this.columns[sortBy].field;
         this.onFind();
     }
 }
