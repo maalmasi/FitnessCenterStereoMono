@@ -15,4 +15,4 @@ class ComplexityLevelTypeForm extends BaseForm {
 }
 
 const complexityLevelTypeForm = new ComplexityLevelTypeForm();
-export default complexityLevelTypeForm;
+export  default complexityLevelTypeForm;

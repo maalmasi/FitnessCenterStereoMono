@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 
 
 
+
 class BodyPartTypeEditViewStore {
     constructor(rootStore){
         this.rootStore=rootStore;
