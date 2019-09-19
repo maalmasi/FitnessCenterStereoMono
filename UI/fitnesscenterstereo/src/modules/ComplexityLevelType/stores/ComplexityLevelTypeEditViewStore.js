@@ -12,7 +12,6 @@ class ComplexityLevelTypeEditViewStore {
             this.lastSlashInUrl = window.location.pathname.lastIndexOf('/');
             this.itemToUpdateId = window.location.pathname.substr(this.lastSlashInUrl + 1);
             this.get();
-            this.item ? this.initializeForm() : this.item = undefined;
         } else {
             this.edit = false;
             this.isLoading = false;
@@ -49,7 +48,6 @@ class ComplexityLevelTypeEditViewStore {
                 toaster.notify('Form is valid!', {
                     duration: 2000
                 })
-                this.onUpdate();
             },
             onError(form) {
                 console.log('All form errors', form.errors());
@@ -59,31 +57,19 @@ class ComplexityLevelTypeEditViewStore {
             }
         }
         this.form = new MobxReactForm ({fields, placeholder, labels, rules, values}, {plugins, hooks}) ;
+        this.isLoading = false;
     }
 
 
     @action.bound async get() {
         this.isLoading = true;
         this.item = await (this.dataStore.get(this.itemToUpdateId));
-        this.item ? this.isLoading = false : this.isLoading = true;
-        // if (this.item !== undefined) {
-        //     this.errorMessage = "";
-        //     this.formItem.name = this.item.name;
-        //     this.formItem.abbreviation = this.item.abbreviation;
-        //     this.form.update(this.formItem);
-        //     this.isLoading = false;
-        // } else {
-        //     this.errorMessage = "Failed to get item, please refresh this page."
-        // }
+        this.item ? this.initializeForm() : this.item = undefined;
     }
 
     @action.bound async onUpdate() {
         try {
-            this.formItem = this.form.values();
-            //this.form.onSubmit();
-            this.item.name = this.formItem.name;
-            this.item.abbreviation = this.formItem.abbreviation;
-            this.response = await (this.dataStore.update(this.item));
+            this.response = await (this.dataStore.update(this.item, this.itemToUpdateId));
             this.response ?
                 toaster.notify('Update successful!', { duration: 2000 })
                 :
