@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class BaseForm {
+export default class BaseForm extends React.Component{
     render() {
         const form = this.props.form;
         return (
