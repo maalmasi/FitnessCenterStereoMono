@@ -77,8 +77,9 @@ namespace FitnessCenterStereo.WebApi.Controllers
 
         // PUT api/<controller>/<id>
         [HttpPut("{id}")]
-        public async Task<bool> Put(CardViewModel value)
+        public async Task<bool> Put(CardViewModel value, [FromRoute]Guid id)
         {
+            value.Id = id;
             return await Service.UpdateAsync(mapper.Map<ICard>(value));
         }
 
