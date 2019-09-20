@@ -49,24 +49,36 @@ export const routes = [
         pattern: '/equipment'
     },
     {
+        name: 'equipmentcreate',
+        pattern: '/equipmentcreate'
+    },
+    {
         name: 'equipmentedit',
-        pattern: '/equipment/edit'
+        pattern: '/equipmentedit/:id'
     },
     {
         name: 'exercise',
         pattern: '/exercise'
     },
     {
+        name: 'exercisecreate',
+        pattern: '/exercisecreate'
+    },
+    {
         name: 'exerciseedit',
-        pattern: '/exercise/edit'
+        pattern: '/exerciseedit/:id'
     },
     {
         name: 'plan',
         pattern: '/plan'
     },
     {
+        name: 'plancreate',
+        pattern: '/plancreate'
+    },
+    {
         name: 'planedit',
-        pattern: '/plan/edit'
+        pattern: '/planedit/:id'
     },
   
     {
@@ -74,32 +86,48 @@ export const routes = [
         pattern:'/membership'
     },
     {
+        name:'membershipcreate',
+        pattern:'/membershipcreate'
+    },
+    {
         name:'membershipedit',
-        pattern:'/membership/edit'
+        pattern:'/membershipedit/:id'
     },
     {
         name: 'step',
         pattern: '/step'
     },
     {
+        name: 'stepcreate',
+        pattern: '/stepcreate'
+    },
+    {
         name: 'stepedit',
-        pattern: '/step/edit'
+        pattern: '/stepedit/:id'
     },
     {
         name: 'schedule',
         pattern: '/schedule'
     },
     {
+        name: 'schedulecreate',
+        pattern: '/schedulecreate'
+    },
+    {
         name: 'scheduleedit',
-        pattern: '/schedule/edit'
+        pattern: '/scheduleedit/:id'
     },
     {
         name: 'trainer',
         pattern: '/trainer'
     },
     {
+        name: 'trainercreate',
+        pattern: '/trainercreate'
+    },
+    {
         name:'traineredit',
-        pattern:'/trainer/edit'
+        pattern:'/traineredit/:id'
 
     }
 ];
