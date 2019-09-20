@@ -7,7 +7,7 @@ class ComplexityLevelTypeEditViewStore {
         this.dataStore = rootStore.complexityLevelTypeModuleStore.complexityLevelTypeDataStore;
         const id = rootStore.routerStore.routerState.params.id;
         if (id != null) {
-            this.dataStore.get(id).then(({ name, abbreviation, id }) => {
+            this.dataStore.get(id).then((model) => {
                 runInAction(() => {
                     this.form = new ComplexityLevelTypeForm({
                         values: { name, abbreviation },
@@ -15,6 +15,8 @@ class ComplexityLevelTypeEditViewStore {
                             onSuccess: (form) => {
                                 console.log("onSuccess: ", form.values());
                                 this.onUpdate(id);
+                                this.onCreate();
+
                             },
                             onError: (form) => {
                                 console.log("onError: ", form.values());
@@ -30,7 +32,7 @@ class ComplexityLevelTypeEditViewStore {
                 hooks: {
                     onSuccess: (form) => {
                         console.log("onSuccess: ", form.values());
-                        this.onCreate();
+
                     },
                     onError: (form) => {
                         console.log("onError: ", form.values());
@@ -46,7 +48,37 @@ class ComplexityLevelTypeEditViewStore {
     @observable isLoading = true;
     @observable errorMessage = "";
 
-    async onUpdate(id) {
+    initializeForm() {
+        const values = {
+            "name": this.item.name,
+            "abbreviation": this.item.abbreviation
+        };
+        const hooks = {
+            onSuccess(form) {
+                console.log('Form Values!', form.values());
+                toaster.notify('Form is valid!', {
+                    duration: 2000
+                })
+                this.onUpdate();
+            },
+            onError(form) {
+                console.log('All form errors', form.errors());
+                toaster.notify('Form is invalid!', {
+                    duration: 2000
+                })
+            }
+        }
+
+        this.form = new ComplexityLevelTypeForm({ values, hooks });
+        this.isLoading = false;
+    }
+
+    @action.bound async get() {
+        // this.isLoading = true;
+        // this.item = await (this.dataStore.get(this.itemToUpdateId));
+    }
+
+    @action.bound async onUpdate(id) {
         try {
             this.response = await (this.dataStore.update(this.form.values(), id));
             this.response ?
