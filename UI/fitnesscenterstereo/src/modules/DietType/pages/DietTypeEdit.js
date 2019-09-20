@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
 import SimpleInput from '../../../common/SimpleInput';
 import DietTypeEditViewStore from '../stores/DietTypeEditViewStore'
+import {Button} from 'react-bootstrap'
 
 @inject(
     i => ({
