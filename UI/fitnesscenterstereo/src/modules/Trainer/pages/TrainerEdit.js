@@ -1,29 +1,42 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
-import TrainerForm from '../components/TrainerForm'
-import { Button, FormControl } from 'react-bootstrap';
+import TrainerEditViewStore from '../stores/TrainerEditViewStore';
+import SimpleInput from '../../../common/SimpleInput';
+import { Button } from 'react-bootstrap';
 
 
+@inject(stores => ({
+    trainerEditViewStore: new TrainerEditViewStore(stores.rootStore)
+}))
 @observer
 class TrainerEdit extends React.Component {
     render() {
+        const { form, isLoading } = this.props.trainerEditViewStore;
         return (
             <React.Fragment>
                 <Layout>
-                    <div className="row justify-content-between">
-                        <div className="col-6">
+                    {isLoading ?
+                        <div>
+                            Loading
+                        </div>
+                        :
+                        <form>
                             <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>
-                        </div>
-                        <div classname="col-6">
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        </div>
-                    </div>
-                    <TrainerForm />
+                            <SimpleInput field={form.$('firstname')} />
+                            <SimpleInput field={form.$('lastName')} />
+                            <SimpleInput field={form.$('hiredAt')} />
+                            <button type="button" disabled={!form.isValid} onClick={form.onSubmit} className={'btn-primary'}>Submit</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+                        </form>
+                    }
                 </Layout>
-            </React.Fragment >
+            </React.Fragment>
         );
     }
 }
 
 export default TrainerEdit;
+
+

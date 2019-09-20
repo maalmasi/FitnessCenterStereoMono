@@ -7,6 +7,7 @@ import EquipmentModuleStore from '../modules/Equipment/stores/EquipmentModuleSto
 import ExercisesModuleStore from '../modules/Exercises/stores/ExercisesModuleStore';
 import MembershipModuleStore from '../modules/Membership/stores/MembershipModuleStore';
 import ScheduleModuleStore from '../modules/Schedule/stores/ScheduleModuleStore';
+import TrainerModuleStore from '../modules/Trainer/stores/TrainerModuleStore';
 
 const notFound = new RouterState('notFound');
 
@@ -19,6 +20,7 @@ export class RootStore {
         this.exercisesModuleStore = new ExercisesModuleStore(this);
         this.membershipModuleStore = new MembershipModuleStore(this);
         this.scheduleModuleStore = new ScheduleModuleStore(this);
+        this.trainerModuleStore = new TrainerModuleStore(this);
     }
     routerStore = new RouterStore(this, routes, notFound);
 

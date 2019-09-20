@@ -1,22 +1,23 @@
-import React from 'react';
-import SimpleInput from '../../../common/SimpleInput';
-import form from './formFields'
+import BaseForm from '../../../common/components/BaseForm';
 
-export default class TrainerForm extends React.Component {
-    render() {
-        return (
-            <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('FirstName')} />
-                <SimpleInput field={form.$('LastName')} />
-                <SimpleInput field={form.$('DateHired')} />
-
-                <br />
-                <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
-
-                <p>{form.error}</p>
-            </form>
-        );
+export default class TrainerForm extends BaseForm {
+    constructor({values, hooks}) {
+        const fields = ["firstname", "lastName", "hiredAt"];
+        const placeholder = {
+            "firstname": "Enter first name",
+            "lastName": "Enter last name",
+            "hiredAt": "Enter date hired"
+        };
+        const labels = {
+            "firstname": "Frequency",
+            "lastName": "Last Name",
+            "hiredAt": "Date hired"
+        };
+        const rules = {
+            "firstname": 'required|string|between:3, 40',
+            "lastName": 'required|string|between:3, 40',
+            "hiredAt": 'required|date',
+        };
+        super({values, hooks, fields, placeholder, labels, rules});
     }
 }
