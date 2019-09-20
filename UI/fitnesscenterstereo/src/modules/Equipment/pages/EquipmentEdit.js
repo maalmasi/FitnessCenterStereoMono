@@ -1,16 +1,31 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
-import EquipmentForm from '../components/EquipmentForm';
+import EquipmentEditViewStore from '../stores/EquipmentEditViewStore';
+import SimpleInput from '../../../common/SimpleInput';
+import { Button } from 'react-bootstrap';
 
 
 @observer
 class EquipmentEdit extends React.Component {
     render() {
+        const { form, isLoading } = this.props.complexityLevelTypeEditViewStore;
         return (
             <React.Fragment>
                 <Layout>
-                    <EquipmentForm />
+                    {isLoading ?
+                        <div>
+                            Loading
+                        </div>
+                        :
+                        <form>
+                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>
+                            <SimpleInput field={form.$('name')} />
+                            <button type="button" disabled={!form.isValid} onClick={form.onSubmit} className={'btn-primary'}>Submit</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+                        </form>
+                    }
                 </Layout>
             </React.Fragment>
         );

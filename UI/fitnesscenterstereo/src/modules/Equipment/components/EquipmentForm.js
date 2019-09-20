@@ -1,18 +1,17 @@
-import React from 'react';
-import SimpleInput from '../../../common/SimpleInput';
-import form from './formFields'
+import BaseForm from '../../../common/components/BaseForm';
 
-export default class EquipmentForm extends React.Component {
-    render() {
-        return (
-            <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('name')} />
-                <br />
-                <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
-                <p>{form.error}</p>
-            </form>
-        );
+export default class EquipmentForm extends BaseForm {
+    constructor({values, hooks}) {
+        const fields = ["name"];
+        const placeholder = {
+            "name": "Enter name"
+        };
+        const labels = {
+            "name": "Name"
+        };
+        const rules = {
+            "name": 'required|string|between:3, 25'
+        };
+        super({values, hooks, fields, placeholder, labels, rules});
     }
 }
