@@ -1,25 +1,59 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import toaster from 'toasted-notes';
 import ComplexityLevelTypeForm from '../components/ComplexityLevelTypeForm';
 
 class ComplexityLevelTypeEditViewStore {
     constructor(rootStore) {
         this.dataStore = rootStore.complexityLevelTypeModuleStore.complexityLevelTypeDataStore;
-        if (window.location.pathname.lastIndexOf('/') !== 0) {
-            this.edit = true;
-            this.lastSlashInUrl = window.location.pathname.lastIndexOf('/');
-            this.itemToUpdateId = window.location.pathname.substr(this.lastSlashInUrl + 1);
-            this.get();
+        // if (window.location.pathname.lastIndexOf('/') !== 0) {
+        //     this.edit = true;
+        //     this.lastSlashInUrl = window.location.pathname.lastIndexOf('/');
+        //     this.itemToUpdateId = window.location.pathname.substr(this.lastSlashInUrl + 1);
+        //     this.get();
+        // } else {
+        //     this.edit = false;
+        //     this.isLoading = false;
+        // }
+        const id = rootStore.routerStore.routerState.params.id;
+        if (id != null) {
+            this.dataStore.get(id).then((model) => {
+                //runInAction(() => {
+                    this.form = new ComplexityLevelTypeForm({
+                        values: model,
+                        hooks: {
+                            onSuccess: (form) => {
+                                console.log("onSuccess: ", form.values());
+                            },
+                            onError: (form) => {
+                                console.log("onError: ", form.values());
+                            }
+                        }
+                    });
+                    this.isLoading = false;
+                //});
+            }
+            );
         } else {
-            this.edit = false;
+            this.form = new ComplexityLevelTypeForm({
+                hooks: {
+                    onSuccess: (form) => {
+                        console.log("onSuccess: ", form.values());
+                    },
+                    onError: (form) => {
+                        console.log("onError: ", form.values());
+                    }
+                }
+            });
             this.isLoading = false;
         }
+
     }
 
+    @observable form;
     @observable isLoading = true;
     @observable errorMessage = "";
 
-    initializeForm(store) {
+    initializeForm() {
         const values = {
             "name": this.item.name,
             "abbreviation": this.item.abbreviation
@@ -40,14 +74,13 @@ class ComplexityLevelTypeEditViewStore {
             }
         }
 
-        this.form = new ComplexityLevelTypeForm({ values }, { hooks });
+        this.form = new ComplexityLevelTypeForm({ values, hooks });
         this.isLoading = false;
     }
 
     @action.bound async get() {
-        this.isLoading = true;
-        this.item = await (this.dataStore.get(this.itemToUpdateId));
-        this.item ? this.initializeForm(this) : this.item = undefined;
+        // this.isLoading = true;
+        // this.item = await (this.dataStore.get(this.itemToUpdateId));
     }
 
     @action.bound async onUpdate() {

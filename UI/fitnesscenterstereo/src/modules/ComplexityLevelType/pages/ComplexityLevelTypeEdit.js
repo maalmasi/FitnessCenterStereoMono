@@ -17,10 +17,16 @@ class ComplexityLevelTypeEdit extends React.Component {
                 <Layout>
                     {isLoading ?
                         <div>
-                            {errorMessage}
+                            Loading
                         </div>
                         :
-                        <ComplexityLevelTypeForm />
+                        <form >
+                            <SimpleInput field={form.$('name')} />
+                            <SimpleInput field={form.$('abbreviation')} />
+                            <button type="button" disabled={!form.isValid} onClick={form.onSubmit} className={'btn-primary'}>Submit</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+                        </form>
                     }
                 </Layout>
             </React.Fragment>
