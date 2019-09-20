@@ -1,24 +1,35 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
-import ScheduleForm from '../components/ScheduleForm'
-import { Button, FormControl } from 'react-bootstrap';
+import ScheduleEditViewStore from '../stores/ScheduleEditViewStore';
+import SimpleInput from '../../../common/SimpleInput';
+import { Button } from 'react-bootstrap';
 
 
+@inject(stores => ({
+    scheduleEditViewStore: new ScheduleEditViewStore(stores.rootStore)
+}))
 @observer
 class ScheduleEdit extends React.Component {
     render() {
+        const { form, isLoading } = this.props.scheduleEditViewStore;
         return (
             <React.Fragment>
                 <Layout>
-                    <div className="row justify-content-between">
-                        <div className="col-6">
-                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>                        </div>
-                        <div classname="col-6">
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    {isLoading ?
+                        <div>
+                            Loading
                         </div>
-                    </div>
-                    <ScheduleForm />
+                        :
+                        <form>
+                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>
+                            <SimpleInput field={form.$('frequency')} />
+                            <SimpleInput field={form.$('planId')} />
+                            <button type="button" disabled={!form.isValid} onClick={form.onSubmit} className={'btn-primary'}>Submit</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+                        </form>
+                    }
                 </Layout>
             </React.Fragment>
         );
@@ -26,3 +37,5 @@ class ScheduleEdit extends React.Component {
 }
 
 export default ScheduleEdit;
+
+

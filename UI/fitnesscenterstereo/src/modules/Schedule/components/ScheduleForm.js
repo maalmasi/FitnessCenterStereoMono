@@ -1,21 +1,20 @@
-import React from 'react';
-import SimpleInput from '../../../common/SimpleInput';
-import form from './formFields'
+import BaseForm from '../../../common/components/BaseForm';
 
-export default class ScheduleForm extends React.Component {
-    render() {
-        return (
-            <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('Frequency')} />
-                <SimpleInput field={form.$('PlanID')} />
-
-                <br />
-                <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
-
-                <p>{form.error}</p>
-            </form>
-        );
+export default class ScheduleForm extends BaseForm {
+    constructor({values, hooks}) {
+        const fields = ["frequency", "planId"];
+        const placeholder = {
+            "frequency": "Enter frequency",
+            "planId": "Enter plan ID"
+        };
+        const labels = {
+            "frequency": "Frequency",
+            "planId": "Plan ID",
+        };
+        const rules = {
+            "frequency": 'required|string|between:1, 2',
+            "planId": 'required|string|between:36, 36',
+        };
+        super({values, hooks, fields, placeholder, labels, rules});
     }
 }

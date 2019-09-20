@@ -1,6 +1,6 @@
 import BaseForm from '../../../common/components/BaseForm';
 
-export default class EquipmentForm extends BaseForm {
+export default class ExercisesForm extends BaseForm {
     constructor({values, hooks}) {
         const fields = ["name", "bodyparttypeid", "complexityleveltypeid"];
         const placeholder = {
