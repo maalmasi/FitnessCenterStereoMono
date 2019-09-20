@@ -1,7 +1,5 @@
 import React from 'react';
 import HttpClient from '../../../common/HttpClient'
-import { observable, action } from 'mobx';
-import BodyPartTypeForm from '../components/BodyPartTypeForm'
 
 export default class BodyPartTypeDataStore extends React.Component {
 
@@ -11,67 +9,62 @@ export default class BodyPartTypeDataStore extends React.Component {
 
     }
 
-    @observable response;
-    @observable result;
-
-
-
-    @action.bound async find (filter){
+    find = async (filter) => {
         const options = {
             method: "GET",
         }
         const request = new Request(this.httpClient.webApiUrl + "?" + filter, options);
-        this.response = await fetch(request);
-        this.result = await this.response.json();
-
-        return this.result;
+        this.response = await (fetch(request));
+        this.resultItems = await this.response.json();
+        return this.resultItems;
     }
 
-    @action.bound async post (model){
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        var options = {
-            method: "POST",
-            headers,
-            body: JSON.stringify(model)
+    delete = async (id) => {
+        const options = {
+            method: "DELETE"
         }
-        const request = new Request(this.httpClient.webApiUrl, options);
-        this.response = await fetch(request);
+        const request = new Request(this.httpClient.webApiUrl + "/" + id, options);
+        this.response = await (fetch(request));
         this.result = await this.response.json();
-
         return this.result;
-
     }
 
-    @action.bound async put(model) {
+    get = async (id) => {
+        const options = {
+            method: "GET"
+        }
+        const request = new Request(this.httpClient.webApiUrl + "/" + id, options);
+        this.response = await (fetch(request));
+        this.result = await this.response.json();
+        return this.result;
+    }
+
+    update = async (item, id) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         var options = {
             method: "PUT",
             headers,
-            body: JSON.stringify(model)
+            body: JSON.stringify(item)
         }
-        const request = new Request(this.httpClient.webApiUrl, options);
-        this.response = await fetch(request);
-        this.result = await this.response.json();
-
-        return this.result;
+        const request = new Request(this.httpClient.webApiUrl + '/' + id, options);
+        let response = await fetch(request);
+        let result = await response.json();
+        return result;
     }
 
-    @action.bound async delete(id){
-
-        const headers=new Headers();
-        headers.append("Content-Type","application/json");
+    create = async (item) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
         var options = {
-            method: "DELETE",
-            headers
+            method: "POST",
+            headers,
+            body: JSON.stringify(item)
         }
-         const request=new Request(this.httpClient.webApiUrl + "/" + id, options);
-         this.response=await fetch(request);
-         this.result=await this.response.json();
-
-         return this.result;
-
+        const request = new Request(this.httpClient.webApiUrl, options);
+        let response = await fetch(request);
+        let result = await response.json();
+        return result;
     }
 
 }
