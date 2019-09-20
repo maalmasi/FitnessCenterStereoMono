@@ -161,13 +161,7 @@
     ],
     "presets": [
       [
-        "react-app",
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": true
-          }
-        }
+        "react-app"
       ]
     ]
   }
