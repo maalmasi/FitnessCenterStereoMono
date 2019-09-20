@@ -1,54 +1,70 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import toaster from 'toasted-notes';
-import dvr from "mobx-react-form/lib/validators/DVR";
-import validatorjs from "validatorjs";
-import MobxReactForm from "mobx-react-form";
-import {ComplexityLevelTypeForm} from "../components/ComplexityLevelTypeForm"
+import ComplexityLevelTypeForm from '../components/ComplexityLevelTypeForm';
 
 class ComplexityLevelTypeEditViewStore {
     constructor(rootStore) {
         this.dataStore = rootStore.complexityLevelTypeModuleStore.complexityLevelTypeDataStore;
-        if (window.location.pathname.lastIndexOf('/') !== 0) {
-            this.edit = true;
-            this.lastSlashInUrl = window.location.pathname.lastIndexOf('/');
-            this.itemToUpdateId = window.location.pathname.substr(this.lastSlashInUrl + 1);
-            this.get();
+        // if (window.location.pathname.lastIndexOf('/') !== 0) {
+        //     this.edit = true;
+        //     this.lastSlashInUrl = window.location.pathname.lastIndexOf('/');
+        //     this.itemToUpdateId = window.location.pathname.substr(this.lastSlashInUrl + 1);
+        //     this.get();
+        // } else {
+        //     this.edit = false;
+        //     this.isLoading = false;
+        // }
+        const id = rootStore.routerStore.routerState.params.id;
+        if (id != null) {
+            this.dataStore.get(id).then((model) => {
+                //runInAction(() => {
+                    this.form = new ComplexityLevelTypeForm({
+                        values: model,
+                        hooks: {
+                            onSuccess: (form) => {
+                                console.log("onSuccess: ", form.values());
+                            },
+                            onError: (form) => {
+                                console.log("onError: ", form.values());
+                            }
+                        }
+                    });
+                    this.isLoading = false;
+                //});
+            }
+            );
         } else {
-            this.edit = false;
+            this.form = new ComplexityLevelTypeForm({
+                hooks: {
+                    onSuccess: (form) => {
+                        console.log("onSuccess: ", form.values());
+                    },
+                    onError: (form) => {
+                        console.log("onError: ", form.values());
+                    }
+                }
+            });
             this.isLoading = false;
         }
+
     }
 
+    @observable form;
     @observable isLoading = true;
     @observable errorMessage = "";
 
     initializeForm() {
-        const fields = ["name", "abbreviation"];
-        const placeholder = {
-            "name": "Enter name",
-            "abbreviation": "Enter abbreviation"
-        };
-        const labels = {
-            "name": "Name",
-            "abbreviation": "Abbreviation"
-        };
         const values = {
             "name": this.item.name,
             "abbreviation": this.item.abbreviation
         };
-        const plugins = {
-            dvr: dvr(validatorjs),
-        };
-        const rules = {
-            "name":'required|string|between:3, 25',
-            "abbreviation":'required|string|between:3, 3'
-        }
         const hooks = {
             onSuccess(form) {
                 console.log('Form Values!', form.values());
                 toaster.notify('Form is valid!', {
                     duration: 2000
                 })
+                this.onUpdate();
             },
             onError(form) {
                 console.log('All form errors', form.errors());
@@ -57,20 +73,19 @@ class ComplexityLevelTypeEditViewStore {
                 })
             }
         }
-        this.form = new MobxReactForm ({fields, placeholder, labels, rules, values}, {plugins, hooks}) ;
+
+        this.form = new ComplexityLevelTypeForm({ values, hooks });
         this.isLoading = false;
     }
 
-
     @action.bound async get() {
-        this.isLoading = true;
-        this.item = await (this.dataStore.get(this.itemToUpdateId));
-        this.item ? this.initializeForm() : this.item = undefined;
+        // this.isLoading = true;
+        // this.item = await (this.dataStore.get(this.itemToUpdateId));
     }
 
     @action.bound async onUpdate() {
         try {
-            this.response = await (this.dataStore.update(this.item, this.itemToUpdateId));
+            this.response = await (this.dataStore.update(this.form.values(), this.itemToUpdateId));
             this.response ?
                 toaster.notify('Update successful!', { duration: 2000 })
                 :
