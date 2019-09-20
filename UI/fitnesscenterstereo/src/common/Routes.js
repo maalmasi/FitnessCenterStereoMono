@@ -57,16 +57,16 @@ export const routes = [
         pattern: '/equipmentedit/:id'
     },
     {
-        name: 'exercise',
-        pattern: '/exercise'
+        name: 'exercises',
+        pattern: '/exercises'
     },
     {
-        name: 'exercisecreate',
-        pattern: '/exercisecreate'
+        name: 'exercisescreate',
+        pattern: '/exercisescreate'
     },
     {
-        name: 'exerciseedit',
-        pattern: '/exerciseedit/:id'
+        name: 'exercisesedit',
+        pattern: '/exercisesedit/:id'
     },
     {
         name: 'plan',

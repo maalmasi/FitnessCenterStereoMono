@@ -11,8 +11,8 @@ import DietType from '../modules/DietType/pages/DietType';
 import DietTypeEdit from '../modules/DietType/pages/DietTypeEdit';
 import Equipment from '../modules/Equipment/pages/Equipment';
 import EquipmentEdit from '../modules/Equipment/pages/EquipmentEdit';
-import Exercise from '../modules/Exercises/pages/Exercise';
-import ExerciseEdit from '../modules/Exercises/pages/ExerciseEdit';
+import Exercises from '../modules/Exercises/pages/Exercises';
+import ExercisesEdit from '../modules/Exercises/pages/ExercisesEdit';
 import Membership from '../modules/Membership/pages/Membership';
 import MembershipEdit from '../modules/Membership/pages/MembershipEdit';
 import Plan from '../modules/Plan/pages/Plan';
@@ -39,9 +39,9 @@ const viewMap = {
     equipment: <Equipment />,
     equipmentedit: <EquipmentEdit />,
     equipmentcreate: <EquipmentEdit />,
-    exercise: <Exercise />,
-    exerciseedit: <ExerciseEdit />,
-    exercisecreate: <ExerciseEdit />,
+    exercises: <Exercises />,
+    exercisesedit: <ExercisesEdit />,
+    exercisescreate: <ExercisesEdit />,
     membership:<Membership/>,
     membershipedit:<MembershipEdit/>,
     membershipcreate:<MembershipEdit/>,
