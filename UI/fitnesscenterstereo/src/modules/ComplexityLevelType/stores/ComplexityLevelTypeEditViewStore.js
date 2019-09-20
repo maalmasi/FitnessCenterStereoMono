@@ -1,8 +1,6 @@
 import { observable, action } from 'mobx';
 import toaster from 'toasted-notes';
-import dvr from "mobx-react-form/lib/validators/DVR";
-import validatorjs from "validatorjs";
-import MobxReactForm from "mobx-react-form";
+import ComplexityLevelTypeForm from '../components/ComplexityLevelTypeForm';
 
 class ComplexityLevelTypeEditViewStore {
     constructor(rootStore) {
@@ -22,28 +20,9 @@ class ComplexityLevelTypeEditViewStore {
     @observable errorMessage = "";
 
     initializeForm(store) {
-        const fields = ["name", "abbreviation"];
-        const placeholder = {
-            "name": "Enter name",
-            "abbreviation": "Enter abbreviation"
-        };
-        const labels = {
-            "name": "Name",
-            "abbreviation": "Abbreviation"
-        };
         const values = {
             "name": this.item.name,
             "abbreviation": this.item.abbreviation
-        };
-        const plugins = {
-            dvr: dvr(validatorjs),
-        };
-        const rules = {
-            "name": 'required|string|between:3, 25',
-            "abbreviation": 'required|string|between:3, 3'
-        };
-        const options = {
-            validateOnChange: true
         };
         const hooks = {
             onSuccess(form) {
@@ -51,19 +30,17 @@ class ComplexityLevelTypeEditViewStore {
                 toaster.notify('Form is valid!', {
                     duration: 2000
                 })
-                store.onUpdate();
+                this.onUpdate();
             },
             onError(form) {
                 console.log('All form errors', form.errors());
                 toaster.notify('Form is invalid!', {
                     duration: 2000
                 })
-            },
-            onSubmit(form) {
             }
         }
-        this.form = new MobxReactForm({ fields, placeholder, labels, rules, values }, { plugins, hooks, options });
-        debugger
+
+        this.form = new ComplexityLevelTypeForm({ values }, { hooks });
         this.isLoading = false;
     }
 

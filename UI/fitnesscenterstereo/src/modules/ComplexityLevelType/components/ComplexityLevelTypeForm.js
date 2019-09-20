@@ -1,18 +1,30 @@
 import React from 'react';
-import SimpleInput from '../../../common/SimpleInput';
+
 import BaseForm from '../../../common/components/BaseForm';
 
-class ComplexityLevelTypeForm extends BaseForm {
+export default class ComplexityLevelTypeForm extends BaseForm {
+    constructor(props) {
+        const fields = ["name", "abbreviation"];
+        const placeholder = {
+            "name": "Enter name",
+            "abbreviation": "Enter abbreviation"
+        };
+        const labels = {
+            "name": "Name",
+            "abbreviation": "Abbreviation"
+        };
+        const rules = {
+            "name": 'required|string|between:3, 25',
+            "abbreviation": 'required|string|between:3, 3'
+        };
+        super({props, fields, placeholder, labels, rules});
+    }
     render() {
-        const form = this.props.form;
         return (
-            <BaseForm form={form}>
-                <SimpleInput field={form.$('name')}/>
-                <SimpleInput field={form.$('abbreviation')}/>
+            <BaseForm>
+                {/* <SimpleInput field={form.$('name')} />
+                <SimpleInput field={form.$('abbreviation')} /> */}
             </BaseForm>
         );
     }
 }
-
-const complexityLevelTypeForm = new ComplexityLevelTypeForm();
-export default complexityLevelTypeForm;

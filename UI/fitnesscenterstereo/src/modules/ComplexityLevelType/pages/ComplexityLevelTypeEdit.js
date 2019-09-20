@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
 import ComplexityLevelTypeEditViewStore from '../stores/ComplexityLevelTypeEditViewStore';
 import SimpleInput from '../../../common/SimpleInput';
-import BaseForm from '../../../common/components/BaseForm';
+import ComplexityLevelTypeForm from '../components/ComplexityLevelTypeForm';
 
 @inject(stores => ({
     complexityLevelTypeEditViewStore: new ComplexityLevelTypeEditViewStore(stores.rootStore)
@@ -20,10 +20,7 @@ class ComplexityLevelTypeEdit extends React.Component {
                             {errorMessage}
                         </div>
                         :
-                        <BaseForm form={form}>
-                            <SimpleInput field={form.select('name')} />
-                            <SimpleInput field={form.select('abbreviation')} />
-                        </BaseForm>
+                        <ComplexityLevelTypeForm />
                     }
                 </Layout>
             </React.Fragment>
