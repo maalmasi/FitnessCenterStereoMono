@@ -75,10 +75,11 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         // PUT api/<controller>/<id>
-        [HttpPut]
-        public async Task<bool> PutAsync(ExercisesViewModel exercises)
+        [HttpPut("{id}")]
+        public async Task<bool> PutAsync([FromBody]ExercisesViewModel value, [FromRoute]Guid id)
         {
-            return await Service.UpdateAsync(Mapper.Map<IExercises>(exercises));
+            value.Id = id;
+            return await Service.UpdateAsync(Mapper.Map<IExercises>(value));
         }
 
         #endregion Methods

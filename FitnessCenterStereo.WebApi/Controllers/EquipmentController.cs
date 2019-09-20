@@ -74,9 +74,10 @@ namespace FitnessCenterStereo.WebApi.Controllers
         }
 
         // PUT api/<controller>/<id>
-        [HttpPut]
-        public async Task<bool> PutAsync(EquipmentViewModel value)
+        [HttpPut("{id}")]
+        public async Task<bool> PutAsync([FromBody]EquipmentViewModel value, [FromRoute]Guid id)
         {
+            value.Id = id;
             return await Service.UpdateAsync(mapper.Map<IEquipment>(value));
         }
 
