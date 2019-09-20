@@ -15,8 +15,8 @@ export default class ExercisesForm extends BaseForm {
         };
         const rules = {
             "name": 'required|string|between:3, 25',
-            "bodyparttypeid": 'required|string|between:32, 32',
-            "complexityleveltypeid": 'required|string|between:32, 32'
+            "bodyparttypeid": 'required|string|between:36, 36',
+            "complexityleveltypeid": 'required|string|between:36, 36'
         };
         super({values, hooks, fields, placeholder, labels, rules});
     }
