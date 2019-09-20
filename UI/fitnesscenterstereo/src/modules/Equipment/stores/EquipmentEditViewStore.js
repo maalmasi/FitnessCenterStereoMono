@@ -10,7 +10,7 @@ class EquipmentEditViewStore {
             this.dataStore.get(id).then(({ name }) => {
                 runInAction(() => {
                     this.form = new EquipmentForm({
-                        values: name,
+                        values: {name},
                         hooks: {
                             onSuccess: (form) => {
                                 console.log("onSuccess: ", form.values());

@@ -1,15 +1,18 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
 import EquipmentEditViewStore from '../stores/EquipmentEditViewStore';
 import SimpleInput from '../../../common/SimpleInput';
 import { Button } from 'react-bootstrap';
 
 
+@inject(stores => ({
+    equipmentEditViewStore: new EquipmentEditViewStore(stores.rootStore)
+}))
 @observer
 class EquipmentEdit extends React.Component {
     render() {
-        const { form, isLoading } = this.props.complexityLevelTypeEditViewStore;
+        const { form, isLoading } = this.props.equipmentEditViewStore;
         return (
             <React.Fragment>
                 <Layout>
