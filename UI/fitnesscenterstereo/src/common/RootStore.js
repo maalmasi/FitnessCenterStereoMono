@@ -4,6 +4,7 @@ import BodyPartTypeModuleStore from '../modules/BodyPartType/stores/BodyPartType
 import ComplexityLevelTypeModuleStore from '../modules/ComplexityLevelType/stores/ComplexityLevelTypeModuleStore';
 import DietTypeModuleStore from '../modules/DietType/stores/DietTypeModuleStore';
 import EquipmentModuleStore from '../modules/Equipment/stores/EquipmentModuleStore';
+import MembershipModuleStore from '../modules/Membership/stores/MembershipModuleStore';
 
 const notFound = new RouterState('notFound');
 
@@ -13,6 +14,7 @@ export class RootStore {
         this.complexityLevelTypeModuleStore = new ComplexityLevelTypeModuleStore(this);
         this.dietTypeModuleStore = new DietTypeModuleStore(this);
         this.equipmentModuleStore = new EquipmentModuleStore(this);
+        this.membershipModuleStore=new MembershipModuleStore(this);
     }
     routerStore=new RouterStore(this,routes,notFound);
     

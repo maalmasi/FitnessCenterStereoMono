@@ -88,13 +88,7 @@ class BodyPartTypeEditViewStore {
         this.itemAbrv = this.item.abbreviation;
     }
 
-    @action.bound onNameChange(name) {
-        this.itemName = name;
-    }
-
-    @action.bound onAbrvChange(abrv) {
-        this.itemAbrv = abrv;
-    }
+    
 }
 
 export default BodyPartTypeEditViewStore;

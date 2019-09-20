@@ -1,18 +1,21 @@
-import React from 'react';
-import SimpleInput from '../../../common/SimpleInput';
-import form from './formFields'
 
-export default class MembershipForm extends React.Component {
-    render() {
-        return (
-            <form onSubmit={form.onSubmit}>
-                <SimpleInput field={form.$('price')} />
-                <br />
-                <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
-                <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
-                <p>{form.error}</p>
-            </form>
-        );
+import BaseForm from '../../../common/components/BaseForm';
+
+
+export default class BodyPartTypeForm extends BaseForm {
+    constructor({values, hooks}) {
+        const fields = ["price"];
+        const placeholder = {
+            "price": "Enter price"
+          
+        };
+        const labels = {
+            "price": "Price"
+            
+        };
+        const rules = {
+            "price": 'required|string|between:3, 25'
+        };
+        super({values, hooks, fields, placeholder, labels, rules});
     }
 }
