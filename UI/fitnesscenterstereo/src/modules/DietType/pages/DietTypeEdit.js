@@ -2,31 +2,34 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import Layout from '../../../common/layouts/Layout';
 import SimpleInput from '../../../common/SimpleInput';
-import form from '../components/formFields'
-import DietTypeViewStore from '../stores/DietTypeViewStore';
-
+import DietTypeEditViewStore from '../stores/DietTypeEditViewStore'
 
 @inject(
     i => ({
-        viewStore: new DietTypeViewStore(i.rootStore)
+        dietTypeEditViewStore: new DietTypeEditViewStore(i.rootStore)
     })
 )
 @observer
 class DietTypeEdit extends React.Component {
     render() {
+        const { form, errorMessage, isLoading } = this.props.dietTypeEditViewStore;
         return (
             <React.Fragment>
                 <Layout>
-                    <form onSubmit={form.onSubmit}>
-                        <SimpleInput field={form.$('abrv')} />
-                        <SimpleInput field={form.$('name')} />
-                        <SimpleInput field={form.$('ingridients')} />
-                        <br />
-                        <button type="submit" className={'btn-primary'} onClick={form.onSubmit}>Submit</button>
-                        <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
-                        <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
-                        <p>{form.error}</p>
-                    </form>
+                    {isLoading ?
+                        <div>
+                            Loading
+                        </div>
+                        :
+                        <form>
+                            <Button size='md' onClick={() => window.history.back()} variant="outline-success">Back</Button>
+                            <SimpleInput field={form.$('name')} />
+                            <SimpleInput field={form.$('abbreviation')} />
+                            <button type="button" disabled={!form.isValid} onClick={form.onSubmit} className={'btn-primary'}>Submit</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onClear}>Clear</button>
+                            <button type="button" className={'btn-secondary'} onClick={form.onReset}>Reset</button>
+                        </form>
+                    }
                 </Layout>
             </React.Fragment>
         );
