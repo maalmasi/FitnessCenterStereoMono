@@ -7,7 +7,7 @@ class ComplexityLevelTypeEditViewStore {
         this.dataStore = rootStore.complexityLevelTypeModuleStore.complexityLevelTypeDataStore;
         const id = rootStore.routerStore.routerState.params.id;
         if (id != null) {
-            this.dataStore.get(id).then(({ name, abbreviation, id }) => {
+            this.dataStore.get(id).then(({ name, abbreviation }) => {
                 runInAction(() => {
                     this.form = new ComplexityLevelTypeForm({
                         values: { name, abbreviation },
